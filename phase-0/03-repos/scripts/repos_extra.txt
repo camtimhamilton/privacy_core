@@ -1,0 +1,11 @@
+HiveTrace/gliner-guard
+dbashkirov/pii_detection
+sherwinvishesh/SurrogateShield
+k1ddy/kz-identifiers
+natasha/nerus
+natasha/slovnet
+natasha/navec
+natasha/razdel
+RussianNLP/ruNER
+AlexeySorokin/ner
+ai-forever/rubert

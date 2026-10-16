@@ -650,19 +650,12 @@ fail-closed, форматную валидность суррогатов, пр�
 | Версия на PyPI | 2.0.1, загружена 2023-09-01 | PyPI |
 | Обязательные зависимости | `textblob==0.15.3`, `phonenumbers`, `python-stdnum`, `dateparser`, `catalogue`, `scikit-learn`, `typing-extensions`, `faker` | PyPI `requires_dist` |
 
-**Расхождение лицензий Apache-2.0 (репо) vs MIT (PyPI)** — `[ПРОВЕРЕНО]`, но причину не выяснял.
-При использовании надо смотреть на конкретный файл/пакет.
-
-**Русский:** локалей нет; есть `scrubadub_spacy` (41 ★, Apache-2.0, последний push 2023-09-01),
-который даёт детекторы через spaCy-модель — теоретически можно подсунуть `ru_core_news_*`, но
-контекстные слова/паттерны — английские `[ДОК]`.
-
-**Суррогаты:** `faker` в зависимостях, но по умолчанию scrubadub возвращает **теги**
-(`{{EMAIL}}`), а не суррогаты `[ДОК]`.
-
-**Вердикт: отвергаем.** Мёртв 3 года, `textblob==0.15.3` — жёсткий пин на старую версию
-(потенциальный конфликт зависимостей), `scikit-learn` для задачи, которая этого не требует,
-расхождение лицензий, ноль русской поддержки.
+**Расхождение лицензий Apache-2.0 (репо) vs MIT (PyPI)** `[ПРОВЕРЕНО]` — причину не выяснял.
+**Русский:** локалей нет; `scrubadub_spacy` (41 ★, Apache-2.0, push 2023-09-01) теоретически
+позволяет подсунуть `ru_core_news_*`, но контекстные слова и паттерны английские `[ДОК]`.
+**Суррогаты:** `faker` в зависимостях, но по умолчанию возвращаются **теги** (`{{EMAIL}}`) `[ДОК]`.
+**Вердикт: отвергаем** — мёртв 3 года, `textblob==0.15.3` жёстким пином, `scikit-learn` без
+необходимости, расхождение лицензий, ноль русской поддержки.
 
 ### 5.2 DataFog
 
@@ -729,30 +722,26 @@ Python-репо `openanonymiser` в GitHub Search **не найден** (`total_
 
 Это самый живой сегмент: `[ПРОВЕРЕНО]` через GitHub Search.
 
-| Репозиторий | ★ | Лицензия | Приём | Ключевая деталь |
-|---|---|---|---|---|
-| `zeroc00I/DontFeedTheAI` | **665** | MIT | Прозрачный прокси для pentest-задач, локальный Ollama + regex, per-engagement vault | Самый популярный в нише; но домен — пентест, «strips IPs, credentials, hostnames and PII» |
-| `openbashok/promptzero` | 70 | нет | Прозрачный прокси для Claude API | — |
-| `gbrigandi/mcp-server-conceal` | 18 | MIT | MCP-прокси | «intelligently pseudo-anonymizes PII in real-time» |
-| `Athroniaeth/piighost` | 14 | MIT | Reversible PII masking для агентов; LangChain, Pydantic AI, LlamaIndex, Claude Code; OpenAI/Anthropic-совместимый прокси | push 2026-10-09, 14 868 KB — самый зрелый из мелких по объёму кода |
-| `Aajil-Labs/arabic-pii-py` | 12 | Apache-2.0 | **Арабский + Залив**, local-first, reversible | **Прямой аналог нашей стратегии для другой юрисдикции** |
-| `RPBLC-hq/DAM` | 11 | нет | «local privacy firewall for AI agents» | — |
-| `nikshepsvn/veilstream` | 6 | NOASSERTION | Streaming PII proxy: pluggable detector, per-session vault, крипто | — |
-| `yurivenancio30/llm-dlp` | 5 | MIT | Локальный прокси для Claude Code | push 2026-10-16 |
-| `whitestag-ai/pii-proxy` | 2 | Apache-2.0 | «GDPR-compliant anonymisation gate for LLM calls» | — |
-| `j911si/local-privacy-gateway` | 1 | MIT | Офлайн-пseudonymization gateway, «reversible tokens» | — |
-| `comptoir-des-signaux/sas-confiance-ia` | 4 | **EUPL-1.2** | Французский: псевдонимизация перед ИИ для территориальных коллективов | — |
+| Репозиторий | ★ | Лицензия | Ключевая деталь |
+|---|---|---|---|
+| `zeroc00I/DontFeedTheAI` | **665** | MIT | Прозрачный прокси для pentest («strips IPs, credentials, hostnames and PII»), Ollama + regex, per-engagement vault |
+| `openbashok/promptzero` | 70 | нет | Прозрачный прокси для Claude API |
+| `gbrigandi/mcp-server-conceal` | 18 | MIT | MCP-прокси, «intelligently pseudo-anonymizes PII in real-time» |
+| `Athroniaeth/piighost` | 14 | MIT | Reversible masking для агентов (LangChain, Pydantic AI, LlamaIndex, Claude Code) + прокси; 14 868 KB |
+| `Aajil-Labs/arabic-pii-py` | 12 | Apache-2.0 | **Арабский + Залив**, local-first — **прямой аналог нашей стратегии для другой юрисдикции** |
+| `RPBLC-hq/DAM` | 11 | нет | «local privacy firewall for AI agents» |
+| `nikshepsvn/veilstream` | 6 | NOASSERTION | Streaming PII proxy: pluggable detector, per-session vault, крипто |
+| `yurivenancio30/llm-dlp` | 5 | MIT | Локальный прокси для Claude Code |
+| `whitestag-ai/pii-proxy` | 2 | Apache-2.0 | «GDPR-compliant anonymisation gate for LLM calls» |
+| `j911si/local-privacy-gateway` | 1 | MIT | Офлайн-пseudonymization gateway, «reversible tokens» |
+| `comptoir-des-signaux/sas-confiance-ia` | 4 | **EUPL-1.2** | Французский: псевдонимизация перед ИИ для территориальных коллективов |
 
-**Что это доказывает.** Ниша «прокси, который обезличивает перед LLM» **уже занята десятком
-проектов**, но:
-- **все** они либо English-only, либо под одну не-русскую юрисдикцию (арабский/Залив, французский,
-  нидерландский, Казахстан);
-- **почти все** — про плейсхолдеры/токены, а не суррогаты (см. `piighost` — «replaces personal data
-  with placeholders», `local-privacy-gateway` — «reversible tokens»);
-- **все** — Python/Node, ни одного Rust;
-- звёзды у лидера (665) получены в домене пентеста, не в приватности для обычных пользователей.
-
-**Ниша «русский + суррогаты + один бинарь» свободна.** Это подтверждается всем списком.
+**Что это доказывает.** Ниша «прокси, обезличивающий перед LLM» **уже занята десятком проектов**,
+но: **все** либо English-only, либо под одну не-русскую юрисдикцию (арабский/Залив, французский,
+нидерландский, Казахстан); **почти все** — про плейсхолдеры/токены, не суррогаты (`piighost` —
+«placeholders», `local-privacy-gateway` — «reversible tokens»); **все** на Python/Node, **ни одного
+на Rust**; звёзды лидера (665) получены в домене пентеста. **Ниша «русский + суррогаты + один
+бинарь» свободна.**
 
 ### 5.6 Источники суррогатов: mimesis и Faker
 
@@ -794,20 +783,14 @@ Python-репо `openanonymiser` в GitHub Search **не найден** (`total_
 `[ПРОВЕРЕНО]` <https://developers.cloudflare.com/ai-gateway/features/dlp/set-up-dlp/>,
 обновлено 2026-09-25:
 
-- DLP-профили: **Financial Information** (карты, счета, routing), **Personal Identifiable
-  Information** (имена, адреса, телефоны), **Government Identifiers** (SSN, паспорта, права),
-  **Healthcare Information**, **Custom Profiles**;
-- **действия только `FLAG` или `BLOCK`** — ни маскирования, ни суррогатов;
-- проверка `REQUEST` / `RESPONSE` / `BOTH`;
-- ошибки: код **2029** (запрос заблокирован), **2030** (ответ заблокирован);
-- заголовок `cf-aig-dlp` с массивом `findings`.
-
-**Русский:** `[НЕ НАЙДЕНО]` — в списке профилей нет ничего языкового, профили строятся на
-Zero Trust DLP, про русские сущности упоминаний нет.
-
-**Вердикт: отвергаем как механизм обезличивания** (BLOCK — не обезличивание), но берём идею
-**профилей как политик** и **машиночитаемого отчёта о срабатывании** (`cf-aig-dlp`). Наш `Report`
-в модели данных должен быть таким же структурным.
+Профили: **Financial Information** (карты, счета, routing), **PII** (имена, адреса, телефоны),
+**Government Identifiers** (SSN, паспорта, права), **Healthcare Information**, **Custom Profiles**.
+**Действия только `FLAG` или `BLOCK`** — ни маскирования, ни суррогатов. Проверка `REQUEST` /
+`RESPONSE` / `BOTH`. Ошибки: код **2029** (запрос) / **2030** (ответ). Заголовок `cf-aig-dlp`
+с массивом `findings`. **Русский:** `[НЕ НАЙДЕНО]` — профили строятся на Zero Trust DLP, про русские
+сущности упоминаний нет. **Вердикт: отвергаем как механизм обезличивания** (BLOCK — не
+обезличивание), но берём идею **профилей как политик** и **машиночитаемого отчёта о срабатывании**;
+наш `Report` должен быть таким же структурным.
 
 ### 5.9 LiteLLM Guardrails
 
@@ -851,9 +834,9 @@ Zero Trust DLP, про русские сущности упоминаний не
 | `LeapBeyond/scrubadub_spacy` | Apache-2.0 | 41 ★, push 2023-09-01 | Мёртв |
 | `LeapBeyond/scrubadub_address` | Apache-2.0 | **1 ★**, push 2023-09-01 | Мёртв |
 
-**«Oban»** `[НЕ НАЙДЕНО]` как инструмент обезличивания. В экосистеме есть Elixir-библиотека
-`Oban` — это **очередь фоновых задач**, к приватности отношения не имеет. Других совпадений в
-контексте PII/анонимизации поиск не дал. Считаю позицию плана закрытой: артефакта нет.
+**«Oban»** `[НЕ НАЙДЕНО]` как инструмент обезличивания: в экосистеме есть Elixir-библиотека `Oban`
+— **очередь фоновых задач**, к приватности отношения не имеет. Других совпадений в контексте
+PII/анонимизации поиск не дал. Позиция плана закрыта: артефакта нет.
 
 ---
 
@@ -932,42 +915,33 @@ Zero Trust DLP, про русские сущности упоминаний не
 **Три архитектурных решения, которые надо забрать дословно** `[ПРОВЕРЕНО]` `docs/architecture.md`:
 
 1. **«Ветки независимы, конфликты разрешаются после. При перекрытии спанов побеждают правила:
-   детерминированная контрольная сумма надёжнее вероятностной оценки.»** Это ровно наше правило
-   «каскады не отменяют друг друга, а только повышают уверенность», но с явным приоритетом.
-   И они честно называют побочный эффект: «ошибочное правило гасит правильное предсказание
-   модели, а не наоборот. Именно так выглядели оба дефекта, из-за которых правила пришлось
-   сузить по расстоянию.» — читай: у них были FP из-за правил, и они это признают.
+   детерминированная контрольная сумма надёжнее вероятностной оценки.»** Это наше правило
+   «каскады не отменяют друг друга», но с явным приоритетом. Побочный эффект они называют честно:
+   «ошибочное правило гасит правильное предсказание модели, а не наоборот. Именно так выглядели
+   оба дефекта, из-за которых правила пришлось сузить по расстоянию».
 
-2. **«Ключевые слова оцениваются расстоянием, а не присутствием в окне.»** Дословно:
+2. **«Ключевые слова оцениваются расстоянием, а не присутствием в окне.»**
    > «Проверка „есть ли слово где-нибудь в окне ±260 символов“ не выражает конкуренцию: если в
    > одном предложении два числа и два ключа, булев ответ неверен при любом размере окна —
    > „водительское удостоверение 77 АВ 123456, индекс 630009“ требует отклонить первые шесть
    > цифр и принять вторые.»
 
-   И конкретные бюджеты расстояний, **измеренные, а не выдуманные**: «у `BIK` ключ во всей
-   разметке стоит не дальше 24 символов слева, поэтому бюджет 40; у паспорта p99 = 83, поэтому
-   близкое окно 80 и дальнее 160».
+   Бюджеты расстояний **измеренные, а не выдуманные**: «у `BIK` ключ во всей разметке стоит не
+   дальше 24 символов слева, поэтому бюджет 40; у паспорта p99 = 83, поэтому близкое окно 80 и
+   дальнее 160». **Это прямое улучшение нашего L1**: у нас записано «окно ±N токенов», без ответа
+   на случай двух ключей и двух чисел.
 
-   **Это прямое улучшение нашего L1.** У нас в реестре написано «окно ±N токенов», без указания,
-   что делать при двух ключах и двух числах. Они решили это **расстоянием до ближайшего ключа**.
-   Мы обязаны это забрать.
+3. **«Кандидат ищется по фразе, а отдаётся значение.»**
+   > «`7518` само по себе не паспорт, `серия 7518, номер 492137` — паспорт … наружу каркас отдаёт
+   > только данные внутри неё. Маска ложится на `серия ****, номер ******`, а не на всю фразу:
+   > „серия“ и „номер“ — не персональные данные».
 
-3. **«Кандидат ищется по фразе, а отдаётся значение.»** Дословно:
-   > «Документ узнаётся по ключевому слову рядом с цифрами: `7518` само по себе не паспорт,
-   > `серия 7518, номер 492137` — паспорт. Поэтому классификатор получает фразу целиком, а
-   > наружу каркас отдаёт только данные внутри неё… Маска ложится на `серия ****, номер ******`,
-   > а не на всю фразу: „серия“ и „номер“ — не персональные данные».
+   У нас такого требования нет вообще, а оно правильно с точки зрения сохранения смысла.
 
-   Это другой ответ, чем у нас. У нас такого требования нет вообще. И это правильно с точки
-   зрения сохранения смысла.
-
-**Восстановление в правильной падежной форме** `[ПРОВЕРЕНО]` README:
-
-> «→ `Свяжитесь с Иваном Петровым`. Прямая подстановка дала бы «с Иван Петров».»
-
-Реализация: `pymorphy3` + spaCy. **Никто из западных решений этого не делает.** SurrogateShield
-восстанавливает подстановкой строки; Presidio — `decrypt`. Согласование падежа — уникальная
-русская продуктовая фича, и она у pii-guard уже есть.
+**Восстановление в правильной падежной форме** `[ПРОВЕРЕНО]` README: «→ `Свяжитесь с Иваном
+Петровым`. Прямая подстановка дала бы „с Иван Петров“.» Реализация — `pymorphy3` + spaCy.
+**Никто из западных решений этого не делает:** SurrogateShield восстанавливает подстановкой строки,
+Presidio — `decrypt`. Согласование падежа — уникальная русская продуктовая фича, и у pii-guard она есть.
 
 **Режимы** `[ПРОВЕРЕНО]`:
 
@@ -1040,25 +1014,21 @@ Per-entity F1 модели — то, что нам нужно как baseline `[
 
 **Слабые места pii-guard:**
 
-1. **Суррогатов нет вообще.** Псевдоним — это `<PII type="PERSON" id="1" />`. Модель видит тип и
-   род. Это принципиально отличается от нашей цели «подмена на похожие фейки»: их решение
-   сохраняет связность и падеж, но **не маскирует то, что это ПДн**. Дословно: «Только
-   `pseudonymize` обратим: **тип сущности виден модели**». Для нашей задачи «внешняя модель не
-   должна знать, что это персональные данные» это неверно.
-2. **Python + Presidio + PyTorch.** Веса 678 MiB + Presidio + spaCy + torch. В наш профиль
-   Balanced (≤250 MB) не влезает; в Fast (≤30 MB) — тем более.
+1. **Суррогатов нет вообще.** Псевдоним — `<PII type="PERSON" id="1" />`; модель видит тип и род.
+   Дословно: «Только `pseudonymize` обратим: **тип сущности виден модели**». Для нашей задачи
+   «внешняя модель не должна знать, что это ПДн» это неверно.
+2. **Python + Presidio + PyTorch.** Веса 678 MiB + Presidio + spaCy + torch — в Balanced (≤250 MB)
+   не влезает, в Fast (≤30 MB) тем более.
 3. **Нет состояния сессии.** «Таблица псевдонимов нигде не хранится. Сервис не имеет состояния:
-   ни Redis, ни TTL, ни идентификатора сессии.» Это осознанное решение (карта уезжает вызывающему),
-   но оно **перекладывает I5/I2 на клиента**. Для нашего продукта это неприемлемо: у нас сессия
-   — часть модели данных.
-4. **Задержка не опубликована** `[НЕ НАЙДЕНО]`. При 178M ruBERT + окно 512 со stride 128 на CPU
-   ожидать ≤25 ms p95 на 2 000 токенов наивно: 2 000 токенов / (512−128) ≈ 6 окон, каждое —
-   forward-проход BERT-base. Это десятки-сотни миллисекунд `[НЕ ПРОВЕРЕНО]`.
-5. **Метаданные PyPI битые**: `pii-guard 0.1.0` имеет `Homepage: https://github.com/YOUR_USERNAME/pii-guard`
-   — шаблон не заполнен `[ПРОВЕРЕНО]`. Загружен 2025-12-10. То есть релизный процесс сырой.
-6. **Кода на GitHub я не открывал** `[НЕ ПРОВЕРЕНО]` — README и docs/architecture.md читаются
-   через raw, но `api.github.com/repos/redmadrobot-rnd/pii-guard` вернул пустой объект
-   (возможно, из-за rate limit или переименования). Звёзды/контрибьюторы `[НЕ ПРОВЕРЕНО]`.
+   ни Redis, ни TTL, ни идентификатора сессии.» Осознанное решение (карта уезжает вызывающему),
+   но оно **перекладывает I5/I2 на клиента**.
+4. **Задержка не опубликована** `[НЕ НАЙДЕНО]`. 178M ruBERT + окно 512/stride 128 на CPU: 2 000
+   токенов ≈ 6 окон, каждое — forward-проход BERT-base; ≤25 ms p95 наивно ожидать нельзя
+   `[НЕ ПРОВЕРЕНО, оценка]`.
+5. **Метаданные PyPI битые**: `pii-guard 0.1.0` содержит `Homepage: https://github.com/YOUR_USERNAME/pii-guard`
+   — шаблон не заполнен `[ПРОВЕРЕНО]`; загружен 2025-12-10. Релизный процесс сырой.
+6. **Код на GitHub не открывал** `[НЕ ПРОВЕРЕНО]` — `api.github.com/repos/redmadrobot-rnd/pii-guard`
+   вернул пустой объект. Звёзды/контрибьюторы `[НЕ ПРОВЕРЕНО]`.
 
 ### 6.3 Exemtik/pii-bench-ru-en — единственные публичные цифры по русскому персоналу
 
@@ -1089,29 +1059,21 @@ PASSPORT_NUMBER**, TOKEN. EN: `alejopaullier/pii-external-dataset` — 4 434 д�
 
 **Четыре вывода, которые мы обязаны учесть:**
 
-1. **Regex без морфологии даёт F1 по именам ровно 0.000.** Форматные типы (EMAIL, PHONE, СНИЛС,
-   ИНН, КПП, ОГРН, карты, токены) покрыты regex с F1 ≈ 0.9–1.0, но имена — нет. Это количественное
-   подтверждение того, что наш профиль **Fast (L0+L1, без NER) физически не может находить ФИО**.
-   В нашем реестре это уже написано («Для `ru.fio` и `ru.address` без модели детекция невозможна»),
-   теперь у этого есть внешняя цифра.
-2. **`pymorphy3` даёт F1 0.794 по именам без всяких нейросетей** — то есть морфологический
-   разбор (`Surn`/`Name`/`Patr` теги) почти дотягивает до spaCy. Стоимость: `pymorphy3` —
-   Python-библиотека со словарями `[НЕ ПРОВЕРЕНО]` по весу, но заведомо **на порядки легче**
-   489.6 MB `ru_core_news_lg`. **Это наш кандидат в Balanced L2: морфологический детектор ФИО
-   вместо тяжёлой модели.** Работает на словоформах в любом падеже («Игорем Волковым») —
-   прямое подтверждение.
+1. **Regex без морфологии даёт F1 по именам ровно 0.000.** Форматные типы (EMAIL, PHONE, СНИЛС, ИНН,
+   КПП, ОГРН, карты, токены) покрыты regex с F1 ≈ 0.9–1.0, имена — нет. Количественное подтверждение,
+   что профиль **Fast (L0+L1, без NER) физически не может находить ФИО** (у нас это уже записано).
+2. **`pymorphy3` даёт F1 0.794 по именам без нейросетей** — морфологический разбор (`Surn`/`Name`/
+   `Patr`) почти дотягивает до spaCy, работает на словоформах в любом падеже («Игорем Волковым»).
+   Вес `[НЕ ПРОВЕРЕНО]`, но заведомо **на порядки легче** 489.6 MB `ru_core_news_lg`. **Кандидат
+   в Balanced L2 вместо тяжёлой модели.**
 3. **`ru_core_news_sm` обгоняет pymorphy3 по именам (0.910 против 0.794) и ловит `ADDRESS` (0.507,
-   у regex и pymorphy — 0).** То есть адрес без spaCy-ru не детектится вообще. При цене `sm`
-   всего **14.6 MB** это очень выгодная сделка: 14.6 MB за +0.116 F1 по именам и ненулевой адрес.
-4. **Аддитивность отрицательная:** `regex+morph+spacy_ru` (0.873) **хуже**, чем `regex+spacy_ru`
-   (0.897). Комбинация морфологии и spaCy не улучшает, а ухудшает результат. Вывод: выбирать
-   **один** источник NER, не сваливать всё в кучу.
+   у regex и pymorphy — 0).** За **14.6 MB** — +0.116 F1 по именам и ненулевой адрес.
+4. **Аддитивность отрицательная:** `regex+morph+spacy_ru` (0.873) **хуже** `regex+spacy_ru` (0.897).
+   Вывод: выбирать **один** источник NER, не сваливать всё в кучу.
 
-**Ограничения, которые автор сам называет** `[ПРОВЕРЕНО]`: «RU: 10 слитных цифр неоднозначны
-(ИНН юрлица ↔ паспорт); контекстные паттерны разводят часть случаев, остальное по умолчанию
-относится к паспорту.» — прямое подтверждение нашего пункта про паспорт РФ без контрольной суммы.
-
-**Лицензия: MIT** `[ПРОВЕРЕНО]`, датасеты — по своим лицензиям.
+**Ограничения автора** `[ПРОВЕРЕНО]`: «RU: 10 слитных цифр неоднозначны (ИНН юрлица ↔ паспорт);
+контекстные паттерны разводят часть случаев, остальное по умолчанию относится к паспорту» —
+подтверждение нашего пункта про паспорт РФ без контрольной суммы. **Лицензия MIT** `[ПРОВЕРЕНО]`.
 
 ### 6.4 Natasha / Slovnet — лучший CPU-провайдер для русского
 
@@ -1153,18 +1115,17 @@ PASSPORT_NUMBER**, TOKEN. EN: `alejopaullier/pii-external-dataset` — 4 434 д�
 | **tomita** | 2.0 | 64 | **63** | **29.8** |
 | mitie | 28.3 | 327 | 261 | 32.8 |
 
-Морфология: `slovnet` — **27 MB диск, 115 MB RAM, 532 предложения/с**.
-Синтаксис: `slovnet` — **27 MB диск, 125 MB RAM, 450 предложений/с**.
+Морфология: `slovnet` — **27 MB диск, 115 MB RAM, 532 предложения/с**. Синтаксис: **27 MB,
+125 MB RAM, 450 предложений/с**.
 
-**Насколько быстро это в пересчёте на задержку.** 25.3 новостных статьи/с при «1 article ≈ 1KB»
-`[ПРОВЕРЕНО, допущение самого Slovnet]`. То есть **~1 KB за 39.5 ms**. Наши 2 000 токенов —
-это грубо 12–16 KB русского текста `[НЕ ПРОВЕРЕНО, оценка]`. Линейная экстраполяция даёт
-**~0.5 с**, что в бюджет не влезает вообще. **Нелинейность и батчирование могут изменить картину,
-но рассчитывать на 12 ms для L2 по 2 000 токенов, как в нашем бюджете (§7.2 charter), на
-основании этих цифр нельзя.** Это важный честный вывод: наш бюджет L2 = 12 ms требует отдельного
-подтверждения замером, и Slovnet как есть — не гарантия.
+**Пересчёт на задержку.** 25.3 новостных статьи/с при «1 article ≈ 1KB» `[ПРОВЕРЕНО, допущение
+Slovnet]` → **~1 KB за 39.5 ms**. Наши 2 000 токенов — грубо 12–16 KB `[НЕ ПРОВЕРЕНО, оценка]`.
+Линейная экстраполяция даёт **~0.5 с**, что в бюджет не влезает. Нелинейность и батчирование
+могут изменить картину, но **рассчитывать на 12 ms для L2 по 2 000 токенов, как в нашем бюджете
+(§7.2 charter), на основании этих цифр нельзя** — бюджет L2 требует собственного замера, Slovnet
+как есть не гарантия.
 
-**Оценка качества NER** `[ПРОВЕРЕНО]` Slovnet README, 4 датасета:
+**Качество NER** `[ПРОВЕРЕНО]` Slovnet README, F1 по 4 датасетам (factRu/gareev/ne5/bsnlp):
 
 | Система | factRu PER | factRu LOC | factRu ORG | gareev PER | ne5 PER | ne5 LOC | bsnlp PER |
 |---|---|---|---|---|---|---|---|
@@ -1178,12 +1139,10 @@ PASSPORT_NUMBER**, TOKEN. EN: `alejopaullier/pii-external-dataset` — 4 434 д�
 | pullenti | 0.905 | 0.814 | 0.686 | 0.939 | 0.952 | 0.862 | 0.900 |
 | tomita | 0.929 | — | — | 0.921 | 0.945 | — | 0.881 |
 
-Собственное резюме авторов: «NER is **1-2% worse** than current BERT SOTA by DeepPavlov but
-**60 times smaller in size (~30 MB)** and works **fast on CPU (~25 news articles/sec)**.»
-
-Лучшие датасеты: **factRuEval-2016** (`factru`), `gareev`, `ne5`, **BSNLP** — все доступны через
-`natasha/corus` `[ДОК]`. На HuggingFace: `gusevski/factrueval2016` (65 загрузок),
-`Vikhrmodels/factru_dataset` (8) `[ПРОВЕРЕНО]` — то есть датасет есть, но почти не используется.
+Резюме авторов: «NER is **1-2% worse** than current BERT SOTA by DeepPavlov but **60 times smaller
+in size (~30 MB)** and works **fast on CPU (~25 news articles/sec)**.» Датасеты (factRuEval-2016,
+gareev, ne5, BSNLP) доступны через `natasha/corus` `[ДОК]`; на HF — `gusevski/factrueval2016`
+(65 загрузок) `[ПРОВЕРЕНО]`.
 
 **Вердикт по Natasha.** **Берём.** 2 MB модель, 27 MB диск, 205 MB RAM, MIT, CPU-only, Numpy-only
 инференс, F1 по PER 0.959 на factRuEval, честное позиционирование «не research project», и прямо
@@ -1300,16 +1259,16 @@ used to slip through range checks»** `[ПРОВЕРЕНО]`. Это ровно 
 
 | Решение | Деталь |
 |---|---|
-| **Солёные плейсхолдеры** | `[KIND_<10 hex>]`, где хэш — **blake2b с перцем из окружения**. Дословно: «An unsalted hash of a 12-digit BIN is **brute-forceable in minutes** — that would make placeholders reversible. No pepper → the service refuses to start.» |
-| Согласованность | «Same value → same placeholder across requests, so the model can tell that „this company“ in two paragraphs is the same party» — реализация нашего I5 через сервис, а не через сессию |
-| Разрешение перекрытий | сортировка по confidence → приоритет вида → длина; отбрасывание перекрытий; **пороги ORG/LOC подняты (≥ 0.85, длина ≥ 5)** |
-| Стоп-лист по леммам | «Russian legal text inflects everything. The stop-list compares **lemma sequences**, and a span is exempt only when **all** of its significant words are covered» — чтобы «Закону Республики Казахстан» остался читаемым в любом падеже, а «ТОО «Консультант Плюс»» замаскировался |
-| **SSE-safe восстановление** | «the model streams chunks, and a placeholder tears across a boundary (`[PERSON_` + `80f18a2b3c]`). `StreamRewriter` keeps a minimal buffer: everything up to the last unclosed `[` is released immediately, the tail is held until the bracket closes. The user sees a live stream with **no torn placeholders and no added latency**.» |
-| Fail-closed | `ANONYMIZE_ENABLED=false` работает только вместе с `ALLOW_PASSTHROUGH_FOR_TESTS`; при отсутствии `PLACEHOLDER_PEPPER` сервис **отказывается стартовать** |
-| Логи | «The audit log stores only placeholder kinds and counts, **never values**» — наш I10 |
-| Усечение до анонимизации | «Tool outputs (web search, page reads) are truncated **before** anonymization — one search result once returned **5.99 M characters**» |
-| Деградация | «If Redis is down, **restoration degrades but anonymization keeps working** — nothing leaks.» |
-| Тексты | «Long texts are split on sentence boundaries and anonymized **in full** rather than truncated» |
+| **Солёные плейсхолдеры** | `[KIND_<10 hex>]`, хэш — **blake2b с перцем из окружения**: «An unsalted hash of a 12-digit BIN is **brute-forceable in minutes**». Нет перца → сервис **отказывается стартовать** |
+| Согласованность | «Same value → same placeholder across requests» — реализация нашего I5 через сервис |
+| Разрешение перекрытий | сортировка по confidence → приоритет вида → длина; **пороги ORG/LOC подняты (≥ 0.85, длина ≥ 5)** |
+| Стоп-лист по леммам | «The stop-list compares **lemma sequences**, and a span is exempt only when **all** of its significant words are covered» — «Закону Республики Казахстан» читаем в любом падеже, «ТОО «Консультант Плюс»» маскируется |
+| **SSE-safe восстановление** | `StreamRewriter` держит буфер до последней незакрытой `[` — «no torn placeholders and no added latency» |
+| Fail-closed | `ANONYMIZE_ENABLED=false` только вместе с `ALLOW_PASSTHROUGH_FOR_TESTS` |
+| Логи | «audit log stores only placeholder kinds and counts, **never values**» — наш I10 |
+| Усечение до анонимизации | «Tool outputs … are truncated **before** anonymization — one search result once returned **5.99 M characters**» |
+| Деградация | «If Redis is down, **restoration degrades but anonymization keeps working** — nothing leaks» |
+| Тексты | «split on sentence boundaries and anonymized **in full** rather than truncated» |
 
 **Стек:** Python 3.12, FastAPI, httpx (streaming), **Microsoft Presidio**, spaCy
 (**`ru_core_news_md`**, `en_core_web_sm`), **pymorphy3**, Redis (mapping, TTL 24 ч), PostgreSQL
@@ -1784,306 +1743,131 @@ Rust**. Профиль Balanced (≤25 ms, ≤250 MB) недостижим дл�
 | «Balanced в 25 ms» без замера L2 | Бюджет L2=12 ms не обоснован; Slovnet даёт ~39.5 ms/KB | Slovnet README |
 
 ---
+## 10. Библиография
 
-## 10. Библиография с URL
+Полный список из **129 URL с разбивкой по 10 тематическим группам** — в [`03-bibliography.md`](03-bibliography.md).
+Ключевые источники по каждому блоку:
 
-### 10.1 Presidio
+**Presidio** — [project transition](https://presidio.dataprivacystack.org/project_transition/) ·
+[supported entities](https://raw.githubusercontent.com/data-privacy-stack/presidio/main/docs/supported_entities.md) ·
+[languages](https://raw.githubusercontent.com/data-privacy-stack/presidio/main/docs/analyzer/languages.md) ·
+[anonymizer operators](https://raw.githubusercontent.com/data-privacy-stack/presidio/main/docs/anonymizer/index.md) ·
+[default.yaml](https://raw.githubusercontent.com/data-privacy-stack/presidio/main/presidio-analyzer/presidio_analyzer/conf/default.yaml) ·
+[default_recognizers.yaml](https://raw.githubusercontent.com/data-privacy-stack/presidio/main/presidio-analyzer/presidio_analyzer/conf/default_recognizers.yaml) ·
+[pyproject](https://raw.githubusercontent.com/data-privacy-stack/presidio/main/presidio-analyzer/pyproject.toml) ·
+[CHANGELOG](https://raw.githubusercontent.com/data-privacy-stack/presidio/main/CHANGELOG.md) ·
+[LICENSE](https://raw.githubusercontent.com/data-privacy-stack/presidio/main/LICENSE) ·
+[PyPI](https://pypi.org/pypi/presidio-analyzer/json)
 
-1. Project transition (переход к community ownership) — <https://presidio.dataprivacystack.org/project_transition/>
-2. Документация, поддерживаемые сущности — <https://presidio.dataprivacystack.org/supported_entities/>
-3. Raw-источник списка сущностей — <https://raw.githubusercontent.com/data-privacy-stack/presidio/main/docs/supported_entities.md>
-4. Языки и NLP-движки — <https://raw.githubusercontent.com/data-privacy-stack/presidio/main/docs/analyzer/languages.md>
-5. spaCy/Stanza NLP engine — <https://raw.githubusercontent.com/data-privacy-stack/presidio/main/docs/analyzer/nlp_engines/spacy_stanza.md>
-6. Anonymizer: операторы и разрешение перекрытий — <https://raw.githubusercontent.com/data-privacy-stack/presidio/main/docs/anonymizer/index.md>
-7. Дефолтный NLP-конфиг — <https://raw.githubusercontent.com/data-privacy-stack/presidio/main/presidio-analyzer/presidio_analyzer/conf/default.yaml>
-8. Дефолтный реестр рекогнайзеров — <https://raw.githubusercontent.com/data-privacy-stack/presidio/main/presidio-analyzer/presidio_analyzer/conf/default_recognizers.yaml>
-9. CHANGELOG (случайная соль в hash, ORGANIZATION в игнор-листе, чистка CLI, AEHD) — <https://raw.githubusercontent.com/data-privacy-stack/presidio/main/CHANGELOG.md>
-10. `presidio-analyzer` pyproject (зависимости, версия 2.2.364, MIT) — <https://raw.githubusercontent.com/data-privacy-stack/presidio/main/presidio-analyzer/pyproject.toml>
-11. LICENSE (MIT, Presidio Contributors) — <https://raw.githubusercontent.com/data-privacy-stack/presidio/main/LICENSE>
-12. Репозиторий — <https://github.com/data-privacy-stack/presidio>
-13. PyPI `presidio-analyzer` 2.2.364 — <https://pypi.org/pypi/presidio-analyzer/json>
-14. Presidio на PyPI (мета-пакет) — <https://pypi.org/project/presidio/>
+**LLM Guard** — [репозиторий](https://github.com/protectai/llm-guard) ·
+[README с предупреждением об архивации](https://raw.githubusercontent.com/protectai/llm-guard/main/README.md) ·
+[Anonymize scanner (сущности, `use_faker`, бенчмарки p95)](https://protectai.github.io/llm-guard/input_scanners/anonymize/) ·
+[PyPI](https://pypi.org/pypi/llm-guard/json) ·
+[HF-модели Protect AI](https://huggingface.co/protectai)
 
-### 10.2 LLM Guard
+**Portcullis / SurrogateShield** — [AAAI-25, DOI, «96x»](https://ojs.aaai.org/index.php/AAAI/article/view/32088) ·
+[Portcullis PDF](https://ojs.aaai.org/index.php/AAAI/article/view/32088/34243) ·
+[SurrogateShield arXiv:2606.29567](https://arxiv.org/abs/2606.29567) ·
+[репозиторий](https://github.com/sherwinvishesh/SurrogateShield) ·
+[README (архитектура, бенчмарки, ограничения)](https://raw.githubusercontent.com/sherwinvishesh/SurrogateShield/main/README.md)
 
-15. Репозиторий (архивирован) — <https://github.com/protectai/llm-guard>
-16. README с предупреждением об архивации — <https://raw.githubusercontent.com/protectai/llm-guard/main/README.md>
-17. Документация Anonymize-сканера (сущности, модели, `use_faker`, бенчмарки p95) — <https://protectai.github.io/llm-guard/input_scanners/anonymize/>
-18. PyPI `llm-guard` 0.3.16 — <https://pypi.org/pypi/llm-guard/json>
-19. Модели Protect AI на HF (не поддерживаются) — <https://huggingface.co/protectai>
-20. Список сущностей Anonymize в коде — <https://github.com/protectai/llm-guard/blob/main/llm_guard/input_scanners/anonymize.py>
-21. Кастомные regex-паттерны — <https://github.com/protectai/llm-guard/blob/main/llm_guard/resources/sensisitive_patterns.json>
+**Русскоязычные** — [pii-guard](https://github.com/redmadrobot-rnd/pii-guard) ·
+[pii-guard README](https://raw.githubusercontent.com/redmadrobot-rnd/pii-guard/main/README.md) ·
+[pii-guard docs/architecture.md](https://raw.githubusercontent.com/redmadrobot-rnd/pii-guard/main/docs/architecture.md) ·
+[rubert-base-pii-ner](https://huggingface.co/redmadrobot-rnd/rubert-base-pii-ner) ·
+[pii_benchmark](https://huggingface.co/datasets/redmadrobot-rnd/pii_benchmark) ·
+[Natasha](https://github.com/natasha/natasha) ·
+[Slovnet (размеры, F1, speed)](https://raw.githubusercontent.com/natasha/slovnet/master/README.md) ·
+[pii-bench-ru-en](https://raw.githubusercontent.com/Exemtik/pii-bench-ru-en/main/README.md) ·
+[DeepPavlov](https://github.com/deeppavlov/DeepPavlov) ·
+[spaCy ru](https://spacy.io/models/ru) ·
+[Tomita](https://github.com/yandex/tomita-parser) ·
+[hivetrace/pii-bench](https://huggingface.co/datasets/hivetrace/pii-bench)
 
-### 10.3 Portcullis и SurrogateShield
+**Остальные OSS** — [scrubadub](https://github.com/LeapBeyond/scrubadub) ·
+[DataFog](https://github.com/DataFog/datafog-python) ·
+[anonymiq-light / OpenAnonymiser](https://github.com/ConductionNL/anonymiq-light) ·
+[phileas](https://github.com/philterd/phileas) ·
+[arx](https://github.com/arx-deidentifier/arx) ·
+[private-gpt](https://github.com/zylon-ai/private-gpt) ·
+[mimesis](https://github.com/lk-geimfari/mimesis) ·
+[Faker](https://github.com/joke2k/faker)
 
-22. Portcullis, AAAI-25 (страница статьи, DOI, авторы, абстракт, «96x») — <https://ojs.aaai.org/index.php/AAAI/article/view/32088>
-23. Portcullis PDF — <https://ojs.aaai.org/index.php/AAAI/article/view/32088/34243>
-24. Portcullis DOI — <https://doi.org/10.1609/aaai.v39i1.32088>
-25. SurrogateShield, arXiv:2606.29567 — <https://arxiv.org/abs/2606.29567>
-26. SurrogateShield PDF — <https://arxiv.org/pdf/2606.29567>
-27. SurrogateShield HTML — <https://arxiv.org/html/2606.29567v1>
-28. SurrogateShield, репозиторий — <https://github.com/sherwinvishesh/SurrogateShield>
-29. SurrogateShield README (детальная архитектура, бенчмарки, ограничения) — <https://raw.githubusercontent.com/sherwinvishesh/SurrogateShield/main/README.md>
-30. SurrogateShield, PyPI — <https://pypi.org/project/surrogateshield/>
-31. SurrogateShield, сайт — <https://sherwinvishesh.github.io/SurrogateShield/>
-32. SurrogateShield в EmergentMind (аннотация) — <https://www.emergentmind.com/papers/2606.29567>
+**Прокси и СНГ** — [DontFeedTheAI](https://github.com/zeroc00I/DontFeedTheAI) ·
+[piighost](https://github.com/Athroniaeth/piighost) ·
+[arabic-pii-py](https://github.com/Aajil-Labs/arabic-pii-py) ·
+[llm-pii-proxy-showcase (Казахстан)](https://raw.githubusercontent.com/MihaRS2/llm-pii-proxy-showcase/main/README.md) ·
+[kazpii-bench](https://github.com/k1ddy/kazpii-bench)
 
-### 10.4 Русскоязычные инструменты
-
-33. **pii-guard**, репозиторий — <https://github.com/redmadrobot-rnd/pii-guard>
-34. **pii-guard**, README (20 типов, режимы, лицензия, GPLv3-предупреждение) — <https://raw.githubusercontent.com/redmadrobot-rnd/pii-guard/main/README.md>
-35. **pii-guard**, архитектура (C4, приоритет правил, расстояния до ключей) — <https://raw.githubusercontent.com/redmadrobot-rnd/pii-guard/main/docs/architecture.md>
-36. pii-guard, статья Redmadrobot — <https://redmadrobot.ai/articles/pii-guard>
-37. pii-guard, статья на Habr — <https://habr.com/ru/articles/1080440/>
-38. pii-guard, PyPI (метаданные с `YOUR_USERNAME`) — <https://pypi.org/pypi/pii-guard/json>
-39. **rubert-base-pii-ner**, модель — <https://huggingface.co/redmadrobot-rnd/rubert-base-pii-ner>
-40. rubert-base-pii-ner, model card (метрики по типам, обучение) — <https://huggingface.co/redmadrobot-rnd/rubert-base-pii-ner/raw/main/README.md>
-41. **pii_benchmark**, датасет (MIT) — <https://huggingface.co/datasets/redmadrobot-rnd/pii_benchmark>
-42. pii_train, датасет — <https://huggingface.co/datasets/redmadrobot-rnd/pii_train>
-43. **Natasha**, репозиторий — <https://github.com/natasha/natasha>
-44. Natasha README — <https://raw.githubusercontent.com/natasha/natasha/master/README.md>
-45. **Slovnet**, README (размеры моделей, таблицы качества, диск/RAM/скорость) — <https://raw.githubusercontent.com/natasha/slovnet/master/README.md>
-46. Natasha на PyPI 1.6.0 (MIT) — <https://pypi.org/pypi/natasha/json>
-47. Navec (эмбеддинги) — <https://github.com/natasha/navec>
-48. Yargy (rule-based извлечение, аналог Tomita) — <https://github.com/natasha/yargy>
-49. Corus (загрузка датасетов factRuEval, ne5, bsnlp, gareev) — <https://github.com/natasha/corus>
-50. **DeepPavlov**, репозиторий — <https://github.com/deeppavlov/DeepPavlov>
-51. DeepPavlov README (PyTorch, 4–16 GB RAM, Apache-2.0) — <https://raw.githubusercontent.com/deeppavlov/DeepPavlov/master/README.md>
-52. **Exemtik/pii-bench-ru-en**, репозиторий — <https://github.com/Exemtik/pii-bench-ru-en>
-53. pii-bench-ru-en README (цифры по русскому, 13 типов, ограничения) — <https://raw.githubusercontent.com/Exemtik/pii-bench-ru-en/main/README.md>
-54. Датасет `hivetrace/pii-bench` — <https://huggingface.co/datasets/hivetrace/pii-bench>
-55. **Yandex Tomita** (MPL-2.0, мёртв с 2020) — <https://github.com/yandex/tomita-parser>
-56. Tomita LICENSE — <https://raw.githubusercontent.com/yandex/tomita-parser/master/LICENSE>
-57. **spaCy модели для русского** — <https://spacy.io/models/ru>
-58. spaCy `ru` lang-модуль (лемматизатор pymorphy3) — <https://raw.githubusercontent.com/explosion/spaCy/master/spacy/lang/ru/__init__.py>
-59. Метаданные `ru_core_news_sm` (MIT, LOC/ORG/PER) — <https://raw.githubusercontent.com/explosion/spacy-models/master/meta/ru_core_news_sm-3.8.0.json>
-60. Релизы spaCy-моделей (размеры wheel) — <https://github.com/explosion/spacy-models/releases>
-61. NEREL, реплики на HF — <https://huggingface.co/datasets/iluvvatar/NEREL>
-62. factRuEval-2016 на HF — <https://huggingface.co/datasets/gusevski/factrueval2016>
-
-### 10.5 Остальные open-source
-
-63. **scrubadub** — <https://github.com/LeapBeyond/scrubadub>
-64. scrubadub PyPI (MIT, зависимости) — <https://pypi.org/pypi/scrubadub/json>
-65. scrubadub_spacy — <https://github.com/LeapBeyond/scrubadub_spacy>
-66. **DataFog** — <https://github.com/DataFog/datafog-python>
-67. **OpenAnonymiser / Anonymiq Light** — <https://github.com/ConductionNL/anonymiq-light>
-68. OpenAnonymiser README (flavors, `nl_core_news_lg`, ~3 GB GPU) — <https://raw.githubusercontent.com/ConductionNL/anonymiq-light/main/README.md>
-69. Прод-эндпоинт OpenAnonymiser — <https://api.openanonymiser.commonground.nu/api/v1/docs>
-70. **pydeidentify** — <https://github.com/Lucasc-99/pydeidentify>
-71. **nedap/deidentify** (медзаписи) — <https://github.com/nedap/deidentify>
-72. **Phileas** (Java, Apache-2.0) — <https://github.com/philterd/phileas>
-73. **ARX** (k-anonymity, Apache-2.0) — <https://github.com/arx-deidentifier/arx>
-74. **neosync** — <https://github.com/nucleuscloud/neosync>
-75. **PrivateGPT** (другая задача) — <https://github.com/zylon-ai/private-gpt>
-76. **mimesis** (MIT, локали) — <https://github.com/lk-geimfari/mimesis>
-77. **Faker** (MIT, `ru_RU`) — <https://github.com/joke2k/faker>
-78. npm `deidentify` — <https://registry.npmjs.org/deidentify>
-
-### 10.6 LLM-прокси и privacy firewall
-
-79. **DontFeedTheAI** (665 ★) — <https://github.com/zeroc00I/DontFeedTheAI>
-80. **piighost** — <https://github.com/Athroniaeth/piighost>
-81. **arabic-pii-py** (Apache-2.0, арабский/Залив) — <https://github.com/Aajil-Labs/arabic-pii-py>
-82. **mcp-server-conceal** — <https://github.com/gbrigandi/mcp-server-conceal>
-83. **veilstream** — <https://github.com/nikshepsvn/veilstream>
-84. **llm-dlp** — <https://github.com/yurivenancio30/llm-dlp>
-85. **pii-proxy** (Apache-2.0, GDPR) — <https://github.com/whitestag-ai/pii-proxy>
-86. **local-privacy-gateway** — <https://github.com/j911si/local-privacy-gateway>
-87. **promptzero** — <https://github.com/openbashok/promptzero>
-88. **DAM** — <https://github.com/RPBLC-hq/DAM>
-89. **sas-confiance-ia** (EUPL-1.2) — <https://github.com/comptoir-des-signaux/sas-confiance-ia>
-90. **llmguard** (KZ) — <https://github.com/geekpartnerslab-kz/llmguard>
-
-### 10.7 СНГ
-
-91. **llm-pii-proxy-showcase** (Казахстан, MIT) — <https://github.com/MihaRS2/llm-pii-proxy-showcase>
-92. llm-pii-proxy-showcase README (KZ-рекогнайзеры, солёные плейсхолдеры, SSE, fail-closed) — <https://raw.githubusercontent.com/MihaRS2/llm-pii-proxy-showcase/main/README.md>
-93. **kazpii-bench** (бенчмарк KZ/RU) — <https://github.com/k1ddy/kazpii-bench>
-94. **yashirgich** (узбекский/русский) — <https://github.com/bekzod/yashirgich>
-95. **pii-obfuscator** (ru, без лицензии) — <https://github.com/SergeyK88i/pii-obfuscator>
-96. **ru-pii-detection-system** (ru, MIT) — <https://github.com/feuerstrahll/ru-pii-detection-system>
-
-### 10.8 Модели PII на HuggingFace (проверенные метаданные)
-
-97. `redmadrobot-rnd/rubert-base-pii-ner` (Apache-2.0, ru, 1 764 загрузок) — <https://huggingface.co/redmadrobot-rnd/rubert-base-pii-ner>
-98. `alrosait/spacy_ru_core_news_lg_pii` (MIT, ru, 0 загрузок) — <https://huggingface.co/alrosait/spacy_ru_core_news_lg_pii>
-99. `dzanozin/traciora-opf-ru-pii-v6` (Apache-2.0, 1,4 млрд параметров) — <https://huggingface.co/dzanozin/traciora-opf-ru-pii-v6>
-100. `HikmaAI/hikmaai-mdeberta-v3-base-pii-multilingual` (Apache-2.0, 11 языков вкл. ru) — <https://huggingface.co/HikmaAI/hikmaai-mdeberta-v3-base-pii-multilingual>
-101. `Wismut/nym-pii-multilingual` (MIT, mmBERT, 22 языка вкл. ru/uk) — <https://huggingface.co/Wismut/nym-pii-multilingual>
-102. `tabularisai/eu-pii-safeguard` (Apache-2.0, xlm-roberta-large, 26 языков вкл. ru) — <https://huggingface.co/tabularisai/eu-pii-safeguard>
-103. `LiquidAI/LFM2.5-Encoder-350M-PII-Detector` (license «other», 16 языков вкл. ru) — <https://huggingface.co/LiquidAI/LFM2.5-Encoder-350M-PII-Detector>
-104. `Gherman/bert-base-NER-Russian` — <https://huggingface.co/Gherman/bert-base-NER-Russian>
-105. `yqelz/xml-roberta-large-ner-russian` — <https://huggingface.co/yqelz/xml-roberta-large-ner-russian>
-106. `onnx-community/bert-base-NER-Russian-ONNX` — <https://huggingface.co/onnx-community/bert-base-NER-Russian-ONNX>
-107. `nvidia/Nemotron-PII` (датасет, использован SurrogateShield как внешний) — <https://huggingface.co/datasets/nvidia/Nemotron-PII>
-108. `redmadrobot-rnd/pii_benchmark` (MIT) — <https://huggingface.co/datasets/redmadrobot-rnd/pii_benchmark>
-109. `Powpowpow23/ru-pii-ner-data` — <https://huggingface.co/datasets/Powpowpow23/ru-pii-ner-data>
-
-### 10.9 Проприетарные
-
-110. Purview, список всех SIT-определений (вкл. 4 русских) — <https://learn.microsoft.com/en-us/purview/sit-sensitive-information-type-entity-definitions>
-111. Purview, Russian taxpayer identification number — <https://learn.microsoft.com/en-us/purview/sit-defn-russia-taxpayer-identification-number>
-112. Purview, Russian Passport Number (Domestic) — <https://learn.microsoft.com/en-us/purview/sit-defn-russia-passport-number-domestic>
-113. Purview, Russian Passport Number (International) — <https://learn.microsoft.com/en-us/purview/sit-defn-russia-passport-number-international>
-114. Purview, Russia physical addresses — <https://learn.microsoft.com/en-us/purview/sit-defn-russia-physical-addresses>
-115. Google Sensitive Data Protection, де-идентификация (infoTypes, кастомные детекторы) — <https://docs.cloud.google.com/sensitive-data-protection/docs/concepts-de-identification>
-116. Google, reference по трансформациям — <https://docs.cloud.google.com/sensitive-data-protection/docs/transformations-reference>
-117. Google, **сэмпл: FPE-суррогат для свободного текста** — <https://docs.cloud.google.com/sensitive-data-protection/docs/samples/dlp-deidentify-free-text-with-fpe-using-surrogate>
-118. Google, re-identify free text with FPE using a surrogate — <https://docs.cloud.google.com/sensitive-data-protection/docs/samples/dlp-reidentify-free-text-with-fpe-using-surrogate>
-119. Google, список встроенных infoType-детекторов — <https://docs.cloud.google.com/sensitive-data-protection/docs/listing-infotypes>
-120. Google, InfoType detector reference — <https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-reference>
-121. Google, псевдонимизация — <https://docs.cloud.google.com/sensitive-data-protection/docs/pseudonymization>
-122. AWS Comprehend, поддерживаемые языки (PII: English and Spanish) — <https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html>
-123. AWS Bedrock, sensitive information filters (32 PII, Block/Mask, слепые зоны, трассировка) — <https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-sensitive-filters.html>
-124. Cloudflare AI Gateway, настройка DLP (профили, FLAG/BLOCK, `cf-aig-dlp`) — <https://developers.cloudflare.com/ai-gateway/features/dlp/set-up-dlp/>
-125. Cloudflare Zero Trust DLP профили — <https://developers.cloudflare.com/cloudflare-one/data-loss-prevention/dlp-profiles/>
-126. LiteLLM, PII/PHI Masking — Presidio (языки, режимы, чанкинг) — <https://docs.litellm.ai/docs/proxy/guardrails/pii_masking_v2>
-127. LiteLLM, MIT лицензия — <https://github.com/BerriAI/litellm/blob/main/LICENSE>
-
-### 10.10 Внутренние документы проекта
-
-128. `docs/00-charter.md` — рабочий документ (инварианты I1–I10, профили задержки, модель данных)
-129. `docs/20-entity-registry.md` — реестр типов сущностей и контрольные суммы
+**Проприетарные** — [Purview: список SIT с 4 русскими](https://learn.microsoft.com/en-us/purview/sit-sensitive-information-type-entity-definitions) ·
+[Purview: ИНН РФ](https://learn.microsoft.com/en-us/purview/sit-defn-russia-taxpayer-identification-number) ·
+[Purview: паспорт РФ](https://learn.microsoft.com/en-us/purview/sit-defn-russia-passport-number-domestic) ·
+[Google SDP: де-идентификация](https://docs.cloud.google.com/sensitive-data-protection/docs/concepts-de-identification) ·
+[Google: FPE-суррогат](https://docs.cloud.google.com/sensitive-data-protection/docs/samples/dlp-deidentify-free-text-with-fpe-using-surrogate) ·
+[AWS Comprehend: языки](https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html) ·
+[AWS Bedrock Guardrails](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-sensitive-filters.html) ·
+[Cloudflare AI Gateway DLP](https://developers.cloudflare.com/ai-gateway/features/dlp/set-up-dlp/) ·
+[LiteLLM + Presidio](https://docs.litellm.ai/docs/proxy/guardrails/pii_masking_v2)
 
 ---
 
 ## 11. Что проверено / по документации / не проверено
 
-### 11.1 ПРОВЕРЕНО (открыл источник)
+Полные чек-листы (≈140 пунктов) — в [`04-verification-status.md`](04-verification-status.md).
+Сводка:
 
-**Presidio:**
-- [x] Репозиторий переехал в `data-privacy-stack/presidio`; старый URL Microsoft редиректит `[GitHub API]`
-- [x] Лицензия MIT, копирайт «Presidio Contributors» `[raw LICENSE]`
-- [x] Полный список сущностей по регионам (~130 типов) `[raw docs/supported_entities.md]`
-- [x] `supported_languages: [en]`; ни одного ru-рекогнайзера `[raw default_recognizers.yaml]`
-- [x] Дефолтная NLP-модель `en_core_web_lg`; `ORGANIZATION` в `labels_to_ignore`; `low_confidence_score_multiplier: 0.4` `[raw conf/default.yaml]`
-- [x] 8 операторов анонимайзера + `decrypt`; `surrogate_ahds` требует Azure `[raw docs/anonymizer/index.md]`
-- [x] Зависимости: `spacy` обязательна; extras `server`/`transformers`/`stanza`/`azure-ai-language`/`ahds`/`gliner`/`langextract` `[raw pyproject.toml]`
-- [x] Версия 2.2.364, релиз 2026-07-22, релизы 2.2.363/362/361/360 с датами `[GitHub API releases]`
-- [x] 11 345 ★, 1 349 форков, 188 open issues, **206 контрибьюторов**, push 2026-10-09, не архивирован `[GitHub API]`
-- [x] Документация прямо требует модификации NlpEngine и рекогнайзеров для нового языка `[raw docs/analyzer/languages.md]`
-- [x] `presidio-cli` не публикуется в релизном пайплайне `[CHANGELOG 2.2.356]`
-- [x] Hash-оператор с 2.2.361 использует случайную соль по умолчанию `[CHANGELOG]`
-- [x] Немецкий набор из 9–13 рекогнайзеров `[docs/supported_entities.md + default_recognizers.yaml]`
-- [x] `presidio-analyzer` на PyPI: 2.2.364, загружен 2026-07-22, полный `requires_dist` `[PyPI JSON]`
+**ПРОВЕРЕНО (открыл источник).** Presidio: переезд в `data-privacy-stack`, MIT, ~130 типов сущностей,
+`supported_languages: [en]`, `en_core_web_lg`, `ORGANIZATION` в игнор-листе, 8 операторов + `decrypt`,
+`surrogate_ahds` требует Azure, обязательная зависимость spaCy, версия 2.2.364 (2026-07-22),
+11 345 ★ / 206 контрибьюторов, случайная соль в `hash` с 2.2.361, `presidio-cli` не публикуется. ·
+LLM Guard: **архивирован**, модели на HF не поддерживаются, MIT, 28 зависимостей, 0.3.16 (2025-05-19),
+36 сканеров, наследование Presidio, «English and Chinese» + «English-specific», **p95 169.13 / 294.57 ms
+на 317 символах**. · Portcullis: полная библиография (Tsinghua + ByteDance, AAAI-25, стр. 1022–1030,
+DOI), точный текст про 96×, **кода нет** (3 независимые проверки). · SurrogateShield: arXiv 2606.29567,
+Apache-2.0, 2 ★, вся архитектура и все бенчмарк-цифры, раздел Limitations, Security Design. ·
+pii-guard: 20 типов, 3 режима, Apache-2.0, 678 MiB весов, приоритет правил, расстояния до ключей
+(BIK 40, паспорт 80/160, p99=83), восстановление падежа, GPLv3-предупреждение. · rubert-base-pii-ner:
+Apache-2.0, 21 тип/43 метки, F1 83.6/88.9, полная таблица per-entity (INN 68.3, IP 36.0). ·
+Natasha/Slovnet: 1 359 ★, MIT, NER 2 MB, диск 27 MB, RAM 205 MB, 25.3 статьи/с, полные таблицы F1. ·
+pii-bench-ru-en: MIT, F1 regex_only 0.800/**NAME 0.000**, +morph 0.794, +spacy_ru 0.910. ·
+llm-pii-proxy-showcase: KZ-валидация, blake2b+pepper, SSE, fail-closed, lemma-стоп-лист. ·
+spaCy ru: sm 14.6 / md 39.9 / lg 489.6 MB, MIT, LOC/ORG/PER, лемматизатор pymorphy3. ·
+DeepPavlov (6 997 ★, Apache-2.0, «4 to 16 GB RAM»), Tomita (MPL-2.0, мёртв с 2020). ·
+scrubadub, DataFog, anonymiq-light, pydeidentify, `anonymize-it` (404), phileas, arx, mimesis, Faker,
+11 прокси-проектов, Cloudflare DLP, LiteLLM — метрики и лицензии. ·
+Purview: 4 русских SIT, `recommendedConfidence` 85/75, `patternsProximity="300"`, шкала 65/75/85,
+русские ключевые слова (с ошибками `НДС`/`pасспорт`), паспорт РФ `Checksum: No`. ·
+Comprehend: PII только «English and Spanish». Bedrock: 32 PII, `Mask` = `{NAME}`, слепые зоны tool
+calling, trace и CloudWatch `input` содержат исходники. Google SDP: 3 вида кастомных детекторов,
+stored dictionary «up to tens of millions», **сэмплы FPE-суррогата**.
 
-**LLM Guard:**
-- [x] **Архивирован** `[GitHub API archived=true]` + предупреждение в README `[raw README]`
-- [x] Модели на HF Protect AI не поддерживаются `[README]`
-- [x] MIT `[GitHub API + PyPI license]`
-- [x] 28 зависимостей `[PyPI requires_dist]`; версия 0.3.16 от 2025-05-19
-- [x] 15 Prompt + 21 Output = 36 сканеров, полные списки `[README]`
-- [x] Anonymize наследует Presidio Analyzer `[документация Anonymize]`
-- [x] 8 параметров сканера, включая `use_faker` `[документация Anonymize]`
-- [x] «Support of multiple languages: English and Chinese» + «Current entity detection functionality is English-specific» `[документация Anonymize]`
-- [x] 11 групп PII-сущностей, ни одной русской `[документация Anonymize]`
-- [x] **p95 169.13 / 294.57 / 419.60 / 86.47 / 276.45 / 247.22 ms** для 6 конфигураций на входе 317 символов `[документация Anonymize, Benchmarks]`
-- [x] 3 216 ★, 466 форков, 38 open issues, ~41 контрибьютор, push 2026-07-08 `[GitHub API]`
-- [x] Список рекомендованных NER-моделей (dslim/bert-base-NER и др.), русских нет `[документация]`
+**ТОЛЬКО ПО ДОКУМЕНТАЦИИ (не проверял в коде/исполнении).** Архитектура Portcullis в деталях (только
+абстракт); кто такие Hide-and-Seek и что за нагрузка «masking and unmasking workloads»; **код pii-guard**
+(читал README и docs/architecture.md, но GitHub API по репо вернул пустой объект); задержка pii-guard
+(не опубликована, моя оценка «десятки–сотни мс» — не замер); лицензия `pymorphy3`; наличие русских
+локалей Faker/mimesis в файлах; размеры HF-моделей `dslim/bert-base-NER`; дефолтные регионы
+`PhoneRecognizer` (входит ли RU); содержимое `sensisitive_patterns.json`; русский в Azure AI Language
+PII; причина расхождения лицензий scrubadub; детали 11 прокси-проектов (кроме showcase); **русские
+infoTypes в Google DLP**; число встроенных infoType-детекторов Google; точные размеры моделей LLM Guard
+по сканерам; **задержка Presidio** (8.2 ms — из чужого self-reported бенчмарка, не наш замер).
 
-**Portcullis:**
-- [x] Полная библиография: 6 авторов, Tsinghua + ByteDance, AAAI-25 Vol. 39 No. 1, стр. 1022–1030, опубликовано 2025-04-11, DOI 10.1609/aaai.v39i1.32088 `[OJS]`
-- [x] **Точный текст про 96×**: «For masking and unmasking workloads, Portcullis outperforms Hide-and-Seek by 96x speed up»; про Enron: «surpassing Hide-and-Seek by over 0.1 for GPT-4o mini» `[абстракт OJS]`
-- [x] **Кода нет**: GitHub Search `portcullis LLM privacy` = 0, `portcullis bytedance` = 0; arXiv API пуст; на странице статьи только PDF и Video/Poster
+**НЕ НАЙДЕНО (искал, артефакта нет).** Код Portcullis (GitHub Search ×2 = 0, arXiv API пуст, на
+странице статьи только PDF и постер) · `anonymize-it` (PyPI 404) · `Oban` как инструмент обезличивания
+(существует только Elixir-очередь задач) · `OpenAnonymiser` как отдельный проект (есть только
+`anonymiq-light`) · русские рекогнайзеры в Presidio (0) · русские PII-типы в Bedrock (0 из 32) ·
+русский в Comprehend (нет в списке языков вообще) · обезличиватели для Беларуси (УНП), Узбекистана,
+Украины · открытый PII-детектор от Sberbank (есть только base-модели) · Studio Ousia в контексте
+PII/русского · **RuCoCo на HuggingFace** (поиск пуст — а мы ссылаемся на него в 00-charter §2.6 для
+ворот ContextGuard → это открытый риск) · открытый датасет кореференции для русского ·
+замеры задержки Presidio от авторов · русские контекстные слова в Presidio (ни одного) ·
+русские локали `surrogate_ahds` (только `en-US`).
 
-**SurrogateShield:**
-- [x] arXiv 2606.29567, подан 2026-06-28, единственный автор, CC BY 4.0, «14 pages, 1 figure, 9 tables» `[arXiv abs]`
-- [x] Репозиторий Apache-2.0, 2 ★, 0 форков, 0 issues, создан 2026-05-13, push 2026-10-16 `[GitHub API]`
-- [x] Трёхстадийный каскад, 22 типа PII, AES-256-GCM ShadowMap, F1 98.87%, BERTScore +13.26 pp `[абстракт arXiv]`
-- [x] Детальная архитектура: SentinelLayer, MimicGen, ShadowMap, ResolvePass `[raw README]`
-- [x] Все бенчмарк-цифры (утечки, Nemotron-PII, латентность, память, многоходовость, attacker) `[raw README]`
-- [x] Раздел «Limitations» с самокритикой (29 утечек на 96 значений естественного текста, «plain Presidio is about 5× faster and lighter») `[raw README]`
-- [x] Security Design: device.key 0600, HKDF, AAD, «never silently replaced by an empty map» `[raw README]`
-- [x] `en_core_web_lg`, `ssn`, `zip_us`, `phone_us`, `us_bank_number`, `postal_code_uk` — US-специфика `[raw README]`
-- [x] Зависимости включают `faker>=24.0.0`, `presidio-analyzer>=2.2.0` (опционально) `[raw README]`
-
-**Русскоязычные:**
-- [x] **pii-guard**: 20 типов с полным перечнем; 3 режима; Apache-2.0; веса 678 MiB; 178M параметров; GPLv3-предупреждение про `gender-guesser` `[raw README]`
-- [x] **pii-guard** архитектура: 16 модулей правил, Presidio AnalyzerEngine + AnonymizerEngine, PyTorch+transformers, окно 512/stride 128, приоритет правил над моделью, расстояния до ключей (BIK 40, паспорт 80/160, p99=83), «наружу отдаётся значение, а не фраза», восстановление падежа pymorphy3+spaCy, смещения от `normalized_text` `[raw docs/architecture.md]`
-- [x] **rubert-base-pii-ner**: Apache-2.0, ru, apache-2.0, 21 тип / 43 BIO-метки, 178M параметров, F1 83.6 (модель) / 88.9 (пайплайн), полная таблица per-entity F1 (INN 68.3, IP 36.0), параметры обучения, окно 512/stride 128 `[HF API + raw model card]`
-- [x] **pii_benchmark**: MIT, 2 841 предложение, 1K–10K, 597 загрузок, 23 ❤, disjoint от train `[HF]`
-- [x] **Natasha**: 1 359 ★, MIT, тег v1.6.0, PyPI 2023-07-24, 13 релизов, push 2026-10-14 `[GitHub API + PyPI]`
-- [x] **Slovnet**: NER 2 MB, morph 2 MB, syntax 3 MB; диск 27 MB, RAM 205/115/125 MB; 25.3 статьи/с; полные таблицы F1 по 4 датасетам и таблицы init/disk/ram/speed `[raw README]`
-- [x] **Exemtik/pii-bench-ru-en**: MIT, 13 русских типов, 1 810 документов/1 667 спанов; F1 regex_only 0.800/NAME 0.000, regex+morph 0.846/0.794, regex+spacy_ru 0.897/0.910, regex+morph+spacy 0.873/0.785; EN-цифры; ограничения (ИНН↔паспорт) `[raw README]`
-- [x] **DeepPavlov**: переехал в `deeppavlov/`, 6 997 ★, Apache-2.0, push 2025-08-06, PyTorch, «4 to 16 GB RAM» `[GitHub API + raw README]`
-- [x] **Yandex Tomita**: MPL-2.0, 500 ★, push 2020-11-16 `[GitHub API + raw LICENSE]`
-- [x] **spaCy ru**: sm 14.6 MB, md 39.9 MB, lg 489.6 MB; `en_core_web_lg` 382.1 MB; метки LOC/ORG/PER; MIT; лемматизатор `pymorphy3` `[GitHub Releases + spacy-models meta + spaCy source]`
-- [x] **llm-pii-proxy-showcase**: MIT, KZ_BIN/IIN/IIK с валидацией, pymorphy3, `ru_core_news_md`, blake2b+pepper, отказ старта без pepper, SSE StreamRewriter, lemma-стоп-лист, ORG/LOC ≥0.85/длина≥5, усечение до анонимизации (5.99 M символов), деградация без утечки, аудит без значений, дата только в личном контексте `[raw README]`
-- [x] Метаданные 7+ PII-моделей HF (лицензии, языки, параметры, загрузки) `[HF API]`
-
-**Остальное open-source:**
-- [x] scrubadub: 433 ★, Apache-2.0 (репо) vs MIT (PyPI), релиз v2.0.1 2023-09-01, push 2023-09-01, 8 зависимостей вкл. `textblob==0.15.3` `[GitHub API + PyPI]`
-- [x] DataFog: 78 ★, MIT, v4.9.0 2026-09-29, 85 MB `[GitHub API]`
-- [x] anonymiq-light: 0 ★, EUPL-1.2, `nl_core_news_lg`, ~3 GB GPU-образ, `contextual` не реализован `[GitHub API + raw README]`
-- [x] `pydeidentify`: 1 ★, нет лицензии, 2023 `[GitHub API]`
-- [x] `anonymize-it`: PyPI 404 `[PyPI]`
-- [x] npm `deidentify@0.2.0`, MIT `[npm registry]`
-- [x] `nedap/deidentify` 149 ★ MIT; `philterd/phileas` 110 ★ Apache-2.0 push 2026-10-14; `arx` 738 ★ Apache-2.0 `[GitHub API]`
-- [x] private-gpt: 57 583 ★, Apache-2.0, push 2026-10-15 `[GitHub API]`
-- [x] mimesis: 4 848 ★, MIT, v22.2.0 2026-09-23 `[GitHub API]`
-- [x] Faker: 19 447 ★, MIT, push 2026-10-09 `[GitHub API]`
-- [x] 11 LLM-прокси проектов с лицензиями/звёздами/датами `[GitHub Search]`
-- [x] Cloudflare DLP: профили, FLAG/BLOCK, коды 2029/2030, `cf-aig-dlp` `[документация]`
-- [x] LiteLLM Presidio guardrail: `MASK`/`BLOCK`, языки `en/es/de`, чанкинг 500 000 байт, `output_parse_pii` только unmask `[документация]`
-- [x] LiteLLM лицензия MIT `[футер документации]`
-
-**Проприетарные:**
-- [x] Purview: список всех SIT, **4 русских SIT**, XML-определения, `recommendedConfidence` 85/75, `patternsProximity="300"`, шкала 65/75/85, русские ключевые слова (с ошибками: `НДС`, `pасспорт`), паспорт РФ `Checksum: No` `[MS Learn]`
-- [x] Comprehend: PII только «English and Spanish»; русского нет в базовом списке языков `[AWS docs]`
-- [x] Bedrock Guardrails: 32 PII-типа по 6 группам, Block/Mask=`{NAME}`, слепые зоны tool calling, трассировка содержит исходники, CloudWatch `input` содержит исходный запрос, regex без lookaround `[AWS docs]`
-- [x] Google SDP: три вида кастомных детекторов, stored dictionary «up to tens of millions», `minLikelihood`, **сэмплы FPE-суррогата (de/re-identify)** `[GCP docs]`
-
-### 11.2 ТОЛЬКО ПО ДОКУМЕНТАЦИИ / АННОТАЦИИ (не проверял в коде)
-
-- [ ] **Portcullis архитектура в деталях** — только абстракт; PDF и постер не открывал. «Parallel substitution», secure enclave, attestation, конкретные типы сущностей, механизм реконструкции — `[ДОК]`
-- [ ] **Portcullis Hide-and-Seek baseline** — я не установил, кто авторы Hide-and-Seek и что именно за нагрузка «masking and unmasking workloads» `[НЕ ПРОВЕРЕНО]`. **Требует проверки, если мы будем цитировать сравнение**
-- [ ] **pii-guard: сам код** — читал README и `docs/architecture.md` через raw, но `api.github.com/repos/redmadrobot-rnd/pii-guard` вернул пустой объект (`[НЕ ПРОВЕРЕНО]` звёзды, контрибьюторы, дата создания). **Не проверял:** реализацию контрольных сумм, точные паттерны, как именно работает `conflict_resolver`
-- [ ] **pii-guard задержка** — не опубликована, не измерял. Оценка «десятки–сотни мс» — моя, `[НЕ ПРОВЕРЕНО]`
-- [ ] **pymorphy3 лицензия** — предполагаю MIT/permissive, но не открывал `[НЕ ПРОВЕРЕНО]`
-- [ ] **Faker/mimesis русские локали** — наличие `ru_RU` беру из общеизвестности, конкретные файлы локалей не открывал `[ДОК]`
-- [ ] **`dslim/bert-base-NER` размеры** — не открывал модель-карточки `[НЕ ПРОВЕРЕНО]`
-- [ ] **Presidio: список дефолтных регионов `PhoneRecognizer`** — включает ли RU, не проверял `[НЕ ПРОВЕРЕНО]`
-- [ ] **Presidio `sensisitive_patterns.json`** (LLM Guard) — содержимое не открывал, могут быть не-US паттерны `[НЕ ПРОВЕРЕНО]`
-- [ ] **Presidio CHANGELOG (обрезанная часть)** — часть changelog не прочитана (файл большой, вывод обрезан) `[ДОК]`
-- [ ] **Azure AI Language PII: русский** — не проверял `[НЕ ПРОВЕРЕНО]`
-- [ ] **scrubadub: почему расхождение лицензий** Apache-2.0 (репо) vs MIT (PyPI) `[НЕ ПРОВЕРЕНО]`
-- [ ] **Allure of `nedap/deidentify`** — README на `main` вернул 404, структуру не изучал `[НЕ ПРОВЕРЕНО]`
-- [ ] **Детали 11 LLM-прокси проектов** — кроме `llm-pii-proxy-showcase`, читал только описания из GitHub Search, README не открывал `[ДОК]`
-- [ ] **Google DLP: русские infoTypes** — не подтвердил `[НЕ ПРОВЕРЕНО]`
-- [ ] **Google DLP: число встроенных infoType-детекторов** — не получил `[НЕ ПРОВЕРЕНО]`
-- [ ] **Точные размеры моделей в МБ для каждого сканера LLM Guard** — не измерял `[НЕ ПРОВЕРЕНО]`
-- [ ] **Presidio задержка** — само́й документации нет; цифра 8.2 ms взята из чужого self-reported бенчмарка `[НЕ ПРОВЕРЕНО нашим харнесом]`
-
-### 11.3 НЕ НАЙДЕНО (искал, артефакта нет)
-
-- [x] **Код Portcullis** — GitHub Search: `portcullis LLM privacy` = 0, `portcullis bytedance` = 0; arXiv API пуст; на странице статьи нет ссылки на артефакт
-- [x] **`anonymize-it`** — PyPI 404; в GitHub Search только посторонние проекты
-- [x] **`Oban` как инструмент обезличивания PII** — не найден в этом качестве; существует Elixir `Oban` (очередь задач)
-- [x] **`OpenAnonymiser` как отдельный проект** — GitHub Search `openanonymiser OR openanonymizer` = 0; существует только `ConductionNL/anonymiq-light` («OpenAnonymiser Light»)
-- [x] **Русские рекогнайзеры в Presidio** — ни одного
-- [x] **Русские PII-типы в AWS Bedrock Guardrails** — 0 из 32
-- [x] **Русский в AWS Comprehend** — отсутствует в списке языков Comprehend вообще
-- [x] **Открытые обезличиватели для Беларуси (УНП), Узбекистана, Украины** — не найдено; есть только валидаторы внутри мультиязычных пакетов
-- [x] **Открытый PII-детектор от Sberbank** — не найден (есть base-модели `ai-forever/ruBert-base`, используемые другими)
-- [x] **Studio Ousia в контексте PII/анонимизации русского** — не найдено
-- [x] **RuCoCo на HuggingFace** — поиск `rucoco` пуст; наш §2.6 charter ссылается на arXiv-статью, но датасета в HF под этим именем нет → **риск для ворот ContextGuard**
-- [x] **Датасет с разметкой кореференции для русского в открытом доступе** — не подтверждён (см. выше)
-- [x] **Замеры задержки Presidio от самих авторов** — не публикуются
-- [x] **Русские контекстные слова в Presidio** — ни одного (только en/es/it/pl/de/ko/sv/th/tr/fi)
-- [x] **Русские локали `surrogate_ahds`** — только `en-US` в дефолтах
-
-### 11.4 ТРЕБУЕТ УТОЧНЕНИЯ ПОСТАНОВЩИКОМ
-
-- **«SLIM»** — не установил, о каком проекте речь. Возможные кандидаты: SPARQL-интерфейсы,
-  `slim-ai` entity linking, методы дистилляции SLIM. В контексте PII/русского ничего не нашёл.
-- **«SurrogateShield»** — если у постановщика было в виду что-то другое, кроме
-  `arXiv:2606.29567` + `github.com/sherwinvishesh/SurrogateShield`, это надо сказать: других
-  артефактов под этим именем поиск не дал (GitHub Search `SurrogateShield` → 1 результат).
-- **«Yandex Tomita/ner»** — Tomita найден и разобран; **отдельного** «Yandex NER» как публичного
-  артефакта не нашёл. Если имелся в виду Yandex Cloud NLP API — это проприетарный облачный
-  сервис, я его в аудит не включал (не было в списке проприетарных ориентиров).
-- **«Studio Ousia»** — в списке был, но связи с PII/русским не нашёл. Уточнить, что имелось в виду.
+**ТРЕБУЕТ УТОЧНЕНИЯ ПОСТАНОВЩИКОМ.** «SLIM» — не установил, о каком проекте речь (возможные
+кандидаты: SPARQL-интерфейсы, `slim-ai` entity linking, методы дистилляции) · «SurrogateShield» —
+если имелось в виду что-то кроме `arXiv:2606.29567` + `github.com/sherwinvishesh/SurrogateShield`
+(других артефактов под этим именем поиск не дал) · «Yandex NER» — Tomita найден и разобран, отдельного
+публичного «Yandex NER» нет; Yandex Cloud NLP API — проприетарный и в список не входил ·
+«Studio Ousia» — связи с PII/русским не нашёл.
 
 ---
 
