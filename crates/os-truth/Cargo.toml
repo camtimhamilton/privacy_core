@@ -1,0 +1,21 @@
+[package]
+name = "privacy-os-truth"
+description = "Детерминированные идентификаторы устройства: то, что система знает о своём пользователе точно"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+# Зависимость одна: sha2 для отпечатков значений. Криптографии для
+# шифрования здесь нет — она появится в ядре, а не в сборе идентификаторов.
+# Сетевых вызовов крейт не выполняет.
+[dependencies]
+sha2 = "0.10"
+
+[[bin]]
+name = "os-truth"
+path = "cli/src/main.rs"
+
+[lints.rust]
+unsafe_code = "forbid"
