@@ -74,3 +74,291 @@
    zafrem/bastion-rag                                        1 2026-10-15 Go           Apache-2.0 | Security & governance framework for RAG/LLM pipelines — five composable modules covering prompt-injection defe
    Nour-eddineAE/anonymo                                     1 2026-05-10 Python       None | Anonymize before you prompt. Reconstruct after. A modular Python engine that masks personal data with reversib
    CalvinTTooS/prompt-optimizer                              1 2026-08-30 TypeScript   MIT | Optimize prompts for Claude & Gemini with local, privacy-first PII anonymization: a Windows/Tauri desktop app 
+   dakshjain-1616/Claude-Opus-4.7-vs-GPT-5.5-vs-DeepSeek-V4-Pro-Reasoning-Benchmark      1 2026-04-27 Python       None | Head-to-head reasoning benchmark across Opus 4.7, GPT-5.5, and DeepSeek V4 Pro on hard discriminating prompts.
+   krisstern9-create/ghost-proxy                             1 2026-03-18 Python       None | 🛡️ AI Privacy Firewall - Protect your prompts. Own your data. Trust no one.  Local proxy server that anonymize
+   spaceshiptrip/llm-anonymizer                              0 2026-05-16 HTML         None | anonymize private info to enable LLM prompts
+   richardsbrian/anonymize_llm                               0 2024-12-10 Python       None | A Flask app that anonymizes Python code and prompts, replacing sensitive identifiers with placeholders. It sec
+   gburlet/VTN-LLM-Anonymizer                                0 2025-04-09 Python       MIT | An example Python application for anonymizing sensitive data prior to LLM prompting
+   VirajReddy10/safe-prompt                                  0 2026-06-23 Python       MIT | Privacy-preserving PII detection and anonymization for LLM prompts
+## QUERY: pii proxy LLM (total=277)
+   sgasser/pasteguard                                      765 2026-10-13 TypeScript   Apache-2.0 | AI gets the context. Not your private data. Local-first privacy proxy for browser chat, AI APIs, and coding ag
+   zeroc00I/DontFeedTheAI                                  665 2026-07-08 Python       MIT | Transparent anonymization proxy for AI-assisted pentesting. Strips IPs, credentials, hostnames and PII before 
+   xiaYuTian11/maskit                                      310 2026-10-14 Python       AGPL-3.0 | 数据面具 Data Maskit — 专为大模型打造的本地隐私脱敏网关（请求自动打码，回复流式还原；支持 Cursor / Claude Code / Codex / Pi 等任意可配 Base URL 工具）
+   CassiopeiaCode/CosyRedactGateway                        103 2026-10-10 JavaScript   Apache-2.0 | Lightweight, stateless privacy gateway for LLM APIs — redact secrets before OpenAI/Anthropic upstreams and res
+   ax128/AegisGate                                          70 2026-09-14 Python       MIT | Open-source security gateway for LLM APIs — prompt injection detection, PII redaction, dangerous response   sa
+   openbashok/promptzero                                    70 2026-05-18 Python       None | Zero trace. Full answer. — Transparent Claude API proxy that anonymizes PII and sensitive data before it leave
+   crp4222/PrivAiTe                                         54 2026-10-09 Python       BSD-3-Clause | Self-hosted PII redaction proxy for LLM APIs and agent CLIs. Scrubs names, emails and secrets from Claude Code
+   techlab-innov/llmtrace                                   53 2026-08-09 Python       MIT | Zero-code LLM security & observability proxy. Real-time prompt injection detection, PII scanning, and cost con
+   occludra/gateway                                         47 2026-08-16 Python       Apache-2.0 | Self-hosted AI security proxy. Redact PII, block prompt injection, route to any LLM provider. OpenAI-compatibl
+   rohansx/cloakpipe                                        47 2026-10-11 Rust         MIT | CloakPipe is the verifiable control plane for production AI agents: evaluate a release, certify it, enforce it
+   yatuk/tamga                                              44 2026-10-12 Go           AGPL-3.0 | Self-hosted LLM security proxy. PII redaction, prompt injection defense, KVKK/GDPR/PCI-DSS compliance. Sub-mil
+   giancarloerra/JanuScope                                  32 2026-10-09 TypeScript   AGPL-3.0 | Local-first MCP policy proxy. Tool-block, SQL-mutation gate, PII redact, audit, rate-limit, OpenTelemetry, vau
+   zolderio/token-proxy                                     31 2026-04-13 Python       Apache-2.0 | A transparent PII redaction proxy for LLM API traffic. Sits between an application and an LLM provider (curren
+   MaxwellCalkin/sentinel-ai                                24 2026-03-09 Python       Apache-2.0 | Real-time AI safety guardrails for LLM apps. 10 scanners: prompt injection, PII, harmful content, code vulnera
+   gbrigandi/mcp-server-conceal                             18 2025-07-24 Rust         MIT | Privacy-focused MCP proxy that intelligently pseudo-anonymizes PII in real-time before data reaches external A
+   Athroniaeth/piighost                                     14 2026-10-09 Python       MIT | Reversible PII masking for LLM agents: piighost replaces personal data with placeholders before the model sees
+   Mattral/GuardRail-Studio                                 13 2026-09-12 Python       Apache-2.0 | Built around a real, third-party Rust reverse proxy (guardrail-cli) that inspects prompts for injection attemp
+   ninadphalak/LLM-Shield-Proxy                             12 2026-10-11 Python       Apache-2.0 | Streaming privacy for LLM apps: pii-leak-benchmark (does your gateway leak PII in streams?), chunk-invariance 
+   Aajil-Labs/arabic-pii-py                                 12 2026-05-31 Python       Apache-2.0 | Keep Arabic & Gulf personal data off the LLM — local-first, reversible PII tokenization (CLI, proxy, and a Cla
+   outgate-ai/og-local                                      12 2026-10-15 Go           NOASSERTION | A local privacy proxy for coding agents. Runs PII and secret detection in-process, redacts before your prompts
+## QUERY: pii masking gateway (total=99)
+   Artemy-And/spillway                                      16 2026-10-15 TypeScript   AGPL-3.0 | Self-hosted AI gateway for small teams: a key per person, budgets that fall back to local models, PII masking 
+   ilter-ai/ilter                                           14 2026-10-03 Go           NOASSERTION | Self-hosted AI gateway in a single Go binary — MCP gateway, budget limits, PII masking, smart router, and othe
+   wuliaobaxian/ShieldSentinel-AI                           10 2026-03-01 TypeScript   MIT | Enterprise AI Security Gateway — PII masking, prompt injection & vector attack detection
+   oleg-vdv/AI-Gateway                                      10 2026-10-06 Python       AGPL-3.0 | On-prem LLM compliance gateway: detects PII and secrets in prompts, reversibly masks them before they reach Ch
+   alphaparkinc/genpark-enterprise-llm-pii-masking-redline-gateway-skill      8 2026-09-02 Python       None | Enterprise LLM PII masking & reversible redaction privacy gateway (Kindo/Lakera)
+   alphaparkinc/genpark-ai-gateway-proxy-router-governance-skill      8 2026-08-11 Python       None | AI Gateway proxy router, rate limiting & PII masking engine (ngrok style)
+   alphaparkinc/genpark-enterprise-ai-dlp-governance-gateway-skill      8 2026-08-22 Python       None | Enterprise AI DLP gateway enforcing zero-trust PII masking and regulatory compliance on LLMs (Credal style)
+   onion2005/LLM-Gateway                                     6 2026-04-01 Python       None | Production LLM gateway on EKS — multi-team access control, PII masking, Bedrock Guardrails, cost-based routing
+   csnyder256/privacy-gateway                                6 2026-10-15 Python       MIT | Local-first, source-agnostic privacy gateway for reversible PII masking, policy-controlled redaction, and synt
+   iqbalr3000/palang-ai                                      6 2026-10-03 TypeScript   MIT | OpenAI-compatible security gateway for LLM apps and agents, built for Indonesian data. Masks PII (NIK, NPWP, p
+   kapiljain1989/voiceagent                                  4 2026-06-22 Go           Apache-2.0 |  Telecom-native AI call center platform — SIPREC observer + B2BUA gateway with real-time transcription, agent 
+   VigneshReddy-afk/ajah                                     3 2026-10-15 Go           None | Self-hostable LLM observability platform. Gateway proxy, cost attribution, PII masking, quality scoring.
+   dogrucanemek-alt/conarium                                 3 2026-10-15 TypeScript   MIT | Self-hosted governance layer between AI assistants and your real data. Deterministic PII masking, allow/deny p
+   DavidGodefroid/locksql                                    2 2026-10-14 Go           Apache-2.0 | Your AI writes the query, you hold the key. A human-approved, PII-masking database gateway for AI agents (CLI 
+   remask-dev/remask-desktop                                 2 2026-09-22 TypeScript   None | Local-first PII protection gateway for AI apps and APIs. Detects and masks sensitive data before it reaches AI
+   themulle/autheris                                         2 2026-10-16 C#           NOASSERTION | Autheris is a high-performance Enterprise Data & Governance Gateway for federated APIs. Unifies GraphQL Federa
+   kvrishwanth1800-cmd/frostglass                            2 2026-09-23 Python       Apache-2.0 | Self-hosted AI gateway and DLP proxy that detects and masks PII, secrets, and confidential data in LLM prompts
+   Briansalazarh/equiguard-ai-gateway                        1 2026-05-06 Java         MIT | Serverless AI Middleware for Automated PII Masking and Ethical Fairness Auditing
+   vin-jl/sentinel                                           1 2026-03-25 Python       None | A zero-trust AI gateway for real-time PII masking, dynamic LLM routing, and telemetry logging.
+   OilSeller2001/ai-security-gateway                         1 2026-07-06 Python       None | An enterprise-grade, zero-trust API security gateway middleware built with FastAPI to perform recursive PII ma
+## QUERY: redact prompts before sending to LLM (total=7)
+   nabeelxy/prompt-sanitizer                                 1 2026-02-17 None         None | Redact/Clean prompts before sending to LLMs/Agents
+   dc9-dev/promptveil                                        1 2026-09-14 Go           MIT | Redact secrets from logs, configs and prompts before sending context to AI. Offline Go library and CLI with ze
+   Rohan01000/GenAI-Privacy-Firewall                         1 2026-03-30 Python       None | A machine learning-powered reverse proxy that detects and redacts sensitive information from prompts before se
+   MStefa003/ai-privacy-proxy                                1 2026-08-12 TypeScript   None | An open-source, low-latency AI Privacy Proxy that automatically redacts PII and sensitive data before sending 
+   Hitesh1326/contextshield                                  1 2026-04-01 TypeScript   MIT | Local-first prompt scrubber and enhancer for VS Code. Redacts PII and secrets, improves clarity before you sen
+   edujbarrios/promptshield-llm                              0 2026-07-08 Python       NOASSERTION | Python package that redacts sensitive data from LLM prompts before sending them to a model.
+   swenteo/tiktoktechjam2025                                 0 2025-08-30 JavaScript   None | PII Guard is a privacy-first application that detects and redacts personally identifiable information (PII) fr
+## QUERY: pseudonymization LLM (total=123)
+   postralai/masquerade                                     77 2025-08-11 Python       MIT | The Privacy Firewall for LLMs
+   DavidCarliez/cover                                       56 2026-10-08 Go           Apache-2.0 | Keep private data, internal infrastructure and secrets out of cloud coding agents without breaking your workfl
+   rohansx/cloakpipe                                        47 2026-10-11 Rust         MIT | CloakPipe is the verifiable control plane for production AI agents: evaluate a release, certify it, enforce it
+   zolderio/token-proxy                                     31 2026-04-13 Python       Apache-2.0 | A transparent PII redaction proxy for LLM API traffic. Sits between an application and an LLM provider (curren
+   akazah/prompt-anonymizer                                 30 2026-07-22 TypeScript   MIT | A buddy check for your prompts — before they reach an LLM. On-device, reversible anonymization that catches th
+   fishonbike/vault-engine                                  25 2026-07-02 Python       Apache-2.0 | A local-LLM privacy layer for anything you paste into a cloud model — detect, tokenize, restore. Zero deps, re
+   Athroniaeth/piighost                                     14 2026-10-09 Python       MIT | Reversible PII masking for LLM agents: piighost replaces personal data with placeholders before the model sees
+   CertaMesh/gaze                                           12 2026-10-15 Rust         Apache-2.0 | Reversible PII pseudonymization runtime for agentic LLM workflows.
+   wan9yu/argus-redact                                      12 2026-10-11 Python       Apache-2.0 | Encrypt PII, not meaning. Locally.
+   H-Ismael/ollamonym                                        7 2026-03-27 Python       Apache-2.0 | Psuedo annonymizer balancing deterministic and llm based techniques.
+   openmasq/openmasq                                         7 2026-10-15 TypeScript   Apache-2.0 | Privacy-first desktop chat for multiple LLMs: sensitive values are redacted on-device before any network call,
+   c2siorg/PII-Safe                                          6 2026-03-11 None         Apache-2.0 | PII-Safe is a middleware and MCP compatible privacy plugin that automatically detects, redacts, or pseudonymiz
+   nikshepsvn/veilstream                                     6 2026-04-22 Python       NOASSERTION | Streaming PII proxy for LLM chat. Pluggable detector, per-session vault, and cryptographic provenance-anchored
+   csnyder256/privacy-gateway                                6 2026-10-15 Python       MIT | Local-first, source-agnostic privacy gateway for reversible PII masking, policy-controlled redaction, and synt
+   yurivenancio30/llm-dlp                                    5 2026-10-16 Go           MIT | Local proxy that masks sensitive data between you and the LLM (Claude Code): the API only sees pseudonyms
+   avvocati-e-mac/AnonyMCP                                   5 2026-06-11 TypeScript   AGPL-3.0 | Server MCP locale che pseudonimizza documenti legali italiani prima di esporli a un LLM (privacy by design, of
+   MrPunyapal/laravel-ai-aegis                               5 2026-08-22 PHP          MIT | A local-first security middleware for the Laravel AI SDK — blocks prompt injection attacks and pseudonymizes P
+   redoubt-lab/Casper                                        4 2025-09-30 TypeScript   MPL-2.0 | Casper is a browser extension that aims to protect user privacy by detecting and pseudonymizing sensitive info
+   comptoir-des-signaux/sas-confiance-ia                     4 2026-09-04 Python       EUPL-1.2 | Sas de pseudonymisation avant IA pour les collectivités territoriales : détection des données personnelles fra
+   quiethours-eu/cloakspan                                   3 2026-10-08 Python       Apache-2.0 | Self-hosted privacy firewall for LLM traffic. Detect, pseudonymize, route, and safely restore sensitive data t
+## QUERY: topic:pii-detection (total=711)
+   data-privacy-stack/presidio                           11345 2026-10-09 Python       MIT | An open-source framework for detecting, redacting, masking, and anonymizing sensitive data (PII) across text, 
+   maziyarpanahi/openmed                                  5693 2026-10-14 Python       Apache-2.0 | Local-first healthcare AI: clinical NER and HIPAA PII de-identification on hardware you control. 2,200+ medica
+   sgasser/pasteguard                                      765 2026-10-13 TypeScript   Apache-2.0 | AI gets the context. Not your private data. Local-first privacy proxy for browser chat, AI APIs, and coding ag
+   redhuntlabs/Octopii                                     747 2025-01-22 Python       NOASSERTION | An AI-powered Personal Identifiable Information (PII) scanner.
+   arcjet/arcjet-js                                        691 2026-10-15 TypeScript   Apache-2.0 | Runtime security for AI apps and agents: prompt injection detection, tool-call authorization, sensitive-data r
+   google/magritte                                         439 2023-09-29 C++          Apache-2.0 | Mediapipe-based library to redact faces from videos and images
+   dataiku/kiji-proxy                                      437 2026-10-15 Go           Apache-2.0 | Privacy proxy for your OpenAI requests
+   thoughtbot/top_secret                                   419 2026-05-14 Ruby         MIT | Filter sensitive information from free text before sending it to external services or APIs, such as chatbots a
+   jasonzhang06-source/sharelint                           395 2026-10-12 Python       MIT | Local privacy preflight for files, folders, and archives—catch secrets, PII, metadata, and hidden document con
+   packyme/privacy-filter                                  338 2026-06-09 Go           MIT | LLM privacy gateway in Go — millisecond-latency PII and secret redaction. Used in production by PackyCode.
+   ferro-labs/ai-gateway                                   269 2026-10-16 Go           Apache-2.0 | Unified AI Gateway for 30+ LLMs (OpenAI, Anthropic, Bedrock, Azure etc) with Caching, Guardrails, A/B test & c
+   databrickslabs/discoverx                                142 2026-03-27 Python       NOASSERTION | A Swiss-Army-knife for your Data Intelligence platform administration.
+   jnMetaCode/shellward                                    140 2026-09-28 TypeScript   Apache-2.0 | AI 应用合规网关 · 一行命令体检 AI 项目的「数据出境 / 硬编码密钥 / 个人信息暴露」（网安法·PIPL·等保2.0·数据出境·AI标识），并给出境内模型替代建议；可作运行时防护拦截注入与数据外泄 · 中文优先
+   SleuthCo/clawshield-public                              130 2026-03-26 Go           Apache-2.0 | Security proxy for AI agents. Scans every message for prompt injection, PII, and secrets. Defense-in-depth: Go
+   hounddogai/hounddog                                     129 2026-10-10 Shell        None | Deterministic Privacy Code Scanner for GDPR Data Mapping Evidence and Proactive AI Governance
+   KOKOSde/localmod                                        129 2026-04-11 Python       MIT | Self-hosted content moderation API that outperforms Amazon Comprehend. 100% offline, your data never leaves yo
+   awslabs/sensitive-data-protection-on-aws                127 2026-08-31 TypeScript   Apache-2.0 | The Sensitive Data Protection on AWS solution allows enterprise customers to create data catalogs, discover, p
+   rpgeeganage/pII-guard                                   114 2025-11-01 TypeScript   NOASSERTION | 🛡️ PII Guard is an LLM-powered tool that detects and manages Personally Identifiable Information (PII) in logs
+   EdyVision/pii-codex                                     102 2026-02-15 Python       BSD-3-Clause | A research python package for detecting, categorizing, and assessing the severity of personal identifiable inf
+   awslabs/ferret-scan                                      98 2026-10-16 Go           Apache-2.0 | Find and redact sensitive data before it leaks — a fast, offline CLI and Go library that detects PII, secrets,
+## QUERY: topic:anonymization (total=868)
+   data-privacy-stack/presidio                           11345 2026-10-09 Python       MIT | An open-source framework for detecting, redacting, masking, and anonymizing sensitive data (PII) across text, 
+   google/differential-privacy                            3370 2026-10-15 Go           Apache-2.0 | Google's differential privacy libraries.
+   CatchTheTornado/text-extract-api                       3183 2025-12-08 Python       MIT | Document (PDF, Word, PPTX ...) extraction and parse API using state of the art modern OCRs + Ollama supported 
+   kdeldycke/awesome-iam                                  2305 2026-10-12 None         CC0-1.0 | 👤 Identity and Access Management knowledge for cloud platforms
+   GreenmaskIO/greenmask                                  1785 2026-10-10 Go           Apache-2.0 | Database anonymization and test data management
+   securitybunker/databunker                              1492 2026-07-28 Go           MIT | Secure Vault for Customer PII/PHI/PCI/KYC Records
+   xataio/pgstream                                        1199 2026-10-15 Go           Apache-2.0 | PostgreSQL replication with DDL changes
+   Rizzo-AI-Academy/rizzo-pii                             1183 2026-09-25 Python       MIT | Local-first privacy guard: anonymize your documents before sharing with LLMs.
+   Anon-Planet/thgtoa                                      870 2026-07-13 Python       CC-BY-SA-4.0 | The comprehensive guide for online anonymity and OpSec.
+   serpro69/kotlin-faker                                   511 2026-10-03 Kotlin       MIT | Port of a popular ruby faker gem written in kotlin. Generate realistically looking fake data such as names, ad
+   google/magritte                                         439 2023-09-29 C++          Apache-2.0 | Mediapipe-based library to redact faces from videos and images
+   thoughtbot/top_secret                                   419 2026-05-14 Ruby         MIT | Filter sensitive information from free text before sending it to external services or APIs, such as chatbots a
+   intenthq/anon                                           352 2019-04-01 Go           MIT | A UNIX Command To Anonymise Data
+   ArtLabss/open-data-anonymizer                           303 2023-07-12 Python       BSD-3-Clause | Python Data Anonymization & Masking Library For Data Science Tasks
+   statice/awesome-synthetic-data                          267 2024-01-11 None         Apache-2.0 | A curated list of awesome synthetic data tools (open source and commercial).
+   danyuchn/pii-guard                                      249 2026-10-02 Python       MIT | 繁體中文（台灣）個人資料去識別化工具，讓業務文件可以安全地送進 AI 處理 / Reversible Traditional-Chinese (Taiwan) PII de-identification for LLM 
+   rap2hpoutre/pg-anonymizer                               239 2024-08-30 TypeScript   MIT | Dump anonymized PostgreSQL database with a NodeJS CLI
+   makinacorpus/DbToolsBundle                              234 2026-06-10 PHP          MIT | A PHP library to back up, restore and anonymize databases
+   Smile-SA/gdpr-dump                                      230 2026-02-24 PHP          GPL-3.0 | Utility that creates anonymized database dumps (MySQL only). Provides default config templates for Magento, Dr
+   samber/slog-formatter                                   226 2026-09-01 Go           MIT | 🚨 slog: Attribute formatting
+## QUERY: topic:data-anonymization (total=162)
+   data-privacy-stack/presidio                           11345 2026-10-09 Python       MIT | An open-source framework for detecting, redacting, masking, and anonymizing sensitive data (PII) across text, 
+   securitybunker/databunker                              1492 2026-07-28 Go           MIT | Secure Vault for Customer PII/PHI/PCI/KYC Records
+   arx-deidentifier/arx                                    738 2025-10-01 Java         Apache-2.0 | ARX is a comprehensive open source data anonymization tool aiming to provide scalability and usability. It sup
+   dataiku/kiji-proxy                                      437 2026-10-15 Go           Apache-2.0 | Privacy proxy for your OpenAI requests
+   thoughtbot/top_secret                                   419 2026-05-14 Ruby         MIT | Filter sensitive information from free text before sending it to external services or APIs, such as chatbots a
+   ArtLabss/open-data-anonymizer                           303 2023-07-12 Python       BSD-3-Clause | Python Data Anonymization & Masking Library For Data Science Tasks
+   makinacorpus/DbToolsBundle                              234 2026-06-10 PHP          MIT | A PHP library to back up, restore and anonymize databases
+   0xdad0/HideDroid                                        217 2026-09-02 Java         AGPL-3.0 | HideDroid is an Android app that allows the per-app anonymization of collected personal data according to a pr
+   BMW-InnovationLab/BMW-Anonymization-API                 191 2024-02-09 Python       Apache-2.0 | This repository allows you to anonymize sensitive information in images/videos. The solution is fully compatib
+   moyupeng0422/legal-doc-redactor                         131 2026-03-29 HTML         MIT | 法律文件脱敏/还原工具 - 智能识别敏感 信息，支持批量处理
+   rapiddweller/datamimic                                  116 2026-10-15 Python       MIT | Model-driven synthetic test data for CI/CD and analytics - deterministic, privacy-preserving, and domain-aware
+   privateai/deid-examples                                  92 2026-10-14 Jupyter Notebook MIT | Examples scripts that showcase how to use Private AI Text to de-identify, redact, hash, tokenize, mask and syn
+   jftuga/deidentification                                  59 2025-05-03 Python       MIT | Deidentify people's names and gender specific pronouns
+   IFCA-Advanced-Computing/anjana                           50 2026-10-16 Python       Apache-2.0 | ANJANA is a Python library for anonymizing sensitive data
+   aliengiraffe/deidentify                                  41 2026-08-20 Go           MIT | Go library that detects personally identifiable information in text and structured data and replaces it with d
+   snaplet/docs                                             29 2024-09-01 HTML         None | Snaplet Documentation
+   KI-AIM/Cinnamon                                          29 2026-10-14 Java         Apache-2.0 | Cinnamon is a modular application designed to offer robust functionalities for data anonymization, synthetizat
+   Joopinhontas/tokenveil-oss                               28 2026-08-14 HTML         NOASSERTION | Real-time data anonymization for LLMs: secure your logs and conversations across cloud or local environments. 
+   thoughtworks-datakind/anonymizer                         22 2022-12-26 Python       None | Library for identification, anonymization and de-anonymization of PII data
+   fcarvajalbrown/MaskOps                                   21 2026-08-30 Python       MPL-2.0 | High-speed PII masking as a Polars plugin, powered by Rust
+## QUERY: topic:pii (total=1324)
+   data-privacy-stack/presidio                           11345 2026-10-09 Python       MIT | An open-source framework for detecting, redacting, masking, and anonymizing sensitive data (PII) across text, 
+   maziyarpanahi/openmed                                  5693 2026-10-14 Python       Apache-2.0 | Local-first healthcare AI: clinical NER and HIPAA PII de-identification on hardware you control. 2,200+ medica
+   CatchTheTornado/text-extract-api                       3183 2025-12-08 Python       MIT | Document (PDF, Word, PPTX ...) extraction and parse API using state of the art modern OCRs + Ollama supported 
+   capitalone/DataProfiler                                1595 2026-09-14 Python       Apache-2.0 | What's in your data? Extract schema, statistics and entities from datasets
+   securitybunker/databunker                              1492 2026-07-28 Go           MIT | Secure Vault for Customer PII/PHI/PCI/KYC Records
+   Rizzo-AI-Academy/rizzo-pii                             1183 2026-09-25 Python       MIT | Local-first privacy guard: anonymize your documents before sharing with LLMs.
+   sgasser/pasteguard                                      765 2026-10-13 TypeScript   Apache-2.0 | AI gets the context. Not your private data. Local-first privacy proxy for browser chat, AI APIs, and coding ag
+   redhuntlabs/Octopii                                     747 2025-01-22 Python       NOASSERTION | An AI-powered Personal Identifiable Information (PII) scanner.
+   rohitcoder/hawk-eye                                     507 2026-07-04 Python       NOASSERTION | A powerful scanner to scan your Filesystem, S3, MySQL, Redis, Google Cloud Storage and Firebase storage for PI
+   WangYihang/pii2pw                                       465 2026-10-08 Python       None | PII2PW turns a target's personal information — name, birthday, phone number, places and so on — into a ranked 
+   thoughtbot/top_secret                                   419 2026-05-14 Ruby         MIT | Filter sensitive information from free text before sending it to external services or APIs, such as chatbots a
+   tokern/piicatcher                                       348 2024-01-05 Python       Apache-2.0 | Scan databases and data warehouses for PII data. Tag tables and columns in data catalogs like Amundsen and Dat
+   runta-dev/clawshell                                     345 2026-07-13 Rust         Apache-2.0 | The local runtime control layer for OpenClaw/Hermes-agent, PII & sensitive credentials protection.
+   data-privacy-stack/presidio-research                    317 2026-10-14 Jupyter Notebook MIT | This package features data-science related tasks for developing new recognizers for Presidio. It is used for t
+   xiaYuTian11/maskit                                      310 2026-10-14 Python       AGPL-3.0 | 数据面具 Data Maskit — 专为大模型打造的本地隐私脱敏网关（请求自动打码，回复流式还原；支持 Cursor / Claude Code / Codex / Pi 等任意可配 Base URL 工具）
+   localai-org/privacy-filter.cpp                          305 2026-07-02 C++          MIT | OpenAI's privacy filter NER model architecture implemented in a minimal C++/GGML runtime
+   danyuchn/pii-guard                                      249 2026-10-02 Python       MIT | 繁體中文（台灣）個人資料去識別化工具，讓業務文件可以安全地送進 AI 處理 / Reversible Traditional-Chinese (Taiwan) PII de-identification for LLM 
+   samber/slog-formatter                                   226 2026-09-01 Go           MIT | 🚨 slog: Attribute formatting
+   mkbula/HideMyData                                       192 2026-05-05 Swift        GPL-3.0 | Native macOS PII removal software with on device Vision OCR and OpenAI privacy filter model
+   cxumol/promptmask                                       156 2026-01-04 Python       MIT | Never give AI companies your secrets! A local LLM-based privacy filter for LLM users. Seamless integration wit
+## QUERY: topic:de-identification (total=144)
+   data-privacy-stack/presidio                           11345 2026-10-09 Python       MIT | An open-source framework for detecting, redacting, masking, and anonymizing sensitive data (PII) across text, 
+   arx-deidentifier/arx                                    738 2025-10-01 Java         Apache-2.0 | ARX is a comprehensive open source data anonymization tool aiming to provide scalability and usability. It sup
+   google/magritte                                         439 2023-09-29 C++          Apache-2.0 | Mediapipe-based library to redact faces from videos and images
+   mplspunk/awesome-privacy-engineering                    202 2026-08-14 None         None | A curated list of resources related to privacy engineering
+   privateai/deid-examples                                  92 2026-10-14 Jupyter Notebook MIT | Examples scripts that showcase how to use Private AI Text to de-identify, redact, hash, tokenize, mask and syn
+   DataFog/datafog-python                                   78 2026-10-05 Python       MIT | Offline PII firewall for AI agents and LLM apps: fast local detection and redaction, Claude Code hook, LiteLLM
+   Voice-Privacy-Challenge/Voice-Privacy-Challenge-2022     69 2026-07-13 Python       None | Baseline Recipe for VoicePrivacy Challenge 2022: anonymization systems and evaluation software
+   jftuga/deidentification                                  59 2025-05-03 Python       MIT | Deidentify people's names and gender specific pronouns
+   nroduit/karnak                                           52 2026-10-06 Java         NOASSERTION | DICOM gateway for de-identification or tag morphing
+   nf-core/detaxizer                                        25 2026-10-14 Nextflow     MIT | A pipeline to identify (and remove) certain sequences from raw genomic data. Default taxon to identify (and re
+   privateai/pai-thin-client                                23 2026-10-15 Python       MIT | A python client used to interact with the Private AI's API
+   icescentral/MASK_public                                  21 2022-06-23 Python       Apache-2.0 | Masking identifiable information from health related documents.
+   anonde-io/anonde                                         18 2026-10-15 Go           Apache-2.0 | Local-first PII anonymization and de-anonymization in Go. Multilingual via GLiNER NER + 73 pattern recognizers
+   omers/pii-anonymizer-api                                 14 2026-10-06 Python       None | PII Anonymizer service based on python with FastAPI
+   k13lucien/maskme                                         13 2026-07-17 Python       MIT | Agnostic Python library for data anonymazation: anonymizing structured, semi-structured, and unstructured data
+   IBM/READI                                                12 2026-10-15 Python       Apache-2.0 | READI
+   Clinacuity/CliniDeID                                     11 2023-08-13 Java         GPL-3.0 | CliniDeID automatically de-identifies clinical text notes according to the HIPAA Safe Harbor method. It accura
+   oas114/EduShield                                         11 2026-08-31 HTML         MIT | 教育隱私保護系統 — 純前端執行的去識別化與還原工具。Zero-Trust Data Anonymization Shield for AI. 
+   KeeplerIO/de-identification-framework                    11 2021-11-15 Python       None | Application of our De-identification Framework with open source technologies, enabling enterprises to take own
+   PraneelBhatia/redactable                                  9 2026-06-05 Python       Apache-2.0 | Deterministic-first PII/PHI de-identification you can prove: benchmarked recall, jurisdiction policy packs, re
+## QUERY: pii detection russian (total=7)
+   bekzod/yashirgich                                         3 2026-02-15 Python       None | Uzbek/Russian PII detection and masking using ML (rubai) + rule-based (Presidio) models
+   SergeyK88i/pii-obfuscator                                 0 2026-09-24 Python       None | PII detection and deterministic pseudonymization for Russian text
+   feuerstrahll/ru-pii-detection-system                      0 2026-09-22 None         MIT | Privacy-first, explainable system for detecting Russian personal data in unstructured organizational sources, 
+   sergeysemenovessg-droid/anonym2                           0 2026-03-26 Python       None | PII Anonymization & Deanonymization for Text and Documents. Supports DOCX, PDF, XLSX, TXT. Russian PII detecti
+   k1ddy/kazpii-bench                                        0 2026-10-12 Python       None | Open benchmark for PII detection in Kazakh and Russian texts: generator, KazNERD ingest, harness, leaderboard
+   Exemtik/pii-bench-ru-en                                   0 2026-05-31 Python       NOASSERTION | Bilingual (RU/EN) PII detection & reversible tokenization — pymorphy3 for Russian names, spaCy for English, re
+   Ramazanm1nd3R/qorgau                                      0 2026-07-02 Python       None | LLM safety for low-resource languages — jailbreak & prompt-injection detection, PII/NER, and guardrails for Ka
+## QUERY: russian ner pii (total=11)
+   levitation-opensource/DataAnonymiser                      7 2026-01-15 Python       MPL-2.0 | Anonymises data inside text files and in sheet files. It recognises and removes various sorts of personally id
+   dewil/pii-mask                                            4 2026-10-09 Python       MIT | Локальный шлюз маскировки персональных данных перед отправкой текста в облачные LLM: mask/unmask, stateless ma
+   vovkins/ru-llm-proxy                                      1 2026-10-13 Python       None | Прокси для безопасного доступа к LLM: LiteLLM, Presidio, русскоязычная BERT NER, маскирование персональных дан
+   cndfdv/docx-anonymizer                                    1 2026-08-21 Python       None | Local DOCX anonymizer: GLiNER multilingual PII model plus Russian identifier rules, runs fully offline in Dock
+   zubarevdm/pii-gateway                                     0 2026-09-29 Python       None | Local OpenAI-compatible proxy that masks Russian PII (names, INN/SNILS, addresses) before sending prompts to f
+   Quakeer444/pii-arena                                      0 2026-09-22 Python       MIT | PII Arena — the independent benchmark for PII and secret detectors across Russian, English and multilingual da
+   feuerstrahll/ru-pii-detection-system                      0 2026-09-22 None         MIT | Privacy-first, explainable system for detecting Russian personal data in unstructured organizational sources, 
+   Exemtik/pii-bench-ru-en                                   0 2026-05-31 Python       NOASSERTION | Bilingual (RU/EN) PII detection & reversible tokenization — pymorphy3 for Russian names, spaCy for English, re
+   Ramazanm1nd3R/qorgau                                      0 2026-07-02 Python       None | LLM safety for low-resource languages — jailbreak & prompt-injection detection, PII/NER, and guardrails for Ka
+   mynka999/legal-anonymizer                                 0 2026-07-17 Python       MIT | Локальный анонимизатор юридических документов перед отправкой в облачные LLM: Natasha NER офлайн, проверка гла
+   alexmaralless-bit/docx-anonymizer                         0 2026-10-15 JavaScript   MIT | Расширение Chrome: анонимизирует договоры .docx перед отправкой в ChatGPT/Claude — плейсхолдеры вместо ФИО, ко
+## QUERY: llm privacy proxy (total=209)
+   sgasser/pasteguard                                      765 2026-10-13 TypeScript   Apache-2.0 | AI gets the context. Not your private data. Local-first privacy proxy for browser chat, AI APIs, and coding ag
+   xiaYuTian11/maskit                                      310 2026-10-14 Python       AGPL-3.0 | 数据面具 Data Maskit — 专为大模型打造的本地隐私脱敏网关（请求自动打码，回复流式还原；支持 Cursor / Claude Code / Codex / Pi 等任意可配 Base URL 工具）
+   inkdust2021/VibeGuard                                   229 2026-10-09 Go           Apache-2.0 | Uses just 1% memory while protecting 99% of your personal privacy.
+   voidmind-io/voidllm                                     141 2026-09-30 Go           NOASSERTION | Privacy-first LLM proxy and AI gateway - load balancing, multi-provider routing, API key management, usage tra
+   CassiopeiaCode/CosyRedactGateway                        103 2026-10-10 JavaScript   Apache-2.0 | Lightweight, stateless privacy gateway for LLM APIs — redact secrets before OpenAI/Anthropic upstreams and res
+   openbashok/promptzero                                    70 2026-05-18 Python       None | Zero trace. Full answer. — Transparent Claude API proxy that anonymizes PII and sensitive data before it leave
+   crp4222/PrivAiTe                                         54 2026-10-09 Python       BSD-3-Clause | Self-hosted PII redaction proxy for LLM APIs and agent CLIs. Scrubs names, emails and secrets from Claude Code
+   Joopinhontas/tokenveil-oss                               28 2026-08-14 HTML         NOASSERTION | Real-time data anonymization for LLMs: secure your logs and conversations across cloud or local environments. 
+   fabriziosalmi/aidlp                                      21 2026-10-14 Python       MIT | Data Loss Prevention (DLP) for LLM endpoints.
+   gbrigandi/mcp-server-conceal                             18 2025-07-24 Rust         MIT | Privacy-focused MCP proxy that intelligently pseudo-anonymizes PII in real-time before data reaches external A
+   Athroniaeth/piighost                                     14 2026-10-09 Python       MIT | Reversible PII masking for LLM agents: piighost replaces personal data with placeholders before the model sees
+   ninadphalak/LLM-Shield-Proxy                             12 2026-10-11 Python       Apache-2.0 | Streaming privacy for LLM apps: pii-leak-benchmark (does your gateway leak PII in streams?), chunk-invariance 
+   Aajil-Labs/arabic-pii-py                                 12 2026-05-31 Python       Apache-2.0 | Keep Arabic & Gulf personal data off the LLM — local-first, reversible PII tokenization (CLI, proxy, and a Cla
+   nullsink/nullsink                                        12 2026-08-20 TypeScript   AGPL-3.0 | Privacy-first, account-less metered proxy for frontier models. No account, no IP, no request logs.
+   outgate-ai/og-local                                      12 2026-10-15 Go           NOASSERTION | A local privacy proxy for coding agents. Runs PII and secret detection in-process, redacts before your prompts
+   RPBLC-hq/DAM                                             11 2026-09-15 Rust         None | A local privacy firewall for AI agents.
+   6fears7/nospy-ai                                         10 2026-10-15 Go           MIT | Redacts secrets and personal data in LLM API traffic and restores them in responses
+   panando/APIBypass                                        10 2026-07-24 Swift        MIT | A lightweight macOS app for LLM API proxying — automatic format translation (Anthropic ↔ OpenAI), parameter in
+   kotro-labs/kotro-proxy-engine                             9 2026-10-13 Rust         MIT | Local coding-agent control plane — MCP action governance + LLM-path protection + cost control. One Rust binary
+   dzungvpham/proxygpt                                       8 2026-06-22 JavaScript   MIT | Protect your privacy when using LLM chatbots by letting someone else proxy your query for you.
+## QUERY: masking personal data llm (total=30)
+   Athroniaeth/piighost                                     14 2026-10-09 Python       MIT | Reversible PII masking for LLM agents: piighost replaces personal data with placeholders before the model sees
+   GetSHIM/shim-cli                                          9 2026-10-14 Python       Apache-2.0 | Local traffic visibility and privacy controls for coding agents. See what Claude Code, Codex and Copilot send 
+   KikuAI-Lab/masker                                         6 2026-09-07 Python       AGPL-3.0 | PII redaction API for masking obvious personal data before LLM workflows.
+   SekaiBuilder/exodus-ia-firewall                           5 2026-08-12 Python       Apache-2.0 | 🛡️ Local privacy firewall for AI coding agents — masks API keys & personal data before they reach the cloud, t
+   saoirsebarry/VeilAI                                       4 2026-04-24 Python       MIT | Veil is an open source privacy proxy to sit between your prompts and LLM APIs - it masks your personal data to
+   NakuSurrey/maskwise                                       1 2026-06-30 Python       MIT | Production PII masking service for LLMs, detects and redacts personal data before submission to ChatGPT, Claud
+   gabrielkpo/alias                                          1 2026-10-15 Python       MIT | Local PII masking before an LLM call: detect personal data (FR + EN), replace it with stable aliases, restore 
+   Nour-eddineAE/anonymo                                     1 2026-05-10 Python       None | Anonymize before you prompt. Reconstruct after. A modular Python engine that masks personal data with reversib
+   sanjeev1508/promptmasker                                  1 2025-12-17 Python       None | PromptMasker is a prompt-sanitization utility that heuristically detects and masks sensitive data in raw text 
+   yakovlevanton/privacy_masking                             0 2026-03-07 Jupyter Notebook None | The project is dedicated to masking users personal data in LLM prompts
+   lyutskangeorgiev/DataMaskingETL                           0 2026-09-02 Python       None | A local-first data pipeline that sanitizes personal info locally, uses an LLM to enrich and classify the maske
+   sharkhk/masking-gateway                                   0 2026-10-07 TypeScript   Apache-2.0 | Reversible masking of personal data and secrets in requests to large language model providers. TypeScript, no 
+   larsgrosscom/llmveil                                      0 2026-09-04 Python       Apache-2.0 | Reversible PII redaction for LLM pipelines. Masks personal data before the API call, restores it after. Runs f
+   abilkhan023/llm-mask                                      0 2026-09-29 JavaScript   MIT | Local proxy that masks secrets, hosts and personal data in everything Claude Code sends to the API and restore
+   CEEKAY78/ticket-triage-automation                         0 2026-10-15 Python       MIT | n8n + FastAPI customer-ticket triage: personal data masking, local LLM classification, team/SLA routing, revie
+   patrikherak/llm-privacy                                   0 2026-07-20 Python       MIT | Agent Skill: reversible PII tokenization — masks personal data before the LLM sees it, restores it in the fina
+   progh2/privatedataremover                                 0 2026-07-30 Python       Apache-2.0 | Cross-platform desktop app to detect and mask personal data in PDFs (PySide6, OCR, local/cloud LLM)
+   thevip01/piimask                                          0 2026-08-21 Python       MIT | Reversible PII masking and unmasking for the LLM era. Hide personal data before it reaches a model, then resto
+   flam7791/governed-llm-gateway                             0 2026-10-09 Python       MIT | Internal LLM gateway: routes each request to the cheapest adequate model (Claude, Azure OpenAI or a local open
+   AndreaSacconi7/PrivacyAI                                  0 2026-09-24 Swift        None | iOS chat client that masks personal data on-device with a Core ML BERT NER model before sending messages to cl
+## QUERY: reversible anonymization llm (total=38)
+   danyuchn/pii-guard                                      249 2026-10-02 Python       MIT | 繁體中文（台灣）個人資料去識別化工具，讓業務文件可以安全地送進 AI 處理 / Reversible Traditional-Chinese (Taiwan) PII de-identification for LLM 
+   akazah/prompt-anonymizer                                 30 2026-07-22 TypeScript   MIT | A buddy check for your prompts — before they reach an LLM. On-device, reversible anonymization that catches th
+   Athroniaeth/piighost                                     14 2026-10-09 Python       MIT | Reversible PII masking for LLM agents: piighost replaces personal data with placeholders before the model sees
+   Aajil-Labs/arabic-pii-py                                 12 2026-05-31 Python       Apache-2.0 | Keep Arabic & Gulf personal data off the LLM — local-first, reversible PII tokenization (CLI, proxy, and a Cla
+   jfreemansh/Anonproxy                                      8 2026-09-05 Python       MIT | Reversible anonymization proxy for sending pentest data to LLMs
+   ma-abdellaoui/anonymice                                   8 2026-08-23 Python       MIT | Reversible PII tokenization for LLM prompts and web pages. Names, IBANs, Phone numbers, cards and secrets leav
+   moonlight-lupin/lethe                                     7 2026-06-22 Python       Apache-2.0 | A fully-local, reversible document de-identifier — strip confidential names before you send a document to an A
+   edulazaro/laranon                                         6 2026-07-04 PHP          MIT | Reversible PII anonymization for Laravel, designed for LLMs, logs, streaming and third-party APIs
+   csnyder256/privacy-gateway                                6 2026-10-15 Python       MIT | Local-first, source-agnostic privacy gateway for reversible PII masking, policy-controlled redaction, and synt
+   vicsantiagobr/redactr                                     5 2026-06-05 JavaScript   MIT | Scrub secrets & PII (API keys, tokens, emails, cards, CPF/CNPJ) from text before you paste it into AI, issues 
+   tastenkasperle/scrub-vault                                4 2026-10-13 Python       Apache-2.0 | Zero-dependency in-memory PII airgap & reversible masking proxy for Cloud LLMs (GDPR Art. 32 compliant MCP ser
+   RayBagel/LegalMask                                        4 2026-05-05 Python       MIT | Chinese legal PII redaction for lawyers: statute protection, coreference resolution, reversible mapping
+   Privalyse/privalyse-mask                                  3 2026-01-18 Python       MIT | Semantic PII Masking & Anonymization for LLMs (RAG). GDPR-compliant, reversible, and context-aware. Supports L
+   mcanouil/oboro                                            3 2026-10-01 Rust         MIT | Replace sensitive values in documents with reversible placeholders before sharing them with a language model.
+   matinfo/pii-airlock                                       3 2026-07-25 Python       MIT | Keep real PII out of your AI tools — local, reversible PII scrubbing via CLI, a universal provider gateway, or
+   dthatprince/llm-anonymizer                                2 2025-10-12 Jupyter Notebook None | Developing and Exploring Use cases for Reversible Anonymization, Multi-language Anonymization, Question and An
+   geekpartnerslab-kz/llmguard                               2 2026-04-24 Python       None | Open-source PII anonymization proxy between your apps and LLMs (Claude, GPT, local). OpenAI-compatible, revers
+   Korellaindustrial633/rizzo-pii                            2 2026-10-13 None         None | Anonymize Italian legal text locally with reversible PII replacement to maintain data privacy while using AI m
+   thirtysix/Preserve                                        2 2026-07-22 Python       MIT | Privacy-preserving PII detection & scrubbing for LLM prompts — local-first, reversible, 15+ countries. Python 
+   LorenzoMascia/llm-distillery                              1 2026-07-31 Python       Apache-2.0 | Teacher–student distillation pipeline for domain-specific LLMs. Reference use case: reversible PII anonymizati
+## QUERY: pii guardrails (total=805)
+   data-privacy-stack/presidio                           11345 2026-10-09 Python       MIT | An open-source framework for detecting, redacting, masking, and anonymizing sensitive data (PII) across text, 
+   dfki-dsa/pii-guardrail-browser-extension                100 2026-09-24 TypeScript   Apache-2.0 | Privacy Guardrail is a local-first Chrome extension that detects and anonymizes PII before text is pasted into
+   vstorm-co/pydantic-ai-shields                            95 2026-10-10 Python       MIT | Guardrail capabilities for Pydantic AI — cost tracking, prompt injection detection, PII filtering, secret reda
+   knostic/openclaw-shield                                  92 2026-05-12 TypeScript   Apache-2.0 | Security plugin for OpenClaw agents - prevents secret leaks, PII exposure, and destructive command execution
+   DataFog/datafog-python                                   78 2026-10-05 Python       MIT | Offline PII firewall for AI agents and LLM apps: fast local detection and redaction, Claude Code hook, LiteLLM
+   crp4222/PrivAiTe                                         54 2026-10-09 Python       BSD-3-Clause | Self-hosted PII redaction proxy for LLM APIs and agent CLIs. Scrubs names, emails and secrets from Claude Code
+   CollieAi/llm-firewall                                    46 2026-09-24 None         MIT | AI Firewall & LLM security toolkit - protect your AI applications from prompt injection, jailbreaks, PII leaka
+   yatuk/tamga                                              44 2026-10-12 Go           AGPL-3.0 | Self-hosted LLM security proxy. PII redaction, prompt injection defense, KVKK/GDPR/PCI-DSS compliance. Sub-mil
+   hoophq/alcatraz                                          38 2026-10-14 Go           MIT | Small engine of PII detector with masking and custom rules.
+   giancarloerra/JanuScope                                  32 2026-10-09 TypeScript   AGPL-3.0 | Local-first MCP policy proxy. Tool-block, SQL-mutation gate, PII redact, audit, rate-limit, OpenTelemetry, vau
+   thyrisAI/safe-zone                                       30 2026-10-15 Go           Apache-2.0 | TSZ (Thyris Safe Zone) is an open-source PII detection and guardrails engine that prevents sensitive data from
+   atliq/guardex-ai                                         28 2026-10-13 Python       Apache-2.0 | Python SDK for LLM guardrails with safety classification, PII detection, prompt injection defense, and groundi
+   MaxwellCalkin/sentinel-ai                                24 2026-03-09 Python       Apache-2.0 | Real-time AI safety guardrails for LLM apps. 10 scanners: prompt injection, PII, harmful content, code vulnera
+   wiserautomation/SupraWall                                24 2026-05-12 TypeScript   Apache-2.0 | The open-source security layer for AI agents. Deterministic guardrails, PII redaction, and EU AI Act complianc
+   guardrails-ai/guardrails_pii                             23 2026-07-27 Python       Apache-2.0 | 
+   ultramancode/spring-ai-privacy-guardrails                21 2026-10-15 Java         Apache-2.0 | Privacy guardrails for Spring AI: request-scoped PII tokenization, least-privilege disclosure to tools, and op
+   guardrails-ai/detect_pii                                 18 2026-07-27 Python       Apache-2.0 | Guardrails AI: PII Filter - Validates that any text does not contain any PII
+   Acacian/aegis                                            18 2026-08-29 Python       MIT | LLM guardrails & prompt injection detection for Python. Auto-instruments LangChain, CrewAI, OpenAI, LiteLLM + 
+   anonde-io/anonde                                         18 2026-10-15 Go           Apache-2.0 | Local-first PII anonymization and de-anonymization in Go. Multilingual via GLiNER NER + 73 pattern recognizers
+   Ratila1/JGuardrails                                      16 2026-04-15 Java         NOASSERTION | 🛡️ Programmable Guardrails for LLM Applications in Java. A framework-agnostic toolkit for input/output validat
+
+TOTAL UNIQUE: 276

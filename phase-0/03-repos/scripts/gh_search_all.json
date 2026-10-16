@@ -1,0 +1,2762 @@
+[
+ {
+  "full_name": "solomka385/obezlichivanie",
+  "stars": 2,
+  "pushed": "2023-11-13T14:53:12Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "",
+  "created": "2022-11-27"
+ },
+ {
+  "full_name": "Nemestnay/Obezlichivanie",
+  "stars": 0,
+  "pushed": "2024-06-06T10:54:09Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "",
+  "created": "2024-06-06"
+ },
+ {
+  "full_name": "kpshinnik/docs_masked",
+  "stars": 20,
+  "pushed": "2026-08-18T04:46:13Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Локальное обезличивание документов перед отправкой в LLM и обратная подстановка после ответа. Скилл, MCP-сервер и CLI.",
+  "created": "2026-08-18"
+ },
+ {
+  "full_name": "redmadrobot-rnd/pii-guard",
+  "stars": 12,
+  "pushed": "2026-09-09T15:18:56Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Обезличивание персональных данных в русском тексте: правила с контрольными суммами + дообученный ruBERT",
+  "created": "2026-09-08"
+ },
+ {
+  "full_name": "Pioneer113/mcp-152fz-anonymizer",
+  "stars": 4,
+  "pushed": "2026-07-27T15:46:39Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Автоматическое обезличивание персональных данных (ПД) по 152-ФЗ. Готовый MCP-сервер и API для безопасной работы ИИ-агентов, n8n и LLM.",
+  "created": "2026-01-25"
+ },
+ {
+  "full_name": "asg-55/atlas-local-rag",
+  "stars": 2,
+  "pushed": "2026-08-19T07:29:18Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Локальный offline-first RAG-ассистент: hybrid search, OCR, анализ таблиц, код и обезличивание. Docker/Ollama + Windows Desktop/llama.cpp.",
+  "created": "2026-07-19"
+ },
+ {
+  "full_name": "neuromafka-create/DocAnon",
+  "stars": 2,
+  "pushed": "2026-07-23T02:41:48Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Обезличивание персональных данных (ПДн) на вашем ПК перед отправкой текста во внешние AI-сервисы. Детекция: regex + чексуммы + spaCy NER + pymorphy3 (без локальных LLM для поиска ПДн).",
+  "created": "2026-07-23"
+ },
+ {
+  "full_name": "blauffy/personal-data",
+  "stars": 1,
+  "pushed": "2026-05-11T08:49:07Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Распознавание и обезличивание персональных данных в русскоязычных текстах (10 типов ПДн, F1=0.934).",
+  "created": "2026-05-10"
+ },
+ {
+  "full_name": "Dabman1980/anonymizer",
+  "stars": 1,
+  "pushed": "2026-08-19T17:22:40Z",
+  "license": "NOASSERTION",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Локальное обезличивание документов перед отправкой в языковые модели: замена данных метками и обратная подстановка",
+  "created": "2026-06-03"
+ },
+ {
+  "full_name": "helgapnz/data-shield",
+  "stars": 0,
+  "pushed": "2026-09-15T09:26:36Z",
+  "license": null,
+  "lang": "HTML",
+  "archived": false,
+  "desc": "Обезличивание данных",
+  "created": "2026-09-15"
+ },
+ {
+  "full_name": "Smit1980/DPO-1_praktikum-1-2",
+  "stars": 0,
+  "pushed": "2026-09-14T15:07:56Z",
+  "license": null,
+  "lang": "HTML",
+  "archived": false,
+  "desc": "Практикумы 1–2 ДПО-1, версия 2: план Б, реалистичный тайминг, обезличивание",
+  "created": "2026-09-14"
+ },
+ {
+  "full_name": "STRUKTOR/shirma",
+  "stars": 0,
+  "pushed": "2026-10-01T11:22:12Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Ширма — обезличивание документов перед работой с Claude Code и обратная замена",
+  "created": "2026-09-30"
+ },
+ {
+  "full_name": "Enkidu-best/Anonymizer",
+  "stars": 0,
+  "pushed": "2026-10-04T14:15:54Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Локальное обезличивание документов (152-ФЗ) для работы с внешними нейросетями",
+  "created": "2026-10-01"
+ },
+ {
+  "full_name": "arturartur5-ui/avito-assistant-template",
+  "stars": 0,
+  "pushed": "2026-09-22T03:36:22Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "ИИ-помощник для Авито: обезличивание, фильтр исходящих, экзамен перед выходом на клиентов",
+  "created": "2026-09-21"
+ },
+ {
+  "full_name": "victorbuto/privacy-filter-ui",
+  "stars": 0,
+  "pushed": "2026-09-21T15:53:54Z",
+  "license": null,
+  "lang": "HTML",
+  "archived": false,
+  "desc": "Локальная веб-морда для OpenAI Privacy Filter: обезличивание транскриптов без отправки в облако",
+  "created": "2026-09-21"
+ },
+ {
+  "full_name": "nevzorovsergey/obezlichit",
+  "stars": 0,
+  "pushed": "2026-09-23T10:30:23Z",
+  "license": "MIT",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Обезличивание постановлений о штрафах в браузере: ФИО, номера и адреса подменяются вымышленными, файл не покидает компьютер",
+  "created": "2026-09-23"
+ },
+ {
+  "full_name": "xrn6px6xyy-svg/db-sanitizer",
+  "stars": 0,
+  "pushed": "2026-07-27T13:50:08Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Санитизация PostgreSQL: обезличивание ПДн с сохранением связей, объёма и разнообразия. Агентный планировщик на LangGraph, потоковый исполнитель, verify-контур.",
+  "created": "2026-07-27"
+ },
+ {
+  "full_name": "woqowieowww/data-anonymizer",
+  "stars": 0,
+  "pushed": "2026-10-14T12:29:05Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Обезличивание персональных данных в Excel и JSON: шифрование, хеширование, обобщение, рандомизация, псевдонимизация. Python, Tkinter, журнал аудита",
+  "created": "2026-10-14"
+ },
+ {
+  "full_name": "mrvolkomorov/ai-fmcg-week5-materials",
+  "stars": 0,
+  "pushed": "2026-10-15T17:56:12Z",
+  "license": null,
+  "lang": "HTML",
+  "archived": false,
+  "desc": "Дополнительные материалы к Занятию 5 — Считаю и проверяю через ИИ (данные, факты, обезличивание), 15 октября 2026",
+  "created": "2026-10-15"
+ },
+ {
+  "full_name": "Yaroslava-111/anonymizer",
+  "stars": 0,
+  "pushed": "2026-10-05T06:38:11Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Локальное обратимое обезличивание персональных данных в таблицах Excel и CSV: офлайн, без нейросетей, с шифрованием файла соответствий",
+  "created": "2026-10-05"
+ },
+ {
+  "full_name": "s-verbin/pdf-redactor",
+  "stars": 0,
+  "pushed": "2026-10-12T15:49:15Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Обезличивание сканов договоров аренды: OCR, поиск сумм и персональных данных, проверка в браузере, PDF без возможности снять закраску",
+  "created": "2026-10-02"
+ },
+ {
+  "full_name": "KranGoPop/pii_service",
+  "stars": 0,
+  "pushed": "2026-06-02T18:39:50Z",
+  "license": null,
+  "lang": "Jupyter Notebook",
+  "archived": false,
+  "desc": "Локальное обезличивание русскоязычных пользовательских запросов к внешним LLM: rule-based, NER и hybrid-подходы для защиты ПД в чат-ассистенте",
+  "created": "2026-06-02"
+ },
+ {
+  "full_name": "beletskaya/user-info",
+  "stars": 1,
+  "pushed": "2022-10-06T10:13:09Z",
+  "license": null,
+  "lang": "Vue",
+  "archived": false,
+  "desc": "1) На главной странице необходимо вывести форму входа с такими полями: Username, Phone number и кнопку Login.  https://www.figma.com/file/CoAspt2CyD6g3kXdXHdUOL/Untitled?node-id=0%3A1 Поле username -  буквенное (валидаци",
+  "created": "2022-09-23"
+ },
+ {
+  "full_name": "denis-shumsky/avito-ml-cup-2025",
+  "stars": 0,
+  "pushed": "2025-08-14T20:33:58Z",
+  "license": "MIT",
+  "lang": "Jupyter Notebook",
+  "archived": false,
+  "desc": "AvitoTech ML Cup 2025 — Персональные рекомендации: данные, ноутбуки, сабмит, сертификат",
+  "created": "2025-08-14"
+ },
+ {
+  "full_name": "AndreyPol1991/privacy-trainer",
+  "stars": 0,
+  "pushed": "2026-10-06T06:24:24Z",
+  "license": null,
+  "lang": "HTML",
+  "archived": false,
+  "desc": "Тренажёр аналитика: персональные данные, модель угроз, разграничение доступа, секреты и аудит",
+  "created": "2026-09-13"
+ },
+ {
+  "full_name": "Jamshed-17/RSM_Badjes",
+  "stars": 0,
+  "pushed": "2025-03-30T10:45:14Z",
+  "license": null,
+  "lang": "HTML",
+  "archived": false,
+  "desc": "Я убрал все персональные данные и теперь могу показать всё вам",
+  "created": "2025-03-30"
+ },
+ {
+  "full_name": "2ndsideee/hr-preboarding",
+  "stars": 0,
+  "pushed": "2026-09-15T15:47:05Z",
+  "license": "NOASSERTION",
+  "lang": null,
+  "archived": false,
+  "desc": "Витрина: модуль пребординга для HRM-платформы, персональные данные. Showcase, code is closed.",
+  "created": "2026-09-15"
+ },
+ {
+  "full_name": "LilKirill00/GeneratorPersonalData",
+  "stars": 0,
+  "pushed": "2024-03-04T11:31:13Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Программа генерирующая случайные персональные данные с возможностью перегенерации и копирования в буфер обмена",
+  "created": "2024-01-08"
+ },
+ {
+  "full_name": "PerepelitsynA/ml_design_course",
+  "stars": 0,
+  "pushed": "2022-09-30T18:17:54Z",
+  "license": null,
+  "lang": null,
+  "archived": false,
+  "desc": "Анонимизация документов. Загружаешь скан (jpg png) документа, сервис находит и удаляет персональные данные - имя, фамилию. Присылает анонимизированный документ в ответ.",
+  "created": "2022-09-30"
+ },
+ {
+  "full_name": "baiganova00-eng/IQCH_CONSENT_OS",
+  "stars": 0,
+  "pushed": "2026-04-22T13:09:08Z",
+  "license": "GPL-3.0",
+  "lang": "HTML",
+  "archived": false,
+  "desc": "Consent OS — единая система управления согласиями на персональные данные. Показывает все активные доступы, визуализирует потоки данных, хранит историю, позволяет мгновенно отозвать доступ. Категоризирует данные, присваив",
+  "created": "2026-04-22"
+ },
+ {
+  "full_name": "mikryukovvo/trust-analysis",
+  "stars": 0,
+  "pushed": "2026-09-01T09:06:47Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Данные в репозитории являются результатом авторского исследования доверия. Все тексты получены из публичных источников и обезличены. Персональные данные не собирались и не публикуются.  Результаты использованы автором дл",
+  "created": "2026-08-31"
+ },
+ {
+  "full_name": "stake-zerkalo-segodnya/.github",
+  "stars": 0,
+  "pushed": "2025-11-27T20:07:06Z",
+  "license": null,
+  "lang": null,
+  "archived": false,
+  "desc": "Зеркало Stake на сегодня — рабочий альтернативный адрес, позволяющий зайти на платформу без перебоев. Оно сохраняет весь функционал, персональные данные и обеспечивает стабильный доступ в любых условиях.",
+  "created": "2025-11-27"
+ },
+ {
+  "full_name": "Aleksanda1Ryabich/telecommunications",
+  "stars": 0,
+  "pushed": "2023-11-29T10:22:56Z",
+  "license": null,
+  "lang": "Jupyter Notebook",
+  "archived": false,
+  "desc": "Оператор связи «Ниединогоразрыва.ком» хочет научиться прогнозировать отток клиентов. Если выяснится, что пользователь планирует уйти, ему будут предложены промокоды и специальные условия. Команда оператора собрала персон",
+  "created": "2023-11-29"
+ },
+ {
+  "full_name": "joeruhacker/Privacyjoe",
+  "stars": 0,
+  "pushed": "2026-02-05T07:11:59Z",
+  "license": null,
+  "lang": "HTML",
+  "archived": false,
+  "desc": "Проект privacyjoe — это англоязычная веб-страница с политикой конфиденциальности для сервиса или Telegram-бота. Документ оформлен в виде чистого HTML с логической структурой разделов, предназначенной для прозрачного инфо",
+  "created": "2024-12-21"
+ },
+ {
+  "full_name": "iamallka/volleyball-club-matcher",
+  "stars": 0,
+  "pushed": "2026-03-03T18:11:38Z",
+  "license": null,
+  "lang": null,
+  "archived": false,
+  "desc": "Консольное приложение на C#, которое автоматизирует подбор профессионального волейбольного клуба для свободного агента. Программа анализирует персональные данные игрока (пол, возраст, рост, позиция, желаемая зарплата, не",
+  "created": "2026-03-03"
+ },
+ {
+  "full_name": "olga426/final-project-yandex",
+  "stars": 0,
+  "pushed": "2023-10-23T07:52:43Z",
+  "license": null,
+  "lang": "Jupyter Notebook",
+  "archived": false,
+  "desc": "Описание проекта  Оператор связи «Ниединогоразрыва.ком» хочет научиться прогнозировать отток клиентов. Если выяснится, что пользователь планирует уйти, ему будут предложены промокоды и специальные условия. Команда операт",
+  "created": "2023-10-23"
+ },
+ {
+  "full_name": "ptmff/Neuro_resume",
+  "stars": 0,
+  "pushed": "2025-04-14T06:55:06Z",
+  "license": "GPL-3.0",
+  "lang": "Vue",
+  "archived": false,
+  "desc": "Neuro Resume — инновационный проект, использующий нейросетевые алгоритмы для создания, анализа и оптимизации резюме. Проект автоматически распознаёт ключевую информацию, оценивает данные и генерирует персональные рекомен",
+  "created": "2025-03-04"
+ },
+ {
+  "full_name": "bricks-cloud/BricksLLM",
+  "stars": 1230,
+  "pushed": "2025-01-05T23:47:45Z",
+  "license": "MIT",
+  "lang": "Go",
+  "archived": false,
+  "desc": "🔒 Enterprise-grade API gateway that helps you monitor and impose cost or rate limits per API key. Get fine-grained access control and monitoring per user, application, or environment. Supports OpenAI, Azure OpenAI, Anthr",
+  "created": "2023-07-18"
+ },
+ {
+  "full_name": "ASCIT31/Dark-Moon",
+  "stars": 1028,
+  "pushed": "2026-10-01T08:22:45Z",
+  "license": "GPL-3.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Open-source autonomous AI penetration testing. 50 specialist agents across web, API, cloud, Active Directory, Kubernetes, CI/CD and AI/LLM (OWASP LLM Top 10). Runs on a local LLM behind a Privacy Gateway. Integrates with",
+  "created": "2024-11-26"
+ },
+ {
+  "full_name": "packyme/privacy-filter",
+  "stars": 338,
+  "pushed": "2026-06-09T06:06:51Z",
+  "license": "MIT",
+  "lang": "Go",
+  "archived": false,
+  "desc": "LLM privacy gateway in Go — millisecond-latency PII and secret redaction. Used in production by PackyCode.",
+  "created": "2026-05-29"
+ },
+ {
+  "full_name": "voidmind-io/voidllm",
+  "stars": 141,
+  "pushed": "2026-09-30T19:15:42Z",
+  "license": "NOASSERTION",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Privacy-first LLM proxy and AI gateway - load balancing, multi-provider routing, API key management, usage tracking, rate limiting. Self-hosted. Zero knowledge of your prompts.",
+  "created": "2026-03-17"
+ },
+ {
+  "full_name": "CassiopeiaCode/CosyRedactGateway",
+  "stars": 103,
+  "pushed": "2026-10-10T00:56:22Z",
+  "license": "Apache-2.0",
+  "lang": "JavaScript",
+  "archived": false,
+  "desc": "Lightweight, stateless privacy gateway for LLM APIs — redact secrets before OpenAI/Anthropic upstreams and restore them transparently in SSE and tool calls.",
+  "created": "2026-09-11"
+ },
+ {
+  "full_name": "createcandle/voco",
+  "stars": 30,
+  "pushed": "2026-08-17T08:49:48Z",
+  "license": "MPL-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Privacy friendly voice control for the Candle Controller / WebThings Gateway, with fully local AI assistant",
+  "created": "2019-07-22"
+ },
+ {
+  "full_name": "yashmahajan10/llm-differential-privacy-gateway",
+  "stars": 28,
+  "pushed": "2026-08-02T20:54:38Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Noisegate: a differential privacy gateway that lets an untrusted LLM agent query sensitive data over MCP (Model Context Protocol), with a formal guarantee no individual's record can leak even if the agent is adversarial ",
+  "created": "2026-06-30"
+ },
+ {
+  "full_name": "censgate/redact",
+  "stars": 22,
+  "pushed": "2026-10-10T10:37:15Z",
+  "license": "Apache-2.0",
+  "lang": "Rust",
+  "archived": false,
+  "desc": "Fast Rust engine for detecting and redacting PII and secrets — in prompts, code, and databases. OpenAI-compatible gateway, Postgres scanner, CLI, and WASM. 32× Presidio. Apache-2.0.",
+  "created": "2025-08-10"
+ },
+ {
+  "full_name": "colliery-io/muninn",
+  "stars": 14,
+  "pushed": "2026-10-06T00:14:27Z",
+  "license": "Apache-2.0",
+  "lang": "Rust",
+  "archived": false,
+  "desc": " Privacy-first recursive context gateway for AI coding agents",
+  "created": "2025-03-27"
+ },
+ {
+  "full_name": "ninadphalak/LLM-Shield-Proxy",
+  "stars": 12,
+  "pushed": "2026-10-11T10:05:45Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Streaming privacy for LLM apps: pii-leak-benchmark (does your gateway leak PII in streams?), chunk-invariance (one-line test for split-boundary leaks), mcp-ssrf-check, and a self-hosted redacting gateway.",
+  "created": "2026-08-02"
+ },
+ {
+  "full_name": "bahaeddinmselmi/sovereignguard",
+  "stars": 9,
+  "pushed": "2026-03-13T13:58:41Z",
+  "license": "NOASSERTION",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Open source AI privacy gateway for GDPR-compliant LLM adoption in EMEA",
+  "created": "2026-03-13"
+ },
+ {
+  "full_name": "Aegis-Logic-Systems/aegis-ai-gateway",
+  "stars": 9,
+  "pushed": "2026-01-26T15:07:38Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Privacy-first middleware that sits between your applications and LLM providers (OpenAI, Anthropic, Google). It automatically detects and anonymizes personally identifiable information (PII) before forwarding requests to ",
+  "created": "2026-01-24"
+ },
+ {
+  "full_name": "alphaparkinc/genpark-enterprise-llm-pii-masking-redline-gateway-skill",
+  "stars": 8,
+  "pushed": "2026-09-02T10:36:53Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Enterprise LLM PII masking & reversible redaction privacy gateway (Kindo/Lakera)",
+  "created": "2026-09-02"
+ },
+ {
+  "full_name": "vissnia/piast-gate",
+  "stars": 8,
+  "pushed": "2026-09-20T16:54:46Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Open-source gateway for anonymizing sensitive data before sending to LLM APIs",
+  "created": "2025-12-30"
+ },
+ {
+  "full_name": "NodeNestor/CodeGate",
+  "stars": 7,
+  "pushed": "2026-06-23T09:41:42Z",
+  "license": "MIT",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Drop-in AI gateway. Route any coding agent through any LLM provider. Auto-failover, Anthropic<->OpenAI format conversion, 15 PII guardrails,   multi-tenancy, multiple subscription support.",
+  "created": "2026-02-27"
+ },
+ {
+  "full_name": "jLAM-ERR/corp-llm-gateway",
+  "stars": 6,
+  "pushed": "2026-10-14T14:09:17Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Corporate LLM gateway. Sanitizes traffic between developer Claude Code instances and Anthropic/OpenAI before it leaves the corp boundary.",
+  "created": "2026-07-01"
+ },
+ {
+  "full_name": "csnyder256/privacy-gateway",
+  "stars": 6,
+  "pushed": "2026-10-15T07:28:27Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Local-first, source-agnostic privacy gateway for reversible PII masking, policy-controlled redaction, and synthetic data.",
+  "created": "2026-09-22"
+ },
+ {
+  "full_name": "somegg90-blip/quiguard-gateway",
+  "stars": 6,
+  "pushed": "2026-04-05T16:22:45Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "The self-hosted security firewall for AI Agents. Scrubs PII from prompts and tool calls.",
+  "created": "2026-03-10"
+ },
+ {
+  "full_name": "adongwanai/hybrid-router-oss",
+  "stars": 6,
+  "pushed": "2026-05-20T06:59:34Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "A privacy-first, OpenAI-compatible Device-Edge-Cloud hybrid inference routing gateway. 端边云混合推理调度系统。",
+  "created": "2026-05-20"
+ },
+ {
+  "full_name": "sphragis-oss/sphragis",
+  "stars": 6,
+  "pushed": "2026-10-11T04:21:18Z",
+  "license": "Apache-2.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": "EU AI Act compliance gateway for Claude Code and OpenAI/Anthropic-compatible LLMs: redacts PII locally and keeps a tamper-evident, hash-chained audit log.",
+  "created": "2026-06-13"
+ },
+ {
+  "full_name": "amanvirparhar/elara",
+  "stars": 69,
+  "pushed": "2025-01-26T15:19:01Z",
+  "license": "MIT",
+  "lang": "Svelte",
+  "archived": false,
+  "desc": "A simple tool to anonymize LLM prompts.",
+  "created": "2025-01-25"
+ },
+ {
+  "full_name": "akazah/prompt-anonymizer",
+  "stars": 30,
+  "pushed": "2026-07-22T13:49:51Z",
+  "license": "MIT",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "A buddy check for your prompts — before they reach an LLM. On-device, reversible anonymization that catches the PII you didn't mean to send.",
+  "created": "2023-06-02"
+ },
+ {
+  "full_name": "takashiishida/cleanprompt",
+  "stars": 26,
+  "pushed": "2024-03-24T22:09:35Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Anonymize sensitive information in text prompts before sending them to LLM applications",
+  "created": "2024-03-21"
+ },
+ {
+  "full_name": "ChatWall-io/chatwall",
+  "stars": 5,
+  "pushed": "2026-03-03T12:57:29Z",
+  "license": "NOASSERTION",
+  "lang": "JavaScript",
+  "archived": false,
+  "desc": "Chat with AI. Keep Data Private. The AI Privacy Firewall. Anonymize ChatGPT, Claude, Gemini & Grok prompts — local PII masking for names, emails, phones, IBANs, credit   ▎ cards, API keys, JWTs (30+ types). Shadow DOM se",
+  "created": "2026-02-10"
+ },
+ {
+  "full_name": "chuxin-wenxiang/virtual_user_skill",
+  "stars": 4,
+  "pushed": "2026-06-16T07:04:13Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "AI virtual users powered by 54k+ real, anonymized user-research scenarios. Stop interviewing prompt-engineered personas.",
+  "created": "2026-04-16"
+ },
+ {
+  "full_name": "promptshieldhq/promptshield-engine",
+  "stars": 3,
+  "pushed": "2026-05-07T03:51:51Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Detection and anonymization microservice for the PromptShield stack.",
+  "created": "2026-03-25"
+ },
+ {
+  "full_name": "apolopena/neuralizer",
+  "stars": 2,
+  "pushed": "2026-02-09T18:10:52Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Prompt sanitizer that anonymizes logs and commands for safe LLM ingestion.",
+  "created": "2026-02-04"
+ },
+ {
+  "full_name": "TFD-42/Wild_Root_Prompt",
+  "stars": 2,
+  "pushed": "2026-08-11T16:34:14Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "173 prompt engineering techniques, local LLMs via Ollama — dual-model generation, PII anonymization, no cloud, no signup.",
+  "created": "2026-05-23"
+ },
+ {
+  "full_name": "hedibenabdallah/SecureFinAI-Platform",
+  "stars": 1,
+  "pushed": "2026-06-14T15:19:21Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Enterprise LLM security proxy with PII anonymization,  prompt injection detection and multi-agent financial  risk analyzer for banking compliance",
+  "created": "2026-06-13"
+ },
+ {
+  "full_name": "MStefa003/ai-privacy-proxy",
+  "stars": 1,
+  "pushed": "2026-08-12T12:34:26Z",
+  "license": null,
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "An open-source, low-latency AI Privacy Proxy that automatically redacts PII and sensitive data before sending prompts to LLM APIs, with real-time de-anonymization",
+  "created": "2026-08-12"
+ },
+ {
+  "full_name": "ahzamafaq/LLM-entity-bias-mitigation",
+  "stars": 1,
+  "pushed": "2026-06-08T21:16:58Z",
+  "license": null,
+  "lang": "Jupyter Notebook",
+  "archived": false,
+  "desc": "Benchmarking political entity bias in Mistral-7B & Llama-3-8B using a synthetic \"Weak-Signal\" dataset of 3,000 templates. Evaluates mitigation through 4-bit NF4 quantization, anonymization, and fairness prompting. Verifi",
+  "created": "2026-03-02"
+ },
+ {
+  "full_name": "zafrem/bastion-rag",
+  "stars": 1,
+  "pushed": "2026-10-15T14:32:56Z",
+  "license": "Apache-2.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Security & governance framework for RAG/LLM pipelines — five composable modules covering prompt-injection defense, PII anonymization, permission-aware retrieval, embedding security, and audit.",
+  "created": "2026-06-07"
+ },
+ {
+  "full_name": "Nour-eddineAE/anonymo",
+  "stars": 1,
+  "pushed": "2026-05-10T13:21:15Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Anonymize before you prompt. Reconstruct after. A modular Python engine that masks personal data with reversible placeholders before it ever reaches a public LLM.",
+  "created": "2026-05-10"
+ },
+ {
+  "full_name": "CalvinTTooS/prompt-optimizer",
+  "stars": 1,
+  "pushed": "2026-08-30T11:08:48Z",
+  "license": "MIT",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Optimize prompts for Claude & Gemini with local, privacy-first PII anonymization: a Windows/Tauri desktop app that generates 5 variants + CLAUDE.md/GEMINI.md scaffolds. Gemini engine via your local API key, no backend.",
+  "created": "2026-08-24"
+ },
+ {
+  "full_name": "dakshjain-1616/Claude-Opus-4.7-vs-GPT-5.5-vs-DeepSeek-V4-Pro-Reasoning-Benchmark",
+  "stars": 1,
+  "pushed": "2026-04-27T11:52:03Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Head-to-head reasoning benchmark across Opus 4.7, GPT-5.5, and DeepSeek V4 Pro on hard discriminating prompts. Independent third-party judge from a vendor outside the contestant set, anonymized A/B grading, and full per-",
+  "created": "2026-04-27"
+ },
+ {
+  "full_name": "krisstern9-create/ghost-proxy",
+  "stars": 1,
+  "pushed": "2026-03-18T08:06:16Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "🛡️ AI Privacy Firewall - Protect your prompts. Own your data. Trust no one.  Local proxy server that anonymizes LLM requests (OpenAI, Anthropic, Google) with PII redaction, differential privacy, encrypted audit logs, and",
+  "created": "2026-03-18"
+ },
+ {
+  "full_name": "spaceshiptrip/llm-anonymizer",
+  "stars": 0,
+  "pushed": "2026-05-16T20:09:43Z",
+  "license": null,
+  "lang": "HTML",
+  "archived": false,
+  "desc": "anonymize private info to enable LLM prompts",
+  "created": "2026-05-16"
+ },
+ {
+  "full_name": "richardsbrian/anonymize_llm",
+  "stars": 0,
+  "pushed": "2024-12-10T19:41:00Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "A Flask app that anonymizes Python code and prompts, replacing sensitive identifiers with placeholders. It securely processes inputs, integrates with an external API, and reconstructs responses with original identifiers ",
+  "created": "2024-07-31"
+ },
+ {
+  "full_name": "gburlet/VTN-LLM-Anonymizer",
+  "stars": 0,
+  "pushed": "2025-04-09T03:52:14Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "An example Python application for anonymizing sensitive data prior to LLM prompting",
+  "created": "2025-04-09"
+ },
+ {
+  "full_name": "VirajReddy10/safe-prompt",
+  "stars": 0,
+  "pushed": "2026-06-23T14:38:58Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Privacy-preserving PII detection and anonymization for LLM prompts",
+  "created": "2026-06-18"
+ },
+ {
+  "full_name": "sgasser/pasteguard",
+  "stars": 765,
+  "pushed": "2026-10-13T19:19:55Z",
+  "license": "Apache-2.0",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "AI gets the context. Not your private data. Local-first privacy proxy for browser chat, AI APIs, and coding agents.",
+  "created": "2026-01-08"
+ },
+ {
+  "full_name": "zeroc00I/DontFeedTheAI",
+  "stars": 665,
+  "pushed": "2026-07-08T03:38:44Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Transparent anonymization proxy for AI-assisted pentesting. Strips IPs, credentials, hostnames and PII before they reach any LLM (Claude, OpenAI, OpenRouter). Local Ollama + regex detection. Per-engagement vault.",
+  "created": "2026-04-13"
+ },
+ {
+  "full_name": "xiaYuTian11/maskit",
+  "stars": 310,
+  "pushed": "2026-10-14T02:43:43Z",
+  "license": "AGPL-3.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "数据面具 Data Maskit — 专为大模型打造的本地隐私脱敏网关（请求自动打码，回复流式还原；支持 Cursor / Claude Code / Codex / Pi 等任意可配 Base URL 工具）",
+  "created": "2026-09-09"
+ },
+ {
+  "full_name": "ax128/AegisGate",
+  "stars": 70,
+  "pushed": "2026-09-14T09:23:09Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Open-source security gateway for LLM APIs — prompt injection detection, PII redaction, dangerous response   sanitization, and audit logging. OpenAI/Claude compatible, MCP & Agent SKILL support. Drop-in proxy for AI codin",
+  "created": "2026-02-25"
+ },
+ {
+  "full_name": "openbashok/promptzero",
+  "stars": 70,
+  "pushed": "2026-05-18T13:37:43Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Zero trace. Full answer. — Transparent Claude API proxy that anonymizes PII and sensitive data before it leaves your environment. From pentesters, to pentesters.",
+  "created": "2026-05-11"
+ },
+ {
+  "full_name": "crp4222/PrivAiTe",
+  "stars": 54,
+  "pushed": "2026-10-09T12:34:21Z",
+  "license": "BSD-3-Clause",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Self-hosted PII redaction proxy for LLM APIs and agent CLIs. Scrubs names, emails and secrets from Claude Code, Codex and any OpenAI-compatible app before requests leave your machine, tool-call arguments included, then r",
+  "created": "2026-05-07"
+ },
+ {
+  "full_name": "techlab-innov/llmtrace",
+  "stars": 53,
+  "pushed": "2026-08-09T11:24:56Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Zero-code LLM security & observability proxy. Real-time prompt injection detection, PII scanning, and cost control for OpenAI-compatible APIs. Built in Rust.",
+  "created": "2026-01-31"
+ },
+ {
+  "full_name": "occludra/gateway",
+  "stars": 47,
+  "pushed": "2026-08-16T21:23:40Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Self-hosted AI security proxy. Redact PII, block prompt injection, route to any LLM provider. OpenAI-compatible.",
+  "created": "2026-03-27"
+ },
+ {
+  "full_name": "rohansx/cloakpipe",
+  "stars": 47,
+  "pushed": "2026-10-11T19:09:32Z",
+  "license": "MIT",
+  "lang": "Rust",
+  "archived": false,
+  "desc": "CloakPipe is the verifiable control plane for production AI agents: evaluate a release, certify it, enforce it at runtime, and prove what happened.",
+  "created": "2026-03-06"
+ },
+ {
+  "full_name": "yatuk/tamga",
+  "stars": 44,
+  "pushed": "2026-10-12T08:21:53Z",
+  "license": "AGPL-3.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Self-hosted LLM security proxy. PII redaction, prompt injection defense, KVKK/GDPR/PCI-DSS compliance. Sub-millisecond latency",
+  "created": "2026-06-20"
+ },
+ {
+  "full_name": "giancarloerra/JanuScope",
+  "stars": 32,
+  "pushed": "2026-10-09T12:29:52Z",
+  "license": "AGPL-3.0",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Local-first MCP policy proxy. Tool-block, SQL-mutation gate, PII redact, audit, rate-limit, OpenTelemetry, vault secrets, first-use quarantine, schema pre-inject. No hosted gateway. One YAML Lens wraps any MCP, 20 includ",
+  "created": "2026-05-02"
+ },
+ {
+  "full_name": "zolderio/token-proxy",
+  "stars": 31,
+  "pushed": "2026-04-13T21:35:36Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "A transparent PII redaction proxy for LLM API traffic. Sits between an application and an LLM provider (currently Anthropic), pseudonymizing sensitive data outbound and restoring it inbound. Built with FastAPI + httpx.",
+  "created": "2026-04-05"
+ },
+ {
+  "full_name": "MaxwellCalkin/sentinel-ai",
+  "stars": 24,
+  "pushed": "2026-03-09T08:40:49Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Real-time AI safety guardrails for LLM apps. 10 scanners: prompt injection, PII, harmful content, code vulnerabilities, obfuscation detection. Sub-ms latency. Python + TypeScript SDKs. MCP proxy. Claude Code hooks.",
+  "created": "2026-03-07"
+ },
+ {
+  "full_name": "gbrigandi/mcp-server-conceal",
+  "stars": 18,
+  "pushed": "2025-07-24T06:26:01Z",
+  "license": "MIT",
+  "lang": "Rust",
+  "archived": false,
+  "desc": "Privacy-focused MCP proxy that intelligently pseudo-anonymizes PII in real-time before data reaches external AI providers, maintaining semantic relationships for accurate analysis",
+  "created": "2025-07-24"
+ },
+ {
+  "full_name": "Athroniaeth/piighost",
+  "stars": 14,
+  "pushed": "2026-10-09T15:10:08Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Reversible PII masking for LLM agents: piighost replaces personal data with placeholders before the model sees it, then restores the real values in replies and tool calls. LangChain, Pydantic AI, LlamaIndex and Claude Co",
+  "created": "2026-03-12"
+ },
+ {
+  "full_name": "Mattral/GuardRail-Studio",
+  "stars": 13,
+  "pushed": "2026-09-12T19:34:15Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Built around a real, third-party Rust reverse proxy (guardrail-cli) that inspects prompts for injection attempts and PII before they reach an upstream LLM.",
+  "created": "2026-01-30"
+ },
+ {
+  "full_name": "Aajil-Labs/arabic-pii-py",
+  "stars": 12,
+  "pushed": "2026-05-31T11:59:12Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Keep Arabic & Gulf personal data off the LLM — local-first, reversible PII tokenization (CLI, proxy, and a Claude Code hook).",
+  "created": "2026-05-30"
+ },
+ {
+  "full_name": "outgate-ai/og-local",
+  "stars": 12,
+  "pushed": "2026-10-15T12:28:32Z",
+  "license": "NOASSERTION",
+  "lang": "Go",
+  "archived": false,
+  "desc": "A local privacy proxy for coding agents. Runs PII and secret detection in-process, redacts before your prompts leave your machine.",
+  "created": "2026-06-08"
+ },
+ {
+  "full_name": "Artemy-And/spillway",
+  "stars": 16,
+  "pushed": "2026-10-15T15:39:24Z",
+  "license": "AGPL-3.0",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Self-hosted AI gateway for small teams: a key per person, budgets that fall back to local models, PII masking and free SSO.",
+  "created": "2026-10-02"
+ },
+ {
+  "full_name": "ilter-ai/ilter",
+  "stars": 14,
+  "pushed": "2026-10-03T22:47:25Z",
+  "license": "NOASSERTION",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Self-hosted AI gateway in a single Go binary — MCP gateway, budget limits, PII masking, smart router, and others.",
+  "created": "2026-06-02"
+ },
+ {
+  "full_name": "wuliaobaxian/ShieldSentinel-AI",
+  "stars": 10,
+  "pushed": "2026-03-01T16:42:21Z",
+  "license": "MIT",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Enterprise AI Security Gateway — PII masking, prompt injection & vector attack detection",
+  "created": "2026-02-28"
+ },
+ {
+  "full_name": "oleg-vdv/AI-Gateway",
+  "stars": 10,
+  "pushed": "2026-10-06T16:39:05Z",
+  "license": "AGPL-3.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "On-prem LLM compliance gateway: detects PII and secrets in prompts, reversibly masks them before they reach ChatGPT/Claude/Gemini, restores them in the response, with a tamper-evident audit log",
+  "created": "2026-07-11"
+ },
+ {
+  "full_name": "alphaparkinc/genpark-ai-gateway-proxy-router-governance-skill",
+  "stars": 8,
+  "pushed": "2026-08-11T06:40:24Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "AI Gateway proxy router, rate limiting & PII masking engine (ngrok style)",
+  "created": "2026-08-11"
+ },
+ {
+  "full_name": "alphaparkinc/genpark-enterprise-ai-dlp-governance-gateway-skill",
+  "stars": 8,
+  "pushed": "2026-08-22T11:50:00Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Enterprise AI DLP gateway enforcing zero-trust PII masking and regulatory compliance on LLMs (Credal style)",
+  "created": "2026-08-22"
+ },
+ {
+  "full_name": "onion2005/LLM-Gateway",
+  "stars": 6,
+  "pushed": "2026-04-01T04:43:28Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Production LLM gateway on EKS — multi-team access control, PII masking, Bedrock Guardrails, cost-based routing",
+  "created": "2026-03-20"
+ },
+ {
+  "full_name": "iqbalr3000/palang-ai",
+  "stars": 6,
+  "pushed": "2026-10-03T11:00:53Z",
+  "license": "MIT",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "OpenAI-compatible security gateway for LLM apps and agents, built for Indonesian data. Masks PII (NIK, NPWP, phone, email, card), detects prompt injection, enforces tool-call policy and catches   system-prompt leaks, wit",
+  "created": "2026-09-17"
+ },
+ {
+  "full_name": "kapiljain1989/voiceagent",
+  "stars": 4,
+  "pushed": "2026-06-22T03:23:58Z",
+  "license": "Apache-2.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": " Telecom-native AI call center platform — SIPREC observer + B2BUA gateway with real-time transcription, agent copilot, voice sentiment analysis, robocall detection, and PII   masking. Go + FreeSWITCH + Claude.",
+  "created": "2026-06-06"
+ },
+ {
+  "full_name": "VigneshReddy-afk/ajah",
+  "stars": 3,
+  "pushed": "2026-10-15T08:22:32Z",
+  "license": null,
+  "lang": "Go",
+  "archived": false,
+  "desc": "Self-hostable LLM observability platform. Gateway proxy, cost attribution, PII masking, quality scoring.",
+  "created": "2026-05-26"
+ },
+ {
+  "full_name": "dogrucanemek-alt/conarium",
+  "stars": 3,
+  "pushed": "2026-10-15T10:06:26Z",
+  "license": "MIT",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Self-hosted governance layer between AI assistants and your real data. Deterministic PII masking, allow/deny policy, hash-chained audit, offline-verifiable Ed25519 receipts per access when a receipt sink is configured, c",
+  "created": "2026-07-03"
+ },
+ {
+  "full_name": "DavidGodefroid/locksql",
+  "stars": 2,
+  "pushed": "2026-10-14T13:28:34Z",
+  "license": "Apache-2.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Your AI writes the query, you hold the key. A human-approved, PII-masking database gateway for AI agents (CLI + MCP).",
+  "created": "2026-10-07"
+ },
+ {
+  "full_name": "remask-dev/remask-desktop",
+  "stars": 2,
+  "pushed": "2026-09-22T06:06:14Z",
+  "license": null,
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Local-first PII protection gateway for AI apps and APIs. Detects and masks sensitive data before it reaches AI providers.",
+  "created": "2026-08-20"
+ },
+ {
+  "full_name": "themulle/autheris",
+  "stars": 2,
+  "pushed": "2026-10-16T00:03:59Z",
+  "license": "NOASSERTION",
+  "lang": "C#",
+  "archived": false,
+  "desc": "Autheris is a high-performance Enterprise Data & Governance Gateway for federated APIs. Unifies GraphQL Federation, Governed WebSQL, Apache Arrow Flight & DuckDB in-memory OLAP with Zero-Trust   security:   │ Google-Zanz",
+  "created": "2026-10-04"
+ },
+ {
+  "full_name": "kvrishwanth1800-cmd/frostglass",
+  "stars": 2,
+  "pushed": "2026-09-23T15:29:30Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Self-hosted AI gateway and DLP proxy that detects and masks PII, secrets, and confidential data in LLM prompts before they leave your network. Context-preserving redaction, policy dashboard, and full audit trail for Open",
+  "created": "2026-09-09"
+ },
+ {
+  "full_name": "Briansalazarh/equiguard-ai-gateway",
+  "stars": 1,
+  "pushed": "2026-05-06T20:49:45Z",
+  "license": "MIT",
+  "lang": "Java",
+  "archived": false,
+  "desc": "Serverless AI Middleware for Automated PII Masking and Ethical Fairness Auditing",
+  "created": "2026-03-21"
+ },
+ {
+  "full_name": "vin-jl/sentinel",
+  "stars": 1,
+  "pushed": "2026-03-25T07:35:04Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "A zero-trust AI gateway for real-time PII masking, dynamic LLM routing, and telemetry logging.",
+  "created": "2026-03-25"
+ },
+ {
+  "full_name": "OilSeller2001/ai-security-gateway",
+  "stars": 1,
+  "pushed": "2026-07-06T08:49:00Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "An enterprise-grade, zero-trust API security gateway middleware built with FastAPI to perform recursive PII masking and anomaly monitoring aligned with NIST AI RMF 1.1.",
+  "created": "2026-07-06"
+ },
+ {
+  "full_name": "nabeelxy/prompt-sanitizer",
+  "stars": 1,
+  "pushed": "2026-02-17T13:01:06Z",
+  "license": null,
+  "lang": null,
+  "archived": false,
+  "desc": "Redact/Clean prompts before sending to LLMs/Agents",
+  "created": "2026-02-17"
+ },
+ {
+  "full_name": "dc9-dev/promptveil",
+  "stars": 1,
+  "pushed": "2026-09-14T10:19:27Z",
+  "license": "MIT",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Redact secrets from logs, configs and prompts before sending context to AI. Offline Go library and CLI with zero dependencies.",
+  "created": "2026-09-14"
+ },
+ {
+  "full_name": "Rohan01000/GenAI-Privacy-Firewall",
+  "stars": 1,
+  "pushed": "2026-03-30T15:21:09Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "A machine learning-powered reverse proxy that detects and redacts sensitive information from prompts before sending them to external Large Language Model (LLM) APIs.",
+  "created": "2026-03-10"
+ },
+ {
+  "full_name": "Hitesh1326/contextshield",
+  "stars": 1,
+  "pushed": "2026-04-01T19:12:33Z",
+  "license": "MIT",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Local-first prompt scrubber and enhancer for VS Code. Redacts PII and secrets, improves clarity before you send to any AI tool.",
+  "created": "2026-03-19"
+ },
+ {
+  "full_name": "edujbarrios/promptshield-llm",
+  "stars": 0,
+  "pushed": "2026-07-08T09:46:16Z",
+  "license": "NOASSERTION",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Python package that redacts sensitive data from LLM prompts before sending them to a model.",
+  "created": "2026-07-08"
+ },
+ {
+  "full_name": "swenteo/tiktoktechjam2025",
+  "stars": 0,
+  "pushed": "2025-08-30T18:48:20Z",
+  "license": null,
+  "lang": "JavaScript",
+  "archived": false,
+  "desc": "PII Guard is a privacy-first application that detects and redacts personally identifiable information (PII) from text prompts before users send them to cloud-based LLM services like ChatGPT, Claude, or other AI platforms",
+  "created": "2025-08-30"
+ },
+ {
+  "full_name": "postralai/masquerade",
+  "stars": 77,
+  "pushed": "2025-08-11T00:47:22Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "The Privacy Firewall for LLMs",
+  "created": "2025-06-09"
+ },
+ {
+  "full_name": "DavidCarliez/cover",
+  "stars": 56,
+  "pushed": "2026-10-08T09:18:17Z",
+  "license": "Apache-2.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Keep private data, internal infrastructure and secrets out of cloud coding agents without breaking your workflow.",
+  "created": "2026-08-21"
+ },
+ {
+  "full_name": "fishonbike/vault-engine",
+  "stars": 25,
+  "pushed": "2026-07-02T08:14:40Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "A local-LLM privacy layer for anything you paste into a cloud model — detect, tokenize, restore. Zero deps, reversible, strong on Chinese.",
+  "created": "2026-06-26"
+ },
+ {
+  "full_name": "CertaMesh/gaze",
+  "stars": 12,
+  "pushed": "2026-10-15T18:25:36Z",
+  "license": "Apache-2.0",
+  "lang": "Rust",
+  "archived": false,
+  "desc": "Reversible PII pseudonymization runtime for agentic LLM workflows.",
+  "created": "2026-04-11"
+ },
+ {
+  "full_name": "wan9yu/argus-redact",
+  "stars": 12,
+  "pushed": "2026-10-11T12:14:59Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Encrypt PII, not meaning. Locally.",
+  "created": "2026-03-24"
+ },
+ {
+  "full_name": "H-Ismael/ollamonym",
+  "stars": 7,
+  "pushed": "2026-03-27T00:09:50Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Psuedo annonymizer balancing deterministic and llm based techniques.",
+  "created": "2026-02-19"
+ },
+ {
+  "full_name": "openmasq/openmasq",
+  "stars": 7,
+  "pushed": "2026-10-15T15:02:05Z",
+  "license": "Apache-2.0",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Privacy-first desktop chat for multiple LLMs: sensitive values are redacted on-device before any network call, and restored in the reply. Your own keys, a local model, or a CLI subscription. The engine ships on npm as @o",
+  "created": "2026-09-01"
+ },
+ {
+  "full_name": "c2siorg/PII-Safe",
+  "stars": 6,
+  "pushed": "2026-03-11T14:45:10Z",
+  "license": "Apache-2.0",
+  "lang": null,
+  "archived": false,
+  "desc": "PII-Safe is a middleware and MCP compatible privacy plugin that automatically detects, redacts, or pseudonymizes personal data before it reaches an LLM or is stored in memory. The project aims to make agentic AI deployme",
+  "created": "2026-03-11"
+ },
+ {
+  "full_name": "nikshepsvn/veilstream",
+  "stars": 6,
+  "pushed": "2026-04-22T21:22:55Z",
+  "license": "NOASSERTION",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Streaming PII proxy for LLM chat. Pluggable detector, per-session vault, and cryptographic provenance-anchored reversal (PASP) that closes the false-attribution attack every other streaming library silently has.",
+  "created": "2026-04-22"
+ },
+ {
+  "full_name": "yurivenancio30/llm-dlp",
+  "stars": 5,
+  "pushed": "2026-10-16T01:51:21Z",
+  "license": "MIT",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Local proxy that masks sensitive data between you and the LLM (Claude Code): the API only sees pseudonyms",
+  "created": "2026-10-03"
+ },
+ {
+  "full_name": "avvocati-e-mac/AnonyMCP",
+  "stars": 5,
+  "pushed": "2026-06-11T07:30:49Z",
+  "license": "AGPL-3.0",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Server MCP locale che pseudonimizza documenti legali italiani prima di esporli a un LLM (privacy by design, offline).",
+  "created": "2026-06-01"
+ },
+ {
+  "full_name": "MrPunyapal/laravel-ai-aegis",
+  "stars": 5,
+  "pushed": "2026-08-22T12:05:11Z",
+  "license": "MIT",
+  "lang": "PHP",
+  "archived": false,
+  "desc": "A local-first security middleware for the Laravel AI SDK — blocks prompt injection attacks and pseudonymizes PII before prompts reach your LLM, then restores original values in the response.",
+  "created": "2026-03-30"
+ },
+ {
+  "full_name": "redoubt-lab/Casper",
+  "stars": 4,
+  "pushed": "2025-09-30T01:35:35Z",
+  "license": "MPL-2.0",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Casper is a browser extension that aims to protect user privacy by detecting and pseudonymizing sensitive information from user inputs before sending them to LLM services.",
+  "created": "2025-09-21"
+ },
+ {
+  "full_name": "comptoir-des-signaux/sas-confiance-ia",
+  "stars": 4,
+  "pushed": "2026-09-04T07:46:06Z",
+  "license": "EUPL-1.2",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Sas de pseudonymisation avant IA pour les collectivités territoriales : détection des données personnelles françaises, pseudonymes réversibles, proxy OpenAI-compatible, ré-identification en zone de confiance. Commun numé",
+  "created": "2026-07-01"
+ },
+ {
+  "full_name": "quiethours-eu/cloakspan",
+  "stars": 3,
+  "pushed": "2026-10-08T16:59:52Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Self-hosted privacy firewall for LLM traffic. Detect, pseudonymize, route, and safely restore sensitive data through an OpenAI-compatible API.",
+  "created": "2026-09-19"
+ },
+ {
+  "full_name": "data-privacy-stack/presidio",
+  "stars": 11345,
+  "pushed": "2026-10-09T05:18:46Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "An open-source framework for detecting, redacting, masking, and anonymizing sensitive data (PII) across text, images, and structured data. Supports NLP, pattern matching, and customizable pipelines.",
+  "created": "2018-05-04"
+ },
+ {
+  "full_name": "maziyarpanahi/openmed",
+  "stars": 5693,
+  "pushed": "2026-10-14T14:19:52Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Local-first healthcare AI: clinical NER and HIPAA PII de-identification on hardware you control. 2,200+ medical models, 35 model-backed PII languages, and Python, MLX, Android and browser runtimes. Apache-2.0 SDK.",
+  "created": "2025-10-04"
+ },
+ {
+  "full_name": "redhuntlabs/Octopii",
+  "stars": 747,
+  "pushed": "2025-01-22T10:50:06Z",
+  "license": "NOASSERTION",
+  "lang": "Python",
+  "archived": false,
+  "desc": "An AI-powered Personal Identifiable Information (PII) scanner.",
+  "created": "2022-04-20"
+ },
+ {
+  "full_name": "arcjet/arcjet-js",
+  "stars": 691,
+  "pushed": "2026-10-15T20:54:40Z",
+  "license": "Apache-2.0",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Runtime security for AI apps and agents: prompt injection detection, tool-call authorization, sensitive-data redaction, bot protection, and rate limiting. Drop it into your JS/TS code.",
+  "created": "2023-11-30"
+ },
+ {
+  "full_name": "google/magritte",
+  "stars": 439,
+  "pushed": "2023-09-29T13:13:38Z",
+  "license": "Apache-2.0",
+  "lang": "C++",
+  "archived": true,
+  "desc": "Mediapipe-based library to redact faces from videos and images",
+  "created": "2021-02-22"
+ },
+ {
+  "full_name": "dataiku/kiji-proxy",
+  "stars": 437,
+  "pushed": "2026-10-15T22:23:14Z",
+  "license": "Apache-2.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Privacy proxy for your OpenAI requests",
+  "created": "2025-10-18"
+ },
+ {
+  "full_name": "thoughtbot/top_secret",
+  "stars": 419,
+  "pushed": "2026-05-14T22:41:26Z",
+  "license": "MIT",
+  "lang": "Ruby",
+  "archived": false,
+  "desc": "Filter sensitive information from free text before sending it to external services or APIs, such as chatbots and LLMs.",
+  "created": "2025-07-23"
+ },
+ {
+  "full_name": "jasonzhang06-source/sharelint",
+  "stars": 395,
+  "pushed": "2026-10-12T14:48:33Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Local privacy preflight for files, folders, and archives—catch secrets, PII, metadata, and hidden document content before sharing.",
+  "created": "2026-08-24"
+ },
+ {
+  "full_name": "ferro-labs/ai-gateway",
+  "stars": 269,
+  "pushed": "2026-10-16T00:53:54Z",
+  "license": "Apache-2.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Unified AI Gateway for 30+ LLMs (OpenAI, Anthropic, Bedrock, Azure etc) with Caching, Guardrails, A/B test & cost controls. Go-native Fastest & Scalable AI Gateway LiteLLM & Kong AI Gateway alternative.",
+  "created": "2026-02-25"
+ },
+ {
+  "full_name": "databrickslabs/discoverx",
+  "stars": 142,
+  "pushed": "2026-03-27T09:20:21Z",
+  "license": "NOASSERTION",
+  "lang": "Python",
+  "archived": false,
+  "desc": "A Swiss-Army-knife for your Data Intelligence platform administration.",
+  "created": "2023-02-21"
+ },
+ {
+  "full_name": "jnMetaCode/shellward",
+  "stars": 140,
+  "pushed": "2026-09-28T23:15:38Z",
+  "license": "Apache-2.0",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "AI 应用合规网关 · 一行命令体检 AI 项目的「数据出境 / 硬编码密钥 / 个人信息暴露」（网安法·PIPL·等保2.0·数据出境·AI标识），并给出境内模型替代建议；可作运行时防护拦截注入与数据外泄 · 中文优先 · 零依赖 · 开源",
+  "created": "2026-03-12"
+ },
+ {
+  "full_name": "SleuthCo/clawshield-public",
+  "stars": 130,
+  "pushed": "2026-03-26T20:29:39Z",
+  "license": "Apache-2.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Security proxy for AI agents. Scans every message for prompt injection, PII, and secrets. Defense-in-depth: Go proxy + iptables firewall + eBPF kernel monitor. YAML policy engine, audit logging, 5 AI agents with RAG know",
+  "created": "2026-03-01"
+ },
+ {
+  "full_name": "hounddogai/hounddog",
+  "stars": 129,
+  "pushed": "2026-10-10T11:11:57Z",
+  "license": null,
+  "lang": "Shell",
+  "archived": false,
+  "desc": "Deterministic Privacy Code Scanner for GDPR Data Mapping Evidence and Proactive AI Governance",
+  "created": "2024-08-01"
+ },
+ {
+  "full_name": "KOKOSde/localmod",
+  "stars": 129,
+  "pushed": "2026-04-11T20:42:45Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Self-hosted content moderation API that outperforms Amazon Comprehend. 100% offline, your data never leaves your server. Text + Image moderation.",
+  "created": "2025-12-27"
+ },
+ {
+  "full_name": "awslabs/sensitive-data-protection-on-aws",
+  "stars": 127,
+  "pushed": "2026-08-31T02:31:24Z",
+  "license": "Apache-2.0",
+  "lang": "TypeScript",
+  "archived": true,
+  "desc": "The Sensitive Data Protection on AWS solution allows enterprise customers to create data catalogs, discover, protect, and visualize sensitive data across multiple AWS accounts. The solution eliminates the need for manual",
+  "created": "2023-03-09"
+ },
+ {
+  "full_name": "rpgeeganage/pII-guard",
+  "stars": 114,
+  "pushed": "2025-11-01T20:39:17Z",
+  "license": "NOASSERTION",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "🛡️ PII Guard is an LLM-powered tool that detects and manages Personally Identifiable Information (PII) in logs — designed to support data privacy and GDPR compliance",
+  "created": "2025-03-10"
+ },
+ {
+  "full_name": "EdyVision/pii-codex",
+  "stars": 102,
+  "pushed": "2026-02-15T22:07:36Z",
+  "license": "BSD-3-Clause",
+  "lang": "Python",
+  "archived": false,
+  "desc": "A research python package for detecting, categorizing, and assessing the severity of personal identifiable information (PII)",
+  "created": "2022-09-07"
+ },
+ {
+  "full_name": "awslabs/ferret-scan",
+  "stars": 98,
+  "pushed": "2026-10-16T01:35:34Z",
+  "license": "Apache-2.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Find and redact sensitive data before it leaks — a fast, offline CLI and Go library that detects PII, secrets, and credentials in files and streams, scores them with context-aware confidence, and redacts them format-pres",
+  "created": "2025-10-16"
+ },
+ {
+  "full_name": "google/differential-privacy",
+  "stars": 3370,
+  "pushed": "2026-10-15T23:14:30Z",
+  "license": "Apache-2.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Google's differential privacy libraries.",
+  "created": "2019-09-04"
+ },
+ {
+  "full_name": "CatchTheTornado/text-extract-api",
+  "stars": 3183,
+  "pushed": "2025-12-08T21:27:14Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Document (PDF, Word, PPTX ...) extraction and parse API using state of the art modern OCRs + Ollama supported models. Anonymize documents. Remove PII. Convert any document or picture to structured JSON or Markdown",
+  "created": "2024-10-23"
+ },
+ {
+  "full_name": "kdeldycke/awesome-iam",
+  "stars": 2305,
+  "pushed": "2026-10-12T12:15:16Z",
+  "license": "CC0-1.0",
+  "lang": null,
+  "archived": false,
+  "desc": "👤 Identity and Access Management knowledge for cloud platforms",
+  "created": "2019-06-12"
+ },
+ {
+  "full_name": "GreenmaskIO/greenmask",
+  "stars": 1785,
+  "pushed": "2026-10-10T12:53:07Z",
+  "license": "Apache-2.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Database anonymization and test data management",
+  "created": "2023-12-01"
+ },
+ {
+  "full_name": "securitybunker/databunker",
+  "stars": 1492,
+  "pushed": "2026-07-28T09:36:53Z",
+  "license": "MIT",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Secure Vault for Customer PII/PHI/PCI/KYC Records",
+  "created": "2019-12-08"
+ },
+ {
+  "full_name": "xataio/pgstream",
+  "stars": 1199,
+  "pushed": "2026-10-15T23:29:28Z",
+  "license": "Apache-2.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": "PostgreSQL replication with DDL changes",
+  "created": "2024-04-10"
+ },
+ {
+  "full_name": "Rizzo-AI-Academy/rizzo-pii",
+  "stars": 1183,
+  "pushed": "2026-09-25T00:03:52Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Local-first privacy guard: anonymize your documents before sharing with LLMs.",
+  "created": "2026-06-28"
+ },
+ {
+  "full_name": "Anon-Planet/thgtoa",
+  "stars": 870,
+  "pushed": "2026-07-13T02:34:09Z",
+  "license": "CC-BY-SA-4.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "The comprehensive guide for online anonymity and OpSec.",
+  "created": "2022-05-06"
+ },
+ {
+  "full_name": "serpro69/kotlin-faker",
+  "stars": 511,
+  "pushed": "2026-10-03T19:39:56Z",
+  "license": "MIT",
+  "lang": "Kotlin",
+  "archived": false,
+  "desc": "Port of a popular ruby faker gem written in kotlin. Generate realistically looking fake data such as names, addresses, banking details, and many more, that can be used for testing and data anonymization purposes.",
+  "created": "2019-03-11"
+ },
+ {
+  "full_name": "intenthq/anon",
+  "stars": 352,
+  "pushed": "2019-04-01T13:17:39Z",
+  "license": "MIT",
+  "lang": "Go",
+  "archived": true,
+  "desc": "A UNIX Command To Anonymise Data",
+  "created": "2018-05-17"
+ },
+ {
+  "full_name": "ArtLabss/open-data-anonymizer",
+  "stars": 303,
+  "pushed": "2023-07-12T09:58:07Z",
+  "license": "BSD-3-Clause",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Python Data Anonymization & Masking Library For Data Science Tasks",
+  "created": "2021-11-03"
+ },
+ {
+  "full_name": "statice/awesome-synthetic-data",
+  "stars": 267,
+  "pushed": "2024-01-11T12:32:05Z",
+  "license": "Apache-2.0",
+  "lang": null,
+  "archived": false,
+  "desc": "A curated list of awesome synthetic data tools (open source and commercial).",
+  "created": "2018-11-18"
+ },
+ {
+  "full_name": "danyuchn/pii-guard",
+  "stars": 249,
+  "pushed": "2026-10-02T14:29:06Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "繁體中文（台灣）個人資料去識別化工具，讓業務文件可以安全地送進 AI 處理 / Reversible Traditional-Chinese (Taiwan) PII de-identification for LLM workflows — fully local",
+  "created": "2026-03-30"
+ },
+ {
+  "full_name": "rap2hpoutre/pg-anonymizer",
+  "stars": 239,
+  "pushed": "2024-08-30T13:25:23Z",
+  "license": "MIT",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Dump anonymized PostgreSQL database with a NodeJS CLI",
+  "created": "2021-01-29"
+ },
+ {
+  "full_name": "makinacorpus/DbToolsBundle",
+  "stars": 234,
+  "pushed": "2026-06-10T13:21:49Z",
+  "license": "MIT",
+  "lang": "PHP",
+  "archived": false,
+  "desc": "A PHP library to back up, restore and anonymize databases",
+  "created": "2023-11-16"
+ },
+ {
+  "full_name": "Smile-SA/gdpr-dump",
+  "stars": 230,
+  "pushed": "2026-02-24T09:01:36Z",
+  "license": "GPL-3.0",
+  "lang": "PHP",
+  "archived": false,
+  "desc": "Utility that creates anonymized database dumps (MySQL only). Provides default config templates for Magento, Drupal and Shopware.",
+  "created": "2020-02-05"
+ },
+ {
+  "full_name": "samber/slog-formatter",
+  "stars": 226,
+  "pushed": "2026-09-01T06:35:05Z",
+  "license": "MIT",
+  "lang": "Go",
+  "archived": false,
+  "desc": "🚨 slog: Attribute formatting",
+  "created": "2023-04-16"
+ },
+ {
+  "full_name": "arx-deidentifier/arx",
+  "stars": 738,
+  "pushed": "2025-10-01T15:44:48Z",
+  "license": "Apache-2.0",
+  "lang": "Java",
+  "archived": false,
+  "desc": "ARX is a comprehensive open source data anonymization tool aiming to provide scalability and usability. It supports various anonymization techniques, methods for analyzing data quality and re-identification risks and it ",
+  "created": "2013-04-29"
+ },
+ {
+  "full_name": "0xdad0/HideDroid",
+  "stars": 217,
+  "pushed": "2026-09-02T07:11:18Z",
+  "license": "AGPL-3.0",
+  "lang": "Java",
+  "archived": false,
+  "desc": "HideDroid is an Android app that allows the per-app anonymization of collected personal data according to a privacy level chosen by the user.",
+  "created": "2021-06-04"
+ },
+ {
+  "full_name": "BMW-InnovationLab/BMW-Anonymization-API",
+  "stars": 191,
+  "pushed": "2024-02-09T14:07:16Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "This repository allows you to anonymize sensitive information in images/videos. The solution is fully compatible with the DL-based training/inference solutions that we already published/will publish for Object Detection ",
+  "created": "2021-04-08"
+ },
+ {
+  "full_name": "moyupeng0422/legal-doc-redactor",
+  "stars": 131,
+  "pushed": "2026-03-29T14:58:14Z",
+  "license": "MIT",
+  "lang": "HTML",
+  "archived": false,
+  "desc": "法律文件脱敏/还原工具 - 智能识别敏感 信息，支持批量处理",
+  "created": "2026-02-06"
+ },
+ {
+  "full_name": "rapiddweller/datamimic",
+  "stars": 116,
+  "pushed": "2026-10-15T08:58:48Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Model-driven synthetic test data for CI/CD and analytics - deterministic, privacy-preserving, and domain-aware. Includes Python APIs, XML pipelines, and MCP/IDE integration to orchestrate realistic datasets for finance, ",
+  "created": "2024-12-09"
+ },
+ {
+  "full_name": "privateai/deid-examples",
+  "stars": 92,
+  "pushed": "2026-10-14T17:22:16Z",
+  "license": "MIT",
+  "lang": "Jupyter Notebook",
+  "archived": false,
+  "desc": "Examples scripts that showcase how to use Private AI Text to de-identify, redact, hash, tokenize, mask and synthesize PII in text.",
+  "created": "2021-11-18"
+ },
+ {
+  "full_name": "jftuga/deidentification",
+  "stars": 59,
+  "pushed": "2025-05-03T12:09:52Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Deidentify people's names and gender specific pronouns",
+  "created": "2025-01-02"
+ },
+ {
+  "full_name": "IFCA-Advanced-Computing/anjana",
+  "stars": 50,
+  "pushed": "2026-10-16T02:04:41Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "ANJANA is a Python library for anonymizing sensitive data",
+  "created": "2024-04-10"
+ },
+ {
+  "full_name": "aliengiraffe/deidentify",
+  "stars": 41,
+  "pushed": "2026-08-20T05:03:32Z",
+  "license": "MIT",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Go library that detects personally identifiable information in text and structured data and replaces it with deterministic, format-preserving substitutes.",
+  "created": "2025-05-20"
+ },
+ {
+  "full_name": "snaplet/docs",
+  "stars": 29,
+  "pushed": "2024-09-01T18:45:59Z",
+  "license": null,
+  "lang": "HTML",
+  "archived": false,
+  "desc": "Snaplet Documentation",
+  "created": "2023-08-09"
+ },
+ {
+  "full_name": "KI-AIM/Cinnamon",
+  "stars": 29,
+  "pushed": "2026-10-14T12:31:15Z",
+  "license": "Apache-2.0",
+  "lang": "Java",
+  "archived": false,
+  "desc": "Cinnamon is a modular application designed to offer robust functionalities for data anonymization, synthetization, and evaluation.",
+  "created": "2023-07-12"
+ },
+ {
+  "full_name": "Joopinhontas/tokenveil-oss",
+  "stars": 28,
+  "pushed": "2026-08-14T14:24:16Z",
+  "license": "NOASSERTION",
+  "lang": "HTML",
+  "archived": false,
+  "desc": "Real-time data anonymization for LLMs: secure your logs and conversations across cloud or local environments. Docker-ready & Multi-IA support.",
+  "created": "2026-06-23"
+ },
+ {
+  "full_name": "thoughtworks-datakind/anonymizer",
+  "stars": 22,
+  "pushed": "2022-12-26T21:44:56Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Library for identification, anonymization and de-anonymization of PII data",
+  "created": "2019-03-19"
+ },
+ {
+  "full_name": "fcarvajalbrown/MaskOps",
+  "stars": 21,
+  "pushed": "2026-08-30T17:16:43Z",
+  "license": "MPL-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "High-speed PII masking as a Polars plugin, powered by Rust",
+  "created": "2026-03-09"
+ },
+ {
+  "full_name": "capitalone/DataProfiler",
+  "stars": 1595,
+  "pushed": "2026-09-14T21:32:35Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "What's in your data? Extract schema, statistics and entities from datasets",
+  "created": "2020-11-09"
+ },
+ {
+  "full_name": "rohitcoder/hawk-eye",
+  "stars": 507,
+  "pushed": "2026-07-04T11:33:55Z",
+  "license": "NOASSERTION",
+  "lang": "Python",
+  "archived": false,
+  "desc": "A powerful scanner to scan your Filesystem, S3, MySQL, Redis, Google Cloud Storage and Firebase storage for PII and sensitive data.",
+  "created": "2023-08-03"
+ },
+ {
+  "full_name": "WangYihang/pii2pw",
+  "stars": 465,
+  "pushed": "2026-10-08T07:12:24Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "PII2PW turns a target's personal information — name, birthday, phone number, places and so on — into a ranked wordlist of the passwords that person is most likely to have chosen.",
+  "created": "2017-06-08"
+ },
+ {
+  "full_name": "tokern/piicatcher",
+  "stars": 348,
+  "pushed": "2024-01-05T17:37:23Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": true,
+  "desc": "Scan databases and data warehouses for PII data. Tag tables and columns in data catalogs like Amundsen and Datahub",
+  "created": "2019-03-21"
+ },
+ {
+  "full_name": "runta-dev/clawshell",
+  "stars": 345,
+  "pushed": "2026-07-13T18:45:51Z",
+  "license": "Apache-2.0",
+  "lang": "Rust",
+  "archived": false,
+  "desc": "The local runtime control layer for OpenClaw/Hermes-agent, PII & sensitive credentials protection.",
+  "created": "2026-02-13"
+ },
+ {
+  "full_name": "data-privacy-stack/presidio-research",
+  "stars": 317,
+  "pushed": "2026-10-14T12:50:46Z",
+  "license": "MIT",
+  "lang": "Jupyter Notebook",
+  "archived": false,
+  "desc": "This package features data-science related tasks for developing new recognizers for Presidio. It is used for the evaluation of the entire system, as well as for evaluating specific PII recognizers or PII detection models",
+  "created": "2020-01-05"
+ },
+ {
+  "full_name": "localai-org/privacy-filter.cpp",
+  "stars": 305,
+  "pushed": "2026-07-02T07:13:45Z",
+  "license": "MIT",
+  "lang": "C++",
+  "archived": false,
+  "desc": "OpenAI's privacy filter NER model architecture implemented in a minimal C++/GGML runtime",
+  "created": "2026-06-13"
+ },
+ {
+  "full_name": "mkbula/HideMyData",
+  "stars": 192,
+  "pushed": "2026-05-05T22:02:31Z",
+  "license": "GPL-3.0",
+  "lang": "Swift",
+  "archived": false,
+  "desc": "Native macOS PII removal software with on device Vision OCR and OpenAI privacy filter model",
+  "created": "2026-04-27"
+ },
+ {
+  "full_name": "cxumol/promptmask",
+  "stars": 156,
+  "pushed": "2026-01-04T00:23:11Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Never give AI companies your secrets! A local LLM-based privacy filter for LLM users. Seamless integration with your existing AI tools as a Python library / OpenAI SDK replacement / API Gatetway / Web Server.",
+  "created": "2025-07-30"
+ },
+ {
+  "full_name": "mplspunk/awesome-privacy-engineering",
+  "stars": 202,
+  "pushed": "2026-08-14T04:00:05Z",
+  "license": null,
+  "lang": null,
+  "archived": false,
+  "desc": "A curated list of resources related to privacy engineering",
+  "created": "2021-01-22"
+ },
+ {
+  "full_name": "DataFog/datafog-python",
+  "stars": 78,
+  "pushed": "2026-10-05T08:34:56Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Offline PII firewall for AI agents and LLM apps: fast local detection and redaction, Claude Code hook, LiteLLM guardrail. Zero network calls, one dependency.",
+  "created": "2023-06-22"
+ },
+ {
+  "full_name": "Voice-Privacy-Challenge/Voice-Privacy-Challenge-2022",
+  "stars": 69,
+  "pushed": "2026-07-13T12:17:24Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Baseline Recipe for VoicePrivacy Challenge 2022: anonymization systems and evaluation software",
+  "created": "2021-11-08"
+ },
+ {
+  "full_name": "nroduit/karnak",
+  "stars": 52,
+  "pushed": "2026-10-06T09:54:36Z",
+  "license": "NOASSERTION",
+  "lang": "Java",
+  "archived": false,
+  "desc": "DICOM gateway for de-identification or tag morphing",
+  "created": "2019-08-22"
+ },
+ {
+  "full_name": "nf-core/detaxizer",
+  "stars": 25,
+  "pushed": "2026-10-14T18:16:31Z",
+  "license": "MIT",
+  "lang": "Nextflow",
+  "archived": false,
+  "desc": "A pipeline to identify (and remove) certain sequences from raw genomic data. Default taxon to identify (and remove) is Homo sapiens. Removal is optional.",
+  "created": "2023-10-30"
+ },
+ {
+  "full_name": "privateai/pai-thin-client",
+  "stars": 23,
+  "pushed": "2026-10-15T16:45:50Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "A python client used to interact with the Private AI's API",
+  "created": "2023-04-05"
+ },
+ {
+  "full_name": "icescentral/MASK_public",
+  "stars": 21,
+  "pushed": "2022-06-23T05:30:27Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Masking identifiable information from health related documents.",
+  "created": "2020-08-20"
+ },
+ {
+  "full_name": "anonde-io/anonde",
+  "stars": 18,
+  "pushed": "2026-10-15T18:19:22Z",
+  "license": "Apache-2.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Local-first PII anonymization and de-anonymization in Go. Multilingual via GLiNER NER + 73 pattern recognizers. Self-host runs as a single binary that never leaves your network.",
+  "created": "2026-04-21"
+ },
+ {
+  "full_name": "omers/pii-anonymizer-api",
+  "stars": 14,
+  "pushed": "2026-10-06T06:26:51Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "PII Anonymizer service based on python with FastAPI",
+  "created": "2023-08-16"
+ },
+ {
+  "full_name": "k13lucien/maskme",
+  "stars": 13,
+  "pushed": "2026-07-17T18:48:04Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Agnostic Python library for data anonymazation: anonymizing structured, semi-structured, and unstructured data.",
+  "created": "2026-04-27"
+ },
+ {
+  "full_name": "IBM/READI",
+  "stars": 12,
+  "pushed": "2026-10-15T23:57:06Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "READI",
+  "created": "2026-05-04"
+ },
+ {
+  "full_name": "Clinacuity/CliniDeID",
+  "stars": 11,
+  "pushed": "2023-08-13T08:20:50Z",
+  "license": "GPL-3.0",
+  "lang": "Java",
+  "archived": false,
+  "desc": "CliniDeID automatically de-identifies clinical text notes according to the HIPAA Safe Harbor method. It accurately finds identifiers and tags or replaces them with realistic surrogates for better anonymity. ",
+  "created": "2022-11-17"
+ },
+ {
+  "full_name": "oas114/EduShield",
+  "stars": 11,
+  "pushed": "2026-08-31T15:54:03Z",
+  "license": "MIT",
+  "lang": "HTML",
+  "archived": false,
+  "desc": "教育隱私保護系統 — 純前端執行的去識別化與還原工具。Zero-Trust Data Anonymization Shield for AI. ",
+  "created": "2026-08-21"
+ },
+ {
+  "full_name": "KeeplerIO/de-identification-framework",
+  "stars": 11,
+  "pushed": "2021-11-15T10:11:39Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Application of our De-identification Framework with open source technologies, enabling enterprises to take ownership of the de-identification process and deploy it in trusted environments.",
+  "created": "2021-10-27"
+ },
+ {
+  "full_name": "PraneelBhatia/redactable",
+  "stars": 9,
+  "pushed": "2026-06-05T16:38:56Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Deterministic-first PII/PHI de-identification you can prove: benchmarked recall, jurisdiction policy packs, reversible tokenization, audit trail. CLI + library + GitHub Action; optional GLiNER / Gemma contextual tier.",
+  "created": "2026-06-04"
+ },
+ {
+  "full_name": "bekzod/yashirgich",
+  "stars": 3,
+  "pushed": "2026-02-15T15:20:10Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Uzbek/Russian PII detection and masking using ML (rubai) + rule-based (Presidio) models",
+  "created": "2026-02-14"
+ },
+ {
+  "full_name": "SergeyK88i/pii-obfuscator",
+  "stars": 0,
+  "pushed": "2026-09-24T19:52:33Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "PII detection and deterministic pseudonymization for Russian text",
+  "created": "2026-09-24"
+ },
+ {
+  "full_name": "feuerstrahll/ru-pii-detection-system",
+  "stars": 0,
+  "pushed": "2026-09-22T23:53:43Z",
+  "license": "MIT",
+  "lang": null,
+  "archived": false,
+  "desc": "Privacy-first, explainable system for detecting Russian personal data in unstructured organizational sources, combining deterministic validation, contextual NER, and reproducible per-entity evaluation.",
+  "created": "2026-09-22"
+ },
+ {
+  "full_name": "sergeysemenovessg-droid/anonym2",
+  "stars": 0,
+  "pushed": "2026-03-26T15:35:20Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "PII Anonymization & Deanonymization for Text and Documents. Supports DOCX, PDF, XLSX, TXT. Russian PII detection. Local & cloud deployment.",
+  "created": "2026-03-26"
+ },
+ {
+  "full_name": "k1ddy/kazpii-bench",
+  "stars": 0,
+  "pushed": "2026-10-12T03:48:01Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Open benchmark for PII detection in Kazakh and Russian texts: generator, KazNERD ingest, harness, leaderboard",
+  "created": "2026-10-11"
+ },
+ {
+  "full_name": "Exemtik/pii-bench-ru-en",
+  "stars": 0,
+  "pushed": "2026-05-31T16:17:26Z",
+  "license": "NOASSERTION",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Bilingual (RU/EN) PII detection & reversible tokenization — pymorphy3 for Russian names, spaCy for English, regex for formats — with quality benchmarks on pii-bench and pii-external.",
+  "created": "2026-05-30"
+ },
+ {
+  "full_name": "Ramazanm1nd3R/qorgau",
+  "stars": 0,
+  "pushed": "2026-07-02T21:40:43Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "LLM safety for low-resource languages — jailbreak & prompt-injection detection, PII/NER, and guardrails for Kazakh and Russian, where English-trained filters fail.",
+  "created": "2026-07-02"
+ },
+ {
+  "full_name": "levitation-opensource/DataAnonymiser",
+  "stars": 7,
+  "pushed": "2026-01-15T11:09:50Z",
+  "license": "MPL-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Anonymises data inside text files and in sheet files. It recognises and removes various sorts of personally identifiable information (PII). Each removed part is replaced with suitable pseudonyms, depending on the type of",
+  "created": "2024-05-14"
+ },
+ {
+  "full_name": "dewil/pii-mask",
+  "stars": 4,
+  "pushed": "2026-10-09T10:28:46Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Локальный шлюз маскировки персональных данных перед отправкой текста в облачные LLM: mask/unmask, stateless mapping, ПД-форматы РФ и русский NER",
+  "created": "2026-07-24"
+ },
+ {
+  "full_name": "vovkins/ru-llm-proxy",
+  "stars": 1,
+  "pushed": "2026-10-13T06:47:26Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Прокси для безопасного доступа к LLM: LiteLLM, Presidio, русскоязычная BERT NER, маскирование персональных данных и контроль исходящего трафика",
+  "created": "2026-05-28"
+ },
+ {
+  "full_name": "cndfdv/docx-anonymizer",
+  "stars": 1,
+  "pushed": "2026-08-21T22:27:15Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Local DOCX anonymizer: GLiNER multilingual PII model plus Russian identifier rules, runs fully offline in Docker — no document text leaves the machine",
+  "created": "2026-08-21"
+ },
+ {
+  "full_name": "zubarevdm/pii-gateway",
+  "stars": 0,
+  "pushed": "2026-09-29T21:09:22Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Local OpenAI-compatible proxy that masks Russian PII (names, INN/SNILS, addresses) before sending prompts to foreign LLMs and restores it in the response. FastAPI, natasha NER.",
+  "created": "2026-07-16"
+ },
+ {
+  "full_name": "Quakeer444/pii-arena",
+  "stars": 0,
+  "pushed": "2026-09-22T20:43:50Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "PII Arena — the independent benchmark for PII and secret detectors across Russian, English and multilingual datasets",
+  "created": "2026-09-18"
+ },
+ {
+  "full_name": "mynka999/legal-anonymizer",
+  "stars": 0,
+  "pushed": "2026-07-17T18:41:03Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Локальный анонимизатор юридических документов перед отправкой в облачные LLM: Natasha NER офлайн, проверка глазами, восстановление ответа. Windows GUI",
+  "created": "2026-07-17"
+ },
+ {
+  "full_name": "alexmaralless-bit/docx-anonymizer",
+  "stars": 0,
+  "pushed": "2026-10-15T19:40:26Z",
+  "license": "MIT",
+  "lang": "JavaScript",
+  "archived": false,
+  "desc": "Расширение Chrome: анонимизирует договоры .docx перед отправкой в ChatGPT/Claude — плейсхолдеры вместо ФИО, компаний, реквизитов; всё локально; обратная замена ответа",
+  "created": "2026-10-04"
+ },
+ {
+  "full_name": "inkdust2021/VibeGuard",
+  "stars": 229,
+  "pushed": "2026-10-09T17:26:43Z",
+  "license": "Apache-2.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Uses just 1% memory while protecting 99% of your personal privacy.",
+  "created": "2026-02-25"
+ },
+ {
+  "full_name": "fabriziosalmi/aidlp",
+  "stars": 21,
+  "pushed": "2026-10-14T10:11:43Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Data Loss Prevention (DLP) for LLM endpoints.",
+  "created": "2025-12-01"
+ },
+ {
+  "full_name": "nullsink/nullsink",
+  "stars": 12,
+  "pushed": "2026-08-20T08:20:22Z",
+  "license": "AGPL-3.0",
+  "lang": "TypeScript",
+  "archived": true,
+  "desc": "Privacy-first, account-less metered proxy for frontier models. No account, no IP, no request logs.",
+  "created": "2026-06-23"
+ },
+ {
+  "full_name": "RPBLC-hq/DAM",
+  "stars": 11,
+  "pushed": "2026-09-15T17:40:49Z",
+  "license": null,
+  "lang": "Rust",
+  "archived": false,
+  "desc": "A local privacy firewall for AI agents.",
+  "created": "2026-02-13"
+ },
+ {
+  "full_name": "6fears7/nospy-ai",
+  "stars": 10,
+  "pushed": "2026-10-15T11:24:28Z",
+  "license": "MIT",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Redacts secrets and personal data in LLM API traffic and restores them in responses",
+  "created": "2026-10-01"
+ },
+ {
+  "full_name": "panando/APIBypass",
+  "stars": 10,
+  "pushed": "2026-07-24T10:04:58Z",
+  "license": "MIT",
+  "lang": "Swift",
+  "archived": false,
+  "desc": "A lightweight macOS app for LLM API proxying — automatic format translation (Anthropic ↔ OpenAI), parameter injection, model mapping, and centralized provider management.",
+  "created": "2026-05-17"
+ },
+ {
+  "full_name": "kotro-labs/kotro-proxy-engine",
+  "stars": 9,
+  "pushed": "2026-10-13T06:14:17Z",
+  "license": "MIT",
+  "lang": "Rust",
+  "archived": false,
+  "desc": "Local coding-agent control plane — MCP action governance + LLM-path protection + cost control. One Rust binary, no SaaS.",
+  "created": "2026-06-29"
+ },
+ {
+  "full_name": "dzungvpham/proxygpt",
+  "stars": 8,
+  "pushed": "2026-06-22T01:25:55Z",
+  "license": "MIT",
+  "lang": "JavaScript",
+  "archived": true,
+  "desc": "Protect your privacy when using LLM chatbots by letting someone else proxy your query for you.",
+  "created": "2024-02-29"
+ },
+ {
+  "full_name": "GetSHIM/shim-cli",
+  "stars": 9,
+  "pushed": "2026-10-14T20:39:20Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Local traffic visibility and privacy controls for coding agents. See what Claude Code, Codex and Copilot send to the model; mask secrets and personal data where the client allows it.",
+  "created": "2026-08-24"
+ },
+ {
+  "full_name": "KikuAI-Lab/masker",
+  "stars": 6,
+  "pushed": "2026-09-07T02:10:19Z",
+  "license": "AGPL-3.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "PII redaction API for masking obvious personal data before LLM workflows.",
+  "created": "2025-11-26"
+ },
+ {
+  "full_name": "SekaiBuilder/exodus-ia-firewall",
+  "stars": 5,
+  "pushed": "2026-08-12T13:41:12Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "🛡️ Local privacy firewall for AI coding agents — masks API keys & personal data before they reach the cloud, then restores them transparently.",
+  "created": "2026-06-05"
+ },
+ {
+  "full_name": "saoirsebarry/VeilAI",
+  "stars": 4,
+  "pushed": "2026-04-24T16:52:45Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Veil is an open source privacy proxy to sit between your prompts and LLM APIs - it masks your personal data to prevent meaningful information about your life being sold unknowingly to third parties",
+  "created": "2026-04-24"
+ },
+ {
+  "full_name": "NakuSurrey/maskwise",
+  "stars": 1,
+  "pushed": "2026-06-30T23:21:37Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Production PII masking service for LLMs, detects and redacts personal data before submission to ChatGPT, Claude, and Gemini.",
+  "created": "2026-05-16"
+ },
+ {
+  "full_name": "gabrielkpo/alias",
+  "stars": 1,
+  "pushed": "2026-10-15T22:01:23Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Local PII masking before an LLM call: detect personal data (FR + EN), replace it with stable aliases, restore it in the answer.",
+  "created": "2026-10-15"
+ },
+ {
+  "full_name": "sanjeev1508/promptmasker",
+  "stars": 1,
+  "pushed": "2025-12-17T17:29:30Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "PromptMasker is a prompt-sanitization utility that heuristically detects and masks sensitive data in raw text before it is sent to LLMs, logs, or external services.  It is designed to sit before your model call or loggin",
+  "created": "2025-12-16"
+ },
+ {
+  "full_name": "yakovlevanton/privacy_masking",
+  "stars": 0,
+  "pushed": "2026-03-07T22:04:00Z",
+  "license": null,
+  "lang": "Jupyter Notebook",
+  "archived": false,
+  "desc": "The project is dedicated to masking users personal data in LLM prompts",
+  "created": "2026-03-07"
+ },
+ {
+  "full_name": "lyutskangeorgiev/DataMaskingETL",
+  "stars": 0,
+  "pushed": "2026-09-02T23:18:30Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "A local-first data pipeline that sanitizes personal info locally, uses an LLM to enrich and classify the masked context, and safely reassembles the text for GDPR-compliant financial analytics.",
+  "created": "2026-09-02"
+ },
+ {
+  "full_name": "sharkhk/masking-gateway",
+  "stars": 0,
+  "pushed": "2026-10-07T19:58:32Z",
+  "license": "Apache-2.0",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Reversible masking of personal data and secrets in requests to large language model providers. TypeScript, no runtime dependencies.",
+  "created": "2026-10-07"
+ },
+ {
+  "full_name": "larsgrosscom/llmveil",
+  "stars": 0,
+  "pushed": "2026-09-04T21:25:07Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Reversible PII redaction for LLM pipelines. Masks personal data before the API call, restores it after. Runs fully local.",
+  "created": "2026-09-04"
+ },
+ {
+  "full_name": "abilkhan023/llm-mask",
+  "stars": 0,
+  "pushed": "2026-09-29T05:00:43Z",
+  "license": "MIT",
+  "lang": "JavaScript",
+  "archived": false,
+  "desc": "Local proxy that masks secrets, hosts and personal data in everything Claude Code sends to the API and restores them in the replies.",
+  "created": "2026-09-28"
+ },
+ {
+  "full_name": "CEEKAY78/ticket-triage-automation",
+  "stars": 0,
+  "pushed": "2026-10-15T16:17:44Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "n8n + FastAPI customer-ticket triage: personal data masking, local LLM classification, team/SLA routing, review and dead-letter queues, measured accuracy",
+  "created": "2026-10-15"
+ },
+ {
+  "full_name": "patrikherak/llm-privacy",
+  "stars": 0,
+  "pushed": "2026-07-20T19:11:21Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Agent Skill: reversible PII tokenization — masks personal data before the LLM sees it, restores it in the final answer (SKILL.md, works in Claude Code and any agent)",
+  "created": "2026-07-16"
+ },
+ {
+  "full_name": "progh2/privatedataremover",
+  "stars": 0,
+  "pushed": "2026-07-30T04:14:22Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Cross-platform desktop app to detect and mask personal data in PDFs (PySide6, OCR, local/cloud LLM)",
+  "created": "2026-07-29"
+ },
+ {
+  "full_name": "thevip01/piimask",
+  "stars": 0,
+  "pushed": "2026-08-21T17:43:13Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Reversible PII masking and unmasking for the LLM era. Hide personal data before it reaches a model, then restore the real values in the reply.",
+  "created": "2026-08-21"
+ },
+ {
+  "full_name": "flam7791/governed-llm-gateway",
+  "stars": 0,
+  "pushed": "2026-10-09T11:14:15Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Internal LLM gateway: routes each request to the cheapest adequate model (Claude, Azure OpenAI or a local open-weight model), masks personal data, enforces team budgets and reports chargeback without storing content. Ope",
+  "created": "2026-09-26"
+ },
+ {
+  "full_name": "AndreaSacconi7/PrivacyAI",
+  "stars": 0,
+  "pushed": "2026-09-24T19:29:09Z",
+  "license": null,
+  "lang": "Swift",
+  "archived": false,
+  "desc": "iOS chat client that masks personal data on-device with a Core ML BERT NER model before sending messages to cloud LLMs.",
+  "created": "2026-09-24"
+ },
+ {
+  "full_name": "jfreemansh/Anonproxy",
+  "stars": 8,
+  "pushed": "2026-09-05T13:45:01Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Reversible anonymization proxy for sending pentest data to LLMs",
+  "created": "2026-06-25"
+ },
+ {
+  "full_name": "ma-abdellaoui/anonymice",
+  "stars": 8,
+  "pushed": "2026-08-23T09:52:54Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Reversible PII tokenization for LLM prompts and web pages. Names, IBANs, Phone numbers, cards and secrets leave as tokens, and the mapping back to the real value never leaves your infrastructure.",
+  "created": "2026-08-21"
+ },
+ {
+  "full_name": "moonlight-lupin/lethe",
+  "stars": 7,
+  "pushed": "2026-06-22T17:23:31Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "A fully-local, reversible document de-identifier — strip confidential names before you send a document to an AI, then restore them in the reply. No cloud, no API key.",
+  "created": "2026-06-08"
+ },
+ {
+  "full_name": "edulazaro/laranon",
+  "stars": 6,
+  "pushed": "2026-07-04T03:59:23Z",
+  "license": "MIT",
+  "lang": "PHP",
+  "archived": false,
+  "desc": "Reversible PII anonymization for Laravel, designed for LLMs, logs, streaming and third-party APIs",
+  "created": "2026-07-02"
+ },
+ {
+  "full_name": "vicsantiagobr/redactr",
+  "stars": 5,
+  "pushed": "2026-06-05T23:08:45Z",
+  "license": "MIT",
+  "lang": "JavaScript",
+  "archived": false,
+  "desc": "Scrub secrets & PII (API keys, tokens, emails, cards, CPF/CNPJ) from text before you paste it into AI, issues or pastebins. Reversible, 100% client-side, zero deps. Library + CLI + web demo.",
+  "created": "2026-06-05"
+ },
+ {
+  "full_name": "tastenkasperle/scrub-vault",
+  "stars": 4,
+  "pushed": "2026-10-13T07:00:53Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Zero-dependency in-memory PII airgap & reversible masking proxy for Cloud LLMs (GDPR Art. 32 compliant MCP server)",
+  "created": "2026-09-30"
+ },
+ {
+  "full_name": "RayBagel/LegalMask",
+  "stars": 4,
+  "pushed": "2026-05-05T13:44:07Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Chinese legal PII redaction for lawyers: statute protection, coreference resolution, reversible mapping",
+  "created": "2026-05-05"
+ },
+ {
+  "full_name": "Privalyse/privalyse-mask",
+  "stars": 3,
+  "pushed": "2026-01-18T15:16:45Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Semantic PII Masking & Anonymization for LLMs (RAG). GDPR-compliant, reversible, and context-aware. Supports LangChain & OpenAI",
+  "created": "2025-12-24"
+ },
+ {
+  "full_name": "mcanouil/oboro",
+  "stars": 3,
+  "pushed": "2026-10-01T12:15:41Z",
+  "license": "MIT",
+  "lang": "Rust",
+  "archived": false,
+  "desc": "Replace sensitive values in documents with reversible placeholders before sharing them with a language model.",
+  "created": "2026-07-19"
+ },
+ {
+  "full_name": "matinfo/pii-airlock",
+  "stars": 3,
+  "pushed": "2026-07-25T02:22:25Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Keep real PII out of your AI tools — local, reversible PII scrubbing via CLI, a universal provider gateway, or Claude Code hooks. Built on Microsoft Presidio.",
+  "created": "2026-06-20"
+ },
+ {
+  "full_name": "dthatprince/llm-anonymizer",
+  "stars": 2,
+  "pushed": "2025-10-12T20:21:25Z",
+  "license": null,
+  "lang": "Jupyter Notebook",
+  "archived": false,
+  "desc": "Developing and Exploring Use cases for Reversible Anonymization, Multi-language Anonymization, Question and Answering with privacy protection.",
+  "created": "2024-07-15"
+ },
+ {
+  "full_name": "geekpartnerslab-kz/llmguard",
+  "stars": 2,
+  "pushed": "2026-04-24T20:59:23Z",
+  "license": null,
+  "lang": "Python",
+  "archived": false,
+  "desc": "Open-source PII anonymization proxy between your apps and LLMs (Claude, GPT, local). OpenAI-compatible, reversible, with Kazakhstan and Russia recognisers (ИИН, БИН, СНИЛС, ИНН, passports, phones, cards) that off-the-she",
+  "created": "2026-04-23"
+ },
+ {
+  "full_name": "Korellaindustrial633/rizzo-pii",
+  "stars": 2,
+  "pushed": "2026-10-13T07:11:06Z",
+  "license": null,
+  "lang": null,
+  "archived": false,
+  "desc": "Anonymize Italian legal text locally with reversible PII replacement to maintain data privacy while using AI models.",
+  "created": "2026-07-03"
+ },
+ {
+  "full_name": "thirtysix/Preserve",
+  "stars": 2,
+  "pushed": "2026-07-22T06:14:46Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Privacy-preserving PII detection & scrubbing for LLM prompts — local-first, reversible, 15+ countries. Python library, CLI, OpenAI-compatible API gateway, and a 100% in-browser demo.",
+  "created": "2026-06-21"
+ },
+ {
+  "full_name": "LorenzoMascia/llm-distillery",
+  "stars": 1,
+  "pushed": "2026-07-31T09:52:18Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Teacher–student distillation pipeline for domain-specific LLMs. Reference use case: reversible PII anonymization on TinyLlama 1.1B.",
+  "created": "2026-01-06"
+ },
+ {
+  "full_name": "dfki-dsa/pii-guardrail-browser-extension",
+  "stars": 100,
+  "pushed": "2026-09-24T00:51:53Z",
+  "license": "Apache-2.0",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Privacy Guardrail is a local-first Chrome extension that detects and anonymizes PII before text is pasted into ChatGPT, Claude, or Gemini, using Rust/WASM recognizers and optional in-browser transformer NER.",
+  "created": "2026-05-14"
+ },
+ {
+  "full_name": "vstorm-co/pydantic-ai-shields",
+  "stars": 95,
+  "pushed": "2026-10-10T01:40:55Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Guardrail capabilities for Pydantic AI — cost tracking, prompt injection detection, PII filtering, secret redaction, tool permissions, and async guardrails. Built on pydantic-ai's native capabilities API.",
+  "created": "2025-12-28"
+ },
+ {
+  "full_name": "knostic/openclaw-shield",
+  "stars": 92,
+  "pushed": "2026-05-12T11:30:45Z",
+  "license": "Apache-2.0",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "Security plugin for OpenClaw agents - prevents secret leaks, PII exposure, and destructive command execution",
+  "created": "2026-02-04"
+ },
+ {
+  "full_name": "CollieAi/llm-firewall",
+  "stars": 46,
+  "pushed": "2026-09-24T11:27:12Z",
+  "license": "MIT",
+  "lang": null,
+  "archived": false,
+  "desc": "AI Firewall & LLM security toolkit - protect your AI applications from prompt injection, jailbreaks, PII leakage, and adversarial attacks",
+  "created": "2026-04-17"
+ },
+ {
+  "full_name": "hoophq/alcatraz",
+  "stars": 38,
+  "pushed": "2026-10-14T15:31:12Z",
+  "license": "MIT",
+  "lang": "Go",
+  "archived": false,
+  "desc": "Small engine of PII detector with masking and custom rules.",
+  "created": "2026-06-30"
+ },
+ {
+  "full_name": "thyrisAI/safe-zone",
+  "stars": 30,
+  "pushed": "2026-10-15T17:44:45Z",
+  "license": "Apache-2.0",
+  "lang": "Go",
+  "archived": false,
+  "desc": "TSZ (Thyris Safe Zone) is an open-source PII detection and guardrails engine that prevents sensitive data from leaking to LLMs and third-party APIs.",
+  "created": "2025-12-13"
+ },
+ {
+  "full_name": "atliq/guardex-ai",
+  "stars": 28,
+  "pushed": "2026-10-13T07:30:36Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Python SDK for LLM guardrails with safety classification, PII detection, prompt injection defense, and grounding checks. Protect AI applications locally with zero external APIs, streaming support, and plug-and-play integ",
+  "created": "2026-07-08"
+ },
+ {
+  "full_name": "wiserautomation/SupraWall",
+  "stars": 24,
+  "pushed": "2026-05-12T21:04:46Z",
+  "license": "Apache-2.0",
+  "lang": "TypeScript",
+  "archived": false,
+  "desc": "The open-source security layer for AI agents. Deterministic guardrails, PII redaction, and EU AI Act compliance in one line of code.",
+  "created": "2026-04-21"
+ },
+ {
+  "full_name": "guardrails-ai/guardrails_pii",
+  "stars": 23,
+  "pushed": "2026-07-27T20:58:16Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "",
+  "created": "2024-12-09"
+ },
+ {
+  "full_name": "ultramancode/spring-ai-privacy-guardrails",
+  "stars": 21,
+  "pushed": "2026-10-15T09:55:42Z",
+  "license": "Apache-2.0",
+  "lang": "Java",
+  "archived": false,
+  "desc": "Privacy guardrails for Spring AI: request-scoped PII tokenization, least-privilege disclosure to tools, and optional Spring Security tool authorization. Supports Presidio and JVM-local OpenNLP.",
+  "created": "2026-08-05"
+ },
+ {
+  "full_name": "guardrails-ai/detect_pii",
+  "stars": 18,
+  "pushed": "2026-07-27T20:58:49Z",
+  "license": "Apache-2.0",
+  "lang": "Python",
+  "archived": false,
+  "desc": "Guardrails AI: PII Filter - Validates that any text does not contain any PII",
+  "created": "2024-01-31"
+ },
+ {
+  "full_name": "Acacian/aegis",
+  "stars": 18,
+  "pushed": "2026-08-29T14:36:46Z",
+  "license": "MIT",
+  "lang": "Python",
+  "archived": false,
+  "desc": "LLM guardrails & prompt injection detection for Python. Auto-instruments LangChain, CrewAI, OpenAI, LiteLLM + 8 more frameworks. PII masking, toxicity detection, policy CI/CD. One line, zero code changes.",
+  "created": "2026-03-20"
+ },
+ {
+  "full_name": "Ratila1/JGuardrails",
+  "stars": 16,
+  "pushed": "2026-04-15T22:04:26Z",
+  "license": "NOASSERTION",
+  "lang": "Java",
+  "archived": false,
+  "desc": "🛡️ Programmable Guardrails for LLM Applications in Java. A framework-agnostic toolkit for input/output validation, PII masking, and jailbreak detection. The Java alternative to NVIDIA NeMo Guardrails.",
+  "created": "2026-04-10"
+ }
+]

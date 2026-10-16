@@ -21,17 +21,21 @@
 | 4 | Аудит репозиториев, бенчмарков, датасетов и рыночных продуктов | [`03-repos/`](03-repos/), [`04-market/`](04-market/) | в работе |
 | 5 | Нормативный слой: приказ РКН №140, 152-ФЗ, ГОСТы | [`05-legal/`](05-legal/) | в работе |
 | 6 | Сверка контрольных сумм на живых данных | [`06-method/checksum-verification.md`](06-method/checksum-verification.md) | **готово** |
-| 7 | Черновик протокола бенчмарка | [`appendix/`](appendix/) | ожидает |
+| 7 | Черновик протокола бенчмарка | [`appendix/benchmark-protocol.md`](appendix/benchmark-protocol.md) | **черновик готов** |
 | 8 | Ворота go/no-go по ContextGuard | [`01-articles/contextual/`](01-articles/contextual/) | ожидает |
-| 9 | Сводный документ «берём/отвергаем» | [`01-audit.md`](01-audit.md) | ожидает |
+| 9 | Сводный документ «берём/отвергаем» | [`01-audit.md`](01-audit.md) | в работе |
 
 ## Главные выводы по мере появления
 
 | Вывод | Где | Статус |
 |---|---|---|
+| **SurrogateShield реализует замену на фейки, Relation Gate и риск-скоринг квазиидентификаторов — два отличия из плана опровергнуты** | [`01-audit.md`](01-audit.md) | подтверждено по документации проекта |
+| SurrogateShield: 0.73% утечек, 88.5% безобидных сообщений не тронуто, 43.5 мс, 1 348 МБ | [`appendix/benchmark-references/competitor-numbers.md`](appendix/benchmark-references/competitor-numbers.md) | самоописание авторов |
+| Presidio: 37.35% утечек при 1 084 МБ и 8.2 мс на сообщение, пропускает в 39 раз больше лидера | [`appendix/benchmark-references/competitor-numbers.md`](appendix/benchmark-references/competitor-numbers.md) | из их же прогона |
+| У всех высокий уровень ложных правок: даже лидер портит 11.5% безобидных сообщений, Presidio — 40% | [`appendix/benchmark-references/competitor-numbers.md`](appendix/benchmark-references/competitor-numbers.md) | прямой аналог нашей метрики FP(clean) |
 | Расчётный счёт клиента проверяется по контрольному ключу, корсчёт — нет | [`06-method/checksum-verification.md`](06-method/checksum-verification.md) | подтверждено на живых данных |
 | «Ноль ложных срабатываний» у форматных детекторов недостижим: счёт даёт ~10% ложных прохождений | [`06-method/checksum-verification.md`](06-method/checksum-verification.md) | подтверждено замером |
-| Учебная литература содержит ошибки в примерах контрольных сумм — сверять только на живых реквизитах | [`06-method/checksum-verification.md`](06-method/checksum-verification.md) | подтверждено |
+| Учебная литература содержит ошибки в примерах контрольных сумм | [`06-method/checksum-verification.md`](06-method/checksum-verification.md) | подтверждено |
 | ИИН/БИН Казахстана и УНП Беларуси не проверены; в релизе не подменяются | [`06-method/checksum-verification.md`](06-method/checksum-verification.md) | открыто |
 
 ## Метод
@@ -58,7 +62,7 @@ phase-0/
   04-market/                   рыночные продукты
   05-legal/                    приказ РКН №140, 152-ФЗ, ГОСТы
   06-method/                   сверка контрольных сумм, воспроизводимые скрипты
-  appendix/                    протокол бенчмарка, библиография
+  appendix/                    протокол бенчмарка, эталонные числа конкурентов, библиография
 ```
 
 ## Связь с остальными документами
