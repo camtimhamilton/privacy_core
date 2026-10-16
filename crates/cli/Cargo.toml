@@ -1,0 +1,15 @@
+[package]
+name = "privacy-core-cli"
+description = "Командная строка ядра приватности"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "privacy-core"
+path = "src/main.rs"
+
+[dependencies]
+privacy-core = { path = "../core" }

@@ -11,3 +11,6 @@ target/
 *.onnx
 models/
 .cache/
+
+# Локальный кэш cargo
+.cargo-local/

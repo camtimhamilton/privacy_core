@@ -1,0 +1,24 @@
+[package]
+name = "privacy-core"
+description = "Ядро приватности: обезличивание текста перед отправкой внешним языковым моделям"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+# Три запрета из раздела 4.1 рабочего документа проверяются тем, что здесь нет
+# и не должно появиться: HTTP-клиентов, обязательных ML-зависимостей,
+# знаний о провайдерах моделей.
+[dependencies]
+unicode-normalization.workspace = true
+zeroize.workspace = true
+
+[features]
+default = []
+# Статистический распознаватель сущностей. Отключён по умолчанию:
+# ядро должно собираться и проходить базовые проверки без него.
+ner-onnx = []
+
+[lints.rust]
+unsafe_code = "forbid"

@@ -1,0 +1,29 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/core",
+    "crates/cli",
+]
+
+[workspace.package]
+version = "0.0.1"
+edition = "2021"
+rust-version = "1.75"
+license = "Apache-2.0"
+repository = "https://github.com/camtimhamilton/privacy_core"
+authors = ["privacy_core contributors"]
+
+[workspace.dependencies]
+# Ядро намеренно имеет минимум зависимостей. Каждая новая зависимость —
+# это вклад в размер WASM-сборки и в вес установки, поэтому обсуждается отдельно.
+unicode-normalization = "0.1"
+zeroize = "1.8"
+
+[profile.release]
+# Ядро должно быть маленьким: включена оптимизация по размеру,
+# потому что целевой сценарий — WebAssembly и встраивание в редактор.
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
