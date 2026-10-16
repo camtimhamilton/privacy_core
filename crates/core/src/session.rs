@@ -14,7 +14,7 @@
 use crate::detect::{merge_cascades, Detected, Detector};
 use crate::error::{CoreError, Result};
 use crate::mapping::{Mapping, MappingEntry, MappingId, SubstitutionKind};
-use crate::policy::{Method, Policy};
+use crate::policy::{LegalMode, Method, Policy};
 use crate::restore::{restore_exact, RestoreResult};
 use crate::span::{NormalizedKey, Span};
 use crate::substitute::SubstitutionGenerator;
@@ -174,13 +174,13 @@ impl Session {
                     let surrogate = self.generator.generate(&crate::substitute::SubstitutionRequest {
                         entity_type: item.entity_type.clone(),
                         key: key.as_str().to_string(),
-                        kind: substitution_kind(self.policy.method),
+                        kind: substitution_kind(self.policy.legal_mode, self.policy.method),
                     });
                     self.mapping.insert(MappingEntry {
                         key: key.clone(),
                         surrogate: surrogate.clone(),
                         entity_type: item.entity_type.to_string(),
-                        kind: substitution_kind(self.policy.method),
+                        kind: substitution_kind(self.policy.legal_mode, self.policy.method),
                         generator_version: self.generator.version(),
                     })?;
                     surrogate
@@ -224,12 +224,35 @@ fn normalization_for(entity_type: &crate::entity::EntityTypeId) -> KeyNormalizat
     }
 }
 
-/// Вид подмены по методу политики.
-fn substitution_kind(method: Method) -> SubstitutionKind {
+/// Вид подмены: определяется юридическим режимом и методом политики.
+///
+/// # Почему режим важнее метода
+///
+/// Юридический режим и метод — разные вещи. Метод `Identifier` говорит
+/// «заменяем на идентификатор», а каким он будет — маркером `[ИНН_1]`
+/// или правдоподобным вымышленным номером — решает режим:
+///
+/// * **режим нормативного соответствия** даёт маркеры: это метод введения
+///   идентификаторов в его прямом виде, и он не требует обоснования;
+/// * **режим максимальной полезности** даёт похожие фейки: ответ внешней
+///   модели деградирует меньше, но формально это метод изменения атрибутов
+///   через случайные значения (прил. № 2, п. 9 пп. 3), и оператор обязан
+///   обосновать его в локальном акте.
+///
+/// Раньше здесь был только метод, и режим «полезность» молча выдавал
+/// маркеры — то есть делал не то, что обещает. Это поймал сквозной тест.
+fn substitution_kind(mode: LegalMode, method: Method) -> SubstitutionKind {
+    // Метод удаления и обобщения не зависят от режима: это отдельные
+    // методы приказа, а не вид подмены.
     match method {
-        Method::Identifier | Method::Mask => SubstitutionKind::Placeholder,
-        Method::Generalize => SubstitutionKind::CategoryLabel,
-        Method::Distort | Method::Delete => SubstitutionKind::SimilarFake,
+        Method::Mask => return SubstitutionKind::Masked,
+        Method::Generalize => return SubstitutionKind::CategoryLabel,
+        Method::Delete => return SubstitutionKind::SimilarFake,
+        Method::Identifier | Method::Distort => {}
+    }
+    match mode {
+        LegalMode::CompliantRu140 => SubstitutionKind::Placeholder,
+        LegalMode::Utility => SubstitutionKind::SimilarFake,
     }
 }
 

@@ -16,6 +16,16 @@
 //! 5. **Обратимость.** Восстановление однозначно, даже если фейк встретился
 //!    в ответе дважды.
 
+pub mod mask;
+pub mod rng;
+pub mod session_gen;
+pub mod valid;
+
+pub use mask::{mask_value, MaskStyle};
+pub use rng::Rng;
+pub use session_gen::{GeneratorConfig, SessionGenerator};
+pub use valid::{RegistryCheck, RegistryState, UnknownRegistry, ValidRuGenerator};
+
 use crate::entity::EntityTypeId;
 use crate::mapping::SubstitutionKind;
 

@@ -157,3 +157,144 @@ fn session_records_order_of_methods() {
     assert_eq!(out.report.methods.len(), 1, "метод записан по спану");
     assert!(!out.report.not_applicable.is_empty(), "неприменимые методы объявлены");
 }
+
+/// Сквозная проверка с **настоящим** генератором подмен.
+///
+/// Предыдущие тесты используют заглушку-маркер. Здесь работает настоящий
+/// генератор: он обязан выдать значения, проходящие контрольные суммы,
+/// и при этом не совпадающие с исходными.
+mod real_generator {
+    use privacy_core::mapping::SubstitutionKind;
+    use privacy_core::substitute::SessionGenerator;
+    use privacy_core::{FormatCascade, Policy, Session};
+
+    /// Строит ИНН физлица из десяти произвольных цифр.
+    fn make_inn_person(base: &str) -> String {
+        const W1: [u32; 10] = [7, 2, 4, 10, 3, 5, 9, 4, 6, 8];
+        const W2: [u32; 11] = [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8];
+        let digits: Vec<u32> = base.chars().map(|c| c.to_digit(10).unwrap()).collect();
+        let s1: u32 = W1.iter().zip(digits.iter()).map(|(w, d)| w * d).sum();
+        let d11 = s1 % 11 % 10;
+        let mut digits2 = digits.clone();
+        digits2.push(d11);
+        let s2: u32 = W2.iter().zip(digits2.iter()).map(|(w, d)| w * d).sum();
+        format!("{base}{d11}{}", s2 % 11 % 10)
+    }
+
+    /// Строит СНИЛС из девяти произвольных цифр.
+    fn make_snils(base: &str) -> String {
+        let digits: Vec<u32> = base.chars().map(|c| c.to_digit(10).unwrap()).collect();
+        let sum: u32 = (0..9).map(|i| digits[i] * (9 - i as u32)).sum();
+        let control = if sum < 100 {
+            sum
+        } else if sum <= 101 {
+            0
+        } else {
+            let r = sum % 101;
+            if r == 100 {
+                0
+            } else {
+                r
+            }
+        };
+        format!("{base}{control:02}")
+    }
+
+    #[test]
+    fn real_generator_produces_valid_fakes() {
+        let inn = make_inn_person("5001007322");
+        let snils = make_snils("112233445");
+        let input = format!("ИНН {inn}, СНИЛС {snils}");
+
+        // Режим похожих фейков: подмена обязана проходить контрольную сумму.
+        let generator = SessionGenerator::new(
+            2024,
+            privacy_core::substitute::GeneratorConfig {
+                kind: SubstitutionKind::SimilarFake,
+                ..Default::default()
+            },
+        );
+        let mut session = Session::new(Policy::utility(), Box::new(generator))
+            .with_detector(Box::new(FormatCascade::new()));
+
+        let out = session.anonymize(&input).expect("обезличивание");
+
+        // Исходные значения не утекли.
+        assert!(!out.text.contains(&inn), "ИНН утёк: {}", out.text);
+        assert!(!out.text.contains(&snils), "СНИЛС утёк: {}", out.text);
+
+        // Подмены валидны по форме.
+        let cells: Vec<&str> = out
+            .text
+            .split(|c: char| !c.is_ascii_digit())
+            .filter(|s| !s.is_empty())
+            .collect();
+        let has_valid_inn = cells.iter().any(|s| {
+            s.len() == 12 && {
+                let d: Vec<u8> = s.bytes().map(|b| b - b'0').collect();
+                privacy_core::cascade::is_valid_inn_person(&d)
+            }
+        });
+        let has_valid_snils = cells.iter().any(|s| {
+            s.len() == 11 && {
+                let d: Vec<u8> = s.bytes().map(|b| b - b'0').collect();
+                privacy_core::cascade::is_valid_snils(&d)
+            }
+        });
+        assert!(has_valid_inn, "подмена ИНН должна проходить контрольную сумму: {}", out.text);
+        assert!(has_valid_snils, "подмена СНИЛС должна проходить контрольную сумму: {}", out.text);
+    }
+
+    #[test]
+    fn real_generator_is_deterministic() {
+        let inn = make_inn_person("5001007322");
+        let input = format!("ИНН {inn}");
+        let run = || {
+            let generator = SessionGenerator::from_seed(555);
+            let mut session = Session::new(Policy::utility(), Box::new(generator))
+                .with_detector(Box::new(FormatCascade::new()));
+            session.anonymize(&input).expect("обезличивание").text
+        };
+        assert_eq!(run(), run(), "один seed должен давать один результат");
+    }
+
+    #[test]
+    fn masked_mode_hides_part_of_value() {
+        let inn = make_inn_person("5001007322");
+        let mut policy = Policy::ru_140();
+        policy.method = privacy_core::policy::Method::Mask;
+
+        let generator = SessionGenerator::from_seed(31);
+        let mut session = Session::new(policy, Box::new(generator))
+            .with_detector(Box::new(FormatCascade::new()));
+        let out = session
+            .anonymize(&format!("ИНН {inn}"))
+            .expect("обезличивание");
+
+        // Маска не должна содержать полное исходное значение.
+        assert!(!out.text.contains(&inn), "маска не должна раскрывать значение");
+        // Но должна содержать звёздочки: это признак маскирования.
+        assert!(out.text.contains('*'), "маска должна быть видна: {}", out.text);
+    }
+
+    #[test]
+    fn substitution_differs_from_original_value() {
+        // Ключевое для инварианта I1: подмена не совпадает с исходным.
+        let inn = make_inn_person("5001007322");
+        let generator = SessionGenerator::from_seed(77);
+        let mut session = Session::new(Policy::utility(), Box::new(generator))
+            .with_detector(Box::new(FormatCascade::new()));
+        let out = session
+            .anonymize(&format!("ИНН {inn}"))
+            .expect("обезличивание");
+        let surrogate = session
+            .mapping()
+            .entries()
+            .next()
+            .expect("запись в карте")
+            .surrogate
+            .clone();
+        assert_ne!(surrogate, inn);
+        let _ = out;
+    }
+}
