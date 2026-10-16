@@ -125,23 +125,22 @@ PERSON, PHONE_NUMBER, MEDICAL_LICENSE, URL, UUID); **USA — 13**; **South Afric
 **Русских рекогнайзеров нет ни одного:** в `default_recognizers.yaml` поле верхнего уровня
 буквально `supported_languages: - en` `[ПРОВЕРЕНО]`; `kr` — устаревший алиас для корейского.
 
-**Таблица «тип сущности → поддержка русского»** (сжато по группам):
+**Таблица «тип сущности → поддержка русского»** (сжато по группам; полная покомпонентная
+матрица по всем ≈130 типам — в [`02-presidio-tables.md`](02-presidio-tables.md)):
 
-**Форматные глобальные** (CREDIT_CARD, IBAN_CODE, IP_ADDRESS, MAC_ADDRESS, EMAIL_ADDRESS, URL,
-UUID) — pattern (+ checksum/RFC/mod-97): **работают на русском** (Luhn и mod-97 от языка не зависят),
-но **русских контекстных слов нет** (`credit, card, visa…` только en/es/it/pl) → score не поднимется
-→ FP на безобидных номерах. **CRYPTO** — pattern + context + checksum, частично (только Bitcoin).
-**DATE_TIME** — `DateRecognizer` (regex): да для ISO/числовых форматов, «12 марта 2024 г.» не
-распознаётся `[НЕ ПРОВЕРЕНО]`. **PHONE_NUMBER** — `phonenumbers` + регионы: да, но реестр регионов
-реально ломался (`"UK"` был no-op, исправлено на `"GB"` только в 2.2.363) `[ПРОВЕРЕНО]`.
-**NRP, LOCATION, PERSON** — NER spaCy: **нет из коробки**, только при подмене `NlpEngine` на ru;
-класса NORP нет в `ru_core_news_*`, с ru-моделью доступны лишь PER/LOC/ORG. **MEDICAL_LICENSE** —
-pattern + context + checksum, US-ориентирован. **13 US-типов** — формально да, но бесполезны и дадут FP
-на любых 9-значных числах. **6 UK-типов** — формально да. **ES/IT/PL/FI/SE/TR/TH/KR/NG/PH/CA/ZA/AU/IN/SG**
-— формально да, контекст на своих языках (для русского не сработает). **13 DE-типов** — да (немецкие
-контекстные слова): бесполезны для русского, но **образец качества** (ISO 7064 Mod 11,10, DRV-алгоритм,
-GKV-алгоритм) `[ПРОВЕРЕНО]`. **8 MEDICAL-типов** — `MedicalNERRecognizer` → `blaze999/Medical-NER`,
-модель английская.
+| Тип / группа | Механизм детекции | Работает на русском | Русские контекстные слова | Что ломается |
+|---|---|---|---|---|
+| Форматные глобальные: CREDIT_CARD, IBAN_CODE, IP_ADDRESS, MAC_ADDRESS, EMAIL_ADDRESS, URL, UUID | pattern (+ checksum / RFC-822 / mod-97) | **Да** — Luhn и mod-97 от языка не зависят | **Нет** (`credit, card, visa…` только en/es/it/pl) | Контекст не сработает → score не поднимется → FP на безобидных номерах |
+| CRYPTO | pattern + context + checksum | Частично (только Bitcoin) | Нет | — |
+| DATE_TIME | `DateRecognizer` (regex) | Да для ISO/числовых форматов | Нет | «12 марта 2024 г.» не распознаётся `[НЕ ПРОВЕРЕНО]` |
+| PHONE_NUMBER | `phonenumbers` (libphonenumber) + регионы | Да | Нет | Реестр регионов реально ломался: `"UK"` был no-op, исправлено на `"GB"` только в 2.2.363 `[ПРОВЕРЕНО]` |
+| NRP, LOCATION, PERSON | NER (spaCy) | **Нет** из коробки; только при подмене `NlpEngine` на ru | — | Класса NORP нет в `ru_core_news_*`; с ru-моделью доступны лишь PER/LOC/ORG |
+| MEDICAL_LICENSE | pattern + context + checksum | Нет (US-ориентирован) | Нет | — |
+| **US_\*** (13) | pattern + context | Формально да | Нет | Бесполезны; в РФ-тексте дадут FP на любых 9-значных числах |
+| **UK_\*** (6) | pattern + context (+ checksum у NHS) | Формально да | Нет | — |
+| ES/IT/PL/FI/SE/TR/TH/KR/NG/PH/CA/ZA/AU/IN/SG | pattern + context | Формально да | **На своих языках** | Для русского текста контекст не сработает |
+| **DE_\*** (13) | pattern + context + checksum | Да (немецкие контекстные слова) | Немецкие | Бесполезны для русского, но **образец качества**: ISO 7064 Mod 11,10, DRV-алгоритм, GKV-алгоритм `[ПРОВЕРЕНО]` |
+| MEDICAL_\* (8) | `MedicalNERRecognizer` → `blaze999/Medical-NER` | Нет (модель английская) | — | — |
 
 **Два русских дефицита разной природы.** (1) **Форматные типы работают, но без русской семантики:**
 Luhn и mod-97 не знают языка, но контекстные слова — основной механизм борьбы с FP в Presidio — для
