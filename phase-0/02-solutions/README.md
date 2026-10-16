@@ -3,10 +3,10 @@
 **Статус:** раздел 2 аудита фазы 0 — технический аудит готовых решений и библиотек
 **Дата прохода:** 2026-10-16
 **Область:** только техника и лицензии. Научные статьи — не здесь. Юридическая часть — не здесь.
-**Метод:** каждая проверяемая страница открывалась напрямую (GitHub API, raw-файлы в
-репозиториях, PyPI JSON, официальная документация). Метки достоверности:
-`[ПРОВЕРЕНО]` — открыл источник, `[ДОК]` — только по документации/аннотации,
-`[НЕ ПРОВЕРЕНО]` — заявлено, но не подтверждено первоисточником, `[НЕ НАЙДЕНО]` — искал, нет.
+**Метод:** каждая проверяемая страница открывалась напрямую (GitHub API, raw-файлы, PyPI JSON,
+официальная документация). Метки: `[ПРОВЕРЕНО]` — открыл источник, `[ДОК]` — только по
+документации/аннотации, `[НЕ ПРОВЕРЕНО]` — заявлено, но не подтверждено, `[НЕ НАЙДЕНО]` — искал, нет.
+**Сводные таблицы в машинночитаемом виде:** см. `01-summary.md` и `02-presidio-tables.md`.
 
 ---
 
@@ -136,18 +136,17 @@ Presidio **больше не проект Microsoft**. Официальная с
 | South Africa | ZA_ID_NUMBER, ZA_PASSPORT, ZA_INCOME_TAX_NUMBER, ZA_DRIVER_LICENSE, ZA_VAT_NUMBER, ZA_COMPANY_REGISTRATION, ZA_TRAFFIC_REGISTER_NUMBER, ZA_LICENSE_PLATE, ZA_MOBILE_NUMBER, ZA_TELEPHONE_NUMBER | 10 | нет |
 | Thai | TH_TNIN | 1 | нет |
 | Turkey | TR_NATIONAL_ID, TR_LICENSE_PLATE | 2 | нет |
-| Germany | DE_TAX_ID, DE_TAX_NUMBER, DE_PASSPORT, DE_ID_CARD, DE_SOCIAL_SECURITY, DE_HEALTH_INSURANCE, DE_KFZ, DE_HANDELSREGISTER, DE_PLZ (+ в `default_recognizers.yaml` ещё DE_LANR, DE_BSNR, DE_VAT_ID, DE_FUEHRERSCHEIN) | 9–13 | нет |
+| Germany | DE_TAX_ID, DE_TAX_NUMBER, DE_PASSPORT, DE_ID_CARD, DE_SOCIAL_SECURITY, DE_HEALTH_INSURANCE, DE_KFZ, DE_HANDELSREGISTER, DE_PLZ (`default_recognizers.yaml` добавляет DE_LANR, DE_BSNR, DE_VAT_ID, DE_FUEHRERSCHEIN) | 9–13 | нет |
 | Medical / Clinical | MEDICAL_DISEASE_DISORDER, MEDICAL_MEDICATION, MEDICAL_THERAPEUTIC_PROCEDURE, MEDICAL_CLINICAL_EVENT, MEDICAL_BIOLOGICAL_ATTRIBUTE, MEDICAL_BIOLOGICAL_STRUCTURE, MEDICAL_FAMILY_HISTORY, MEDICAL_HISTORY | 8 | нет |
 | **Итого** | | **≈ 130 predefined-типов** | **0** |
 
 Отдельно: Германия получила **цельный национальный набор** (13 рекогнайзеров одной PR-серией,
-CHANGELOG 2.2.363, автор @MvdB). Это доказательство, что «добавить юрисдикцию» в Presidio — это
-пакетный вклад на 12–13 типов, а не пятиминутная задача. Модель для нас: русский слой — это
-одна такая пачка, и она уже описана в нашем реестре.
+CHANGELOG 2.2.363, автор @MvdB) `[ПРОВЕРЕНО]`. Вывод: «добавить юрисдикцию» в Presidio — это
+пакетный вклад на 12–13 типов. Русский слой — ровно такая пачка, и она уже описана в нашем реестре.
 
 **Русских рекогнайзеров нет ни одного.** В `default_recognizers.yaml` поле верхнего уровня
-буквально `supported_languages: - en`, и ни у одного рекогнайзера нет `language: ru` `[ПРОВЕРЕНО]`.
-Единственное упоминание `kr` — устаревший алиас для корейского.
+буквально `supported_languages: - en` `[ПРОВЕРЕНО]`; единственное упоминание `kr` — устаревший
+алиас для корейского.
 
 ### 2.4 Таблица «тип сущности Presidio → поддержка русского»
 
@@ -196,56 +195,34 @@ CHANGELOG 2.2.363, автор @MvdB). Это доказательство, чт�
 > «In its default configuration, it contains recognizers and models for English.
 > To extend Presidio to detect PII in an additional language, these modules require modification:
 > 1. The `NlpEngine` … 2. PII recognizers … should be adapted or created.»
-
-То есть **русского нет и механизма «просто включить» тоже нет**. Чтобы добавить язык, надо:
-скачать чужую NLP-модель, написать конфиг, и **создать инстанс каждого рекогнайзера с
-`supported_language="ru"` и своим списком контекстных слов**. Документация прямо предупреждает:
-
+>
 > «While different detection mechanisms such as regular expressions are language agnostic, the
 > context words used to increase the PII detection confidence aren't.»
 
-Дефолтный движок `[ПРОВЕРЕНО]` `conf/default.yaml`:
+То есть **русского нет и механизма «просто включить» тоже нет**: надо скачать чужую NLP-модель,
+написать конфиг и **создать инстанс каждого рекогнайзера с `supported_language="ru"`** и своим
+списком контекстных слов.
 
-```yaml
-nlp_engine_name: spacy
-models:
-  - lang_code: en
-    model_name: en_core_web_lg
-ner_model_configuration:
-  model_to_presidio_entity_mapping:
-    PER: PERSON
-    PERSON: PERSON
-    NORP: NRP
-    FAC: LOCATION
-    LOC: LOCATION
-    GPE: LOCATION
-    LOCATION: LOCATION
-    ORG: ORGANIZATION
-    DATE: DATE_TIME
-    TIME: DATE_TIME
-  low_confidence_score_multiplier: 0.4
-  labels_to_ignore: [ORGANIZATION, CARDINAL, EVENT, LANGUAGE, LAW, MONEY, ORDINAL, PERCENT, PRODUCT, QUANTITY, WORK_OF_ART]
-```
+Дефолтный движок `[ПРОВЕРЕНО]` `conf/default.yaml`: `spacy`, `lang_code: en`,
+`model_name: en_core_web_lg`; маппинг `PER/PERSON→PERSON`, `NORP→NRP`, `FAC/LOC/GPE/LOCATION→LOCATION`,
+`ORG→ORGANIZATION`, `DATE/TIME→DATE_TIME`; **`low_confidence_score_multiplier: 0.4`**;
+**`labels_to_ignore` включает `ORGANIZATION`** с комментарием «Has many false positives».
+Множитель 0.4 — признание, что NER-score не равен уверенности. Это честная инженерия, которую
+надо повторить.
 
-Обратите внимание: `ORGANIZATION` **в игнор-листе** с комментарием «Has many false positives»,
-и множитель `low_confidence_score_multiplier: 0.4` — это признание, что NER-модель на 40%
-снижает уверенность по «низким» меткам. Это честная инженерия, которую мы должны повторить:
-не выдавать NER-score за уверенность.
+Доступные NLP-движки `[ПРОВЕРЕНО]` (структура `docs/analyzer/nlp_engines/`):
 
-Доступные NLP-движки `[ПРОВЕРЕНО]` (по структуре docs/analyzer/nlp_engines/):
+| Движок | Пакет | Комментарий |
+|---|---|---|
+| `SpacyNlpEngine` | `spacy>=3.4.4,<4.0.0` — **обязательная зависимость** | дефолт |
+| `StanzaNlpEngine` | extra `stanza` (`>=1.11.1`) | альтернатива |
+| `TransformersNlpEngine` | extra `transformers` (+`accelerate`, `huggingface_hub`, `spacy_huggingface_pipelines`) | для ru — напр. `ai-forever/ruBert-base` |
+| `SlimSpacyNlpEngine` | добавлен в 2.2.363 | только токенизация/леммы; NER делегируется, напр. GLiNER |
+| `NoOpNlpEngine` | добавлен в unreleased | без NLP-артефактов; `HuggingFaceNerRecognizer` без spaCy-модели |
+| `GLiNERRecognizer` | extra `gliner` + `onnxruntime` | ONNX-бэкенд (2.2.362, «crashes on CPUs without AVX2») |
 
-| Движок | Пакет | Языки | Комментарий |
-|---|---|---|---|
-| `SpacyNlpEngine` | `spacy>=3.4.4,<4.0.0` (обязательная зависимость!) | любые spaCy-модели | дефолт |
-| `StanzaNlpEngine` | `stanza>=1.11.1` (extra `stanza`) | любые Stanza-модели | в docs/samples — «Stanza» как альтернатива |
-| `TransformersNlpEngine` | `transformers`, `accelerate`, `huggingface_hub`, `spacy_huggingface_pipelines` (extra `transformers`) | любые HF-модели | для ru — напр. `ai-forever/ruBert-base` |
-| `SlimSpacyNlpEngine` | добавлен в 2.2.363 `[ПРОВЕРЕНО]` | только токенизация/леммы | «enabling lightweight tokenization/lemmatization while delegating NER to recognizers such as GLiNER» |
-| `NoOpNlpEngine` | добавлен в unreleased `[ПРОВЕРЕНО]` | без NLP-артефактов | позволяет `HuggingFaceNerRecognizer` без spaCy-модели |
-| `GLiNERRecognizer` | extra `gliner` + `onnxruntime` | мультиязычный | ONNX-бэкенд добавлен в 2.2.362 «resolving crashes on CPUs without AVX2» |
-
-Список языков из документации LiteLLM-интеграции (которая просто проксирует Presidio) прямо
-перечисляет только `en`, `es`, `de` `[ПРОВЕРЕНО]`. Это не официальный список Presidio, но
-показательно: даже интеграторы не считают, что там что-то есть сверх.
+Список языков из документации LiteLLM-интеграции (проксирует Presidio) — только `en`, `es`, `de`
+`[ПРОВЕРЕНО]`. Не официальный список Presidio, но показательно.
 
 **Сколько стоит русский в Presidio по весам.** `[ПРОВЕРЕНО]` (GitHub Releases `explosion/spacy-models`):
 
@@ -307,97 +284,67 @@ ner_model_configuration:
 
 `[ПРОВЕРЕНО]` `presidio-analyzer/pyproject.toml` (version **2.2.364**, `license = "MIT"`):
 
-Обязательные:
-```toml
-spacy (>=3.4.4,!=3.7.0,<4.0.0)      # python < 3.14
-numpy (>=1.19.0,<2.5.0)
-click (>=8.1.0,<9.0.0)
-regex (>=2023.0.0)
-tldextract (>=5.3.1,<6.0.0)
-pyyaml (>=6.0.3,<7.0.0)
-phonenumbers (>=9.0.28,<10.0.0)
-pydantic (>=2.12.5,<3.0.0)
-```
+Обязательные: `spacy (>=3.4.4,!=3.7.0,<4.0.0)`, `numpy (<2.5.0)`, `click`, `regex`, `tldextract`,
+`pyyaml`, `phonenumbers (>=9.0.28)`, `pydantic (>=2.12.5)` `[ПРОВЕРЕНО]`.
 
-Интересно, что **`spacy` — обязательная зависимость**, хотя есть `NoOpNlpEngine` (unreleased).
-То есть «ядро без ML» в Presidio невозможно: `pip install presidio-analyzer` всегда тянет spaCy
-и требует скачать spaCy-модель. Против нашего запрета «нет обязательной ML-зависимости»
-(feature `ner-onnx` выключена по умолчанию) — прямое противоречие.
+**`spacy` — обязательная зависимость** (хотя `NoOpNlpEngine` уже есть, но в unreleased). То есть
+«ядро без ML» в Presidio невозможно: `pip install presidio-analyzer` всегда тянет spaCy и требует
+скачать spaCy-модель. Прямое противоречие нашему запрету «нет обязательной ML-зависимости».
 
-Опциональные extras: `server` (flask/gunicorn/waitress), `transformers`, `stanza`,
+Опциональные extras `[ПРОВЕРЕНО]`: `server` (flask/gunicorn/waitress), `transformers`, `stanza`,
 `azure-ai-language`, `ahds`, `gliner`, `langextract`.
 
-Вес типичной установки: spaCy + `en_core_web_lg` **382.1 MB** + numpy + pydantic +
-`phonenumbers` + `tldextract` (тянет `requests`/`idna`) — оценочно **≥ 500 MB** только на
-диске, без трансформеров. Для сравнения: Slovnet NER — **2 MB** только весов, **27 MB** весь
-диск, **205 MB RAM** `[ПРОВЕРЕНО]`.
+Вес типичной установки: spaCy + `en_core_web_lg` (**382.1 MB**) + numpy + pydantic +
+`phonenumbers` + `tldextract` — оценочно **≥ 500 MB** на диске без трансформеров `[НЕ ПРОВЕРЕНО,
+оценка]`. Slovnet NER для сравнения — **2 MB** весов, **27 MB** диск, **205 MB RAM** `[ПРОВЕРЕНО]`.
 
 ### 2.8 Задержка
 
-Presidio **не публикует** замеров задержки в документации `[НЕ НАЙДЕНО]`. Есть косвенные
-источники:
+Presidio **не публикует** замеров задержки `[НЕ НАЙДЕНО]`. Косвенные источники:
 
 | Источник | Число | Контекст |
 |---|---|---|
-| `bench.perf_arms` в README SurrogateShield `[ПРОВЕРЕНО, но self-reported одного автора]` | Presidio: **медиана 8.2 ms**, пик памяти **1 084 MB** | короткие сообщения |
-| То же | Presidio + Faker: **8.4 ms**, **1 010 MB** | |
-| То же | Presidio + RoBERTa: **83.5 ms**, **1 611 MB** | |
-| LiteLLM docs `[ПРОВЕРЕНО]` | «analyzer latency grows with payload size»; автоматическое дробление при >500 000 байт | косвенное признание, что на больших текстах медленно |
-| LLM Guard benchmarks `[ПРОВЕРЕНО]` (LLM Guard использует Presidio Anonymize) | p95 **294.57 ms** на m5.xlarge; **169.13 ms** с ONNX | вход 317 символов |
+| `bench.perf_arms` SurrogateShield `[ПРОВЕРЕНО, self-reported]` | Presidio **медиана 8.2 ms**, пик **1 084 MB**; +Faker 8.4 ms/1 010 MB; +RoBERTa **83.5 ms**/1 611 MB | короткие сообщения |
+| LiteLLM docs `[ПРОВЕРЕНО]` | «analyzer latency grows with payload size»; дробление при >500 000 байт | признание нелинейности |
+| LLM Guard benchmarks `[ПРОВЕРЕНО]` | p95 **294.57 ms** (m5.xlarge); **169.13 ms** с ONNX | вход **317 символов** |
 
-**Ключевое наблюдение.** 8.2 ms у Presidio — это замер на **коротком** тексте с дефолтным
-`en_core_web_lg`. Наш контракт — p95 25 ms на 2 000 токенов. Экстраполировать 8.2 ms на 2 000
-токенов нельзя, а 294.57 ms у LLM Guard на 317 символах намекает, что масштабирование
-нелинейное. Но и 8.2 ms — это **медиана, не p95**, и получена одним автором, не нашим харнесом.
-Честная формулировка: `[НЕ ПРОВЕРЕНО]` до нашего собственного замера.
+**Ключевое наблюдение.** 8.2 ms — замер на **коротком** тексте с `en_core_web_lg`, и это
+**медиана, не p95**, полученная одним автором. Наш контракт — p95 25 ms на 2 000 токенов.
+294.57 ms на 317 символах намекает на нелинейное масштабирование. Честная формулировка:
+`[НЕ ПРОВЕРЕНО]` до нашего собственного замера.
 
 ### 2.9 Активность и сообщество
 
-`[ПРОВЕРЕНО]` GitHub API на `data-privacy-stack/presidio` (запрос 2026-10-16):
+`[ПРОВЕРЕНО]` GitHub API `data-privacy-stack/presidio`, 2026-10-16:
 
 | Метрика | Значение |
 |---|---|
-| stars | **11 345** |
-| forks | 1 349 |
-| watchers/subscribers | 99 |
+| stars / forks / watchers | **11 345** / 1 349 / 99 |
 | open issues | 188 |
-| контрибьюторы | **206** (по заголовку `Link` пагинации) |
-| создан | 2018-05-04 |
-| последний push | 2026-10-09 |
-| размер репозитория | 339 965 KB (~332 MB) |
-| archived | false |
-| лицензия (SPDX) | **MIT** |
+| контрибьюторы | **206** (пагинация `Link`) |
+| создан / последний push | 2018-05-04 / 2026-10-09 |
+| размер / archived / лицензия | 339 965 KB (~332 MB) / false / **MIT** |
 
-Релизы `[ПРОВЕРЕНО]`:
-
-| Версия | Дата |
-|---|---|
-| **2.2.364** | **2026-07-22** |
-| 2.2.363 | 2026-06-28 |
-| 2.2.362 | 2026-03-18 |
-| 2.2.361 | 2026-02-12 |
-| 2.2.360 | 2025-09-09 |
-
-Темп: 4 релиза за 8 месяцев. Проект живой, но не быстрый.
+Релизы `[ПРОВЕРЕНО]`: **2.2.364 — 2026-07-22**; 2.2.363 — 2026-06-28; 2.2.362 — 2026-03-18;
+2.2.361 — 2026-02-12; 2.2.360 — 2025-09-09. Темп: 4 релиза за 8 месяцев.
 
 ### 2.10 Где именно слабое место Presidio для русского
 
 1. **Ноль русских рекогнайзеров при 130 типах.** Ни ИНН, ни СНИЛС, ни ОГРН, ни паспорта РФ,
    ни адреса РФ, ни российского телефона как отдельного типа с контекстом.
-2. **Русский NER недоступен «из коробки»**: нужна замена `NlpEngine` + отдельные инстансы
-   рекогнайзеров с русскими контекстными словами. Документация это прямо требует.
+2. **Русский NER недоступен «из коробки»** — нужна замена `NlpEngine` + отдельные инстансы
+   рекогнайзеров с русскими контекстными словами (документация это прямо требует).
 3. **Контекстные слова — только en/es/it/pl/de/ko/sv/th/tr/fi и др.** Русских нет ни в одном
    рекогнайзере. Для наших `checksum_plus_context` типов это фатально: без контекста карта
-   даёт ~10% прохождения случайных цифр.
-4. **Суррогатов локально нет.** `surrogate_ahds` — облако Azure, `input_locale`/`surrogate_locale`
-   по умолчанию `en-US`, русского locale в описании не заявлено.
-5. **Нет состояния сессии.** Ни I5 (одно значение → одна подмена), ни I2 (история), ни
-   восстановления по карте как первоклассной функции.
+   даёт ~10% прохождения случайных цифр (см. 20-entity-registry §2).
+4. **Суррогатов локально нет**: `surrogate_ahds` — облако Azure, `input_locale`/`surrogate_locale`
+   по умолчанию `en-US`, русского locale не заявлено.
+5. **Нет состояния сессии** — ни I5, ни I2, ни восстановления по карте как первоклассной функции.
 6. **Обязательная зависимость от spaCy** противоречит нашему «ядро без ML».
 7. **Вес**: 382 MB дефолтная модель + spaCy против 27 MB Natasha.
-8. **`presidio-cli` не публикуется** в релизном пайплайне (CHANGELOG 2.2.356: «Do not release
-   `presidio-cli` as part of the release pipeline») — то есть CLI у них не продуктовый.
-9. **Язык реализации — Python.** Для нашего p95-контракта и WASM-цели это неприменимо.
+8. **`presidio-cli` не публикуется** (CHANGELOG 2.2.356: «Do not release `presidio-cli` as part of
+   the release pipeline») — CLI у них не продуктовый.
+9. **Язык реализации — Python.** Для нашего p95-контракта и WASM-цели неприменимо.
 
 ---
 
