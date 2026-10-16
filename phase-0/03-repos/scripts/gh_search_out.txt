@@ -1,0 +1,76 @@
+## QUERY: obezlichivanie (total=2)
+   solomka385/obezlichivanie                                 2 2023-11-13 Python       None | 
+   Nemestnay/Obezlichivanie                                  0 2024-06-06 Python       None | 
+## QUERY: обезличивание (total=22)
+   kpshinnik/docs_masked                                    20 2026-08-18 Python       MIT | Локальное обезличивание документов перед отправкой в LLM и обратная подстановка после ответа. Скилл, MCP-серве
+   redmadrobot-rnd/pii-guard                                12 2026-09-09 Python       Apache-2.0 | Обезличивание персональных данных в русском тексте: правила с контрольными суммами + дообученный ruBERT
+   Pioneer113/mcp-152fz-anonymizer                           4 2026-07-27 Python       MIT | Автоматическое обезличивание персональных данных (ПД) по 152-ФЗ. Готовый MCP-сервер и API для безопасной работ
+   asg-55/atlas-local-rag                                    2 2026-08-19 Python       MIT | Локальный offline-first RAG-ассистент: hybrid search, OCR, анализ таблиц, код и обезличивание. Docker/Ollama +
+   neuromafka-create/DocAnon                                 2 2026-07-23 Python       MIT | Обезличивание персональных данных (ПДн) на вашем ПК перед отправкой текста во внешние AI-сервисы. Детекция: re
+   blauffy/personal-data                                     1 2026-05-11 Python       None | Распознавание и обезличивание персональных данных в русскоязычных текстах (10 типов ПДн, F1=0.934).
+   Dabman1980/anonymizer                                     1 2026-08-19 Python       NOASSERTION | Локальное обезличивание документов перед отправкой в языковые модели: замена данных метками и обратная подстан
+   helgapnz/data-shield                                      0 2026-09-15 HTML         None | Обезличивание данных
+   Smit1980/DPO-1_praktikum-1-2                              0 2026-09-14 HTML         None | Практикумы 1–2 ДПО-1, версия 2: план Б, реалистичный тайминг, обезличивание
+   STRUKTOR/shirma                                           0 2026-10-01 Python       MIT | Ширма — обезличивание документов перед работой с Claude Code и обратная замена
+   Enkidu-best/Anonymizer                                    0 2026-10-04 Python       None | Локальное обезличивание документов (152-ФЗ) для работы с внешними нейросетями
+   arturartur5-ui/avito-assistant-template                   0 2026-09-22 Python       MIT | ИИ-помощник для Авито: обезличивание, фильтр исходящих, экзамен перед выходом на клиентов
+   victorbuto/privacy-filter-ui                              0 2026-09-21 HTML         None | Локальная веб-морда для OpenAI Privacy Filter: обезличивание транскриптов без отправки в облако
+   nevzorovsergey/obezlichit                                 0 2026-09-23 TypeScript   MIT | Обезличивание постановлений о штрафах в браузере: ФИО, номера и адреса подменяются вымышленными, файл не покид
+   xrn6px6xyy-svg/db-sanitizer                               0 2026-07-27 Python       None | Санитизация PostgreSQL: обезличивание ПДн с сохранением связей, объёма и разнообразия. Агентный планировщик на
+   woqowieowww/data-anonymizer                               0 2026-10-14 Python       None | Обезличивание персональных данных в Excel и JSON: шифрование, хеширование, обобщение, рандомизация, псевдоними
+   mrvolkomorov/ai-fmcg-week5-materials                      0 2026-10-15 HTML         None | Дополнительные материалы к Занятию 5 — Считаю и проверяю через ИИ (данные, факты, обезличивание), 15 октября 2
+   Yaroslava-111/anonymizer                                  0 2026-10-05 Python       None | Локальное обратимое обезличивание персональных данных в таблицах Excel и CSV: офлайн, без нейросетей, с шифров
+   s-verbin/pdf-redactor                                     0 2026-10-12 Python       MIT | Обезличивание сканов договоров аренды: OCR, поиск сумм и персональных данных, проверка в браузере, PDF без воз
+   KranGoPop/pii_service                                     0 2026-06-02 Jupyter Notebook None | Локальное обезличивание русскоязычных пользовательских запросов к внешним LLM: rule-based, NER и hybrid-подход
+## QUERY: персональные данные (total=15)
+   beletskaya/user-info                                      1 2022-10-06 Vue          None | 1) На главной странице необходимо вывести форму входа с такими полями: Username, Phone number и кнопку Login. 
+   denis-shumsky/avito-ml-cup-2025                           0 2025-08-14 Jupyter Notebook MIT | AvitoTech ML Cup 2025 — Персональные рекомендации: данные, ноутбуки, сабмит, сертификат
+   AndreyPol1991/privacy-trainer                             0 2026-10-06 HTML         None | Тренажёр аналитика: персональные данные, модель угроз, разграничение доступа, секреты и аудит
+   Jamshed-17/RSM_Badjes                                     0 2025-03-30 HTML         None | Я убрал все персональные данные и теперь могу показать всё вам
+   2ndsideee/hr-preboarding                                  0 2026-09-15 None         NOASSERTION | Витрина: модуль пребординга для HRM-платформы, персональные данные. Showcase, code is closed.
+   LilKirill00/GeneratorPersonalData                         0 2024-03-04 Python       None | Программа генерирующая случайные персональные данные с возможностью перегенерации и копирования в буфер обмена
+   PerepelitsynA/ml_design_course                            0 2022-09-30 None         None | Анонимизация документов. Загружаешь скан (jpg png) документа, сервис находит и удаляет персональные данные - и
+   baiganova00-eng/IQCH_CONSENT_OS                           0 2026-04-22 HTML         GPL-3.0 | Consent OS — единая система управления согласиями на персональные данные. Показывает все активные доступы, виз
+   mikryukovvo/trust-analysis                                0 2026-09-01 Python       None | Данные в репозитории являются результатом авторского исследования доверия. Все тексты получены из публичных ис
+   stake-zerkalo-segodnya/.github                            0 2025-11-27 None         None | Зеркало Stake на сегодня — рабочий альтернативный адрес, позволяющий зайти на платформу без перебоев. Оно сохр
+   Aleksanda1Ryabich/telecommunications                      0 2023-11-29 Jupyter Notebook None | Оператор связи «Ниединогоразрыва.ком» хочет научиться прогнозировать отток клиентов. Если выяснится, что польз
+   joeruhacker/Privacyjoe                                    0 2026-02-05 HTML         None | Проект privacyjoe — это англоязычная веб-страница с политикой конфиденциальности для сервиса или Telegram-бота
+   iamallka/volleyball-club-matcher                          0 2026-03-03 None         None | Консольное приложение на C#, которое автоматизирует подбор профессионального волейбольного клуба для свободног
+   olga426/final-project-yandex                              0 2023-10-23 Jupyter Notebook None | Описание проекта  Оператор связи «Ниединогоразрыва.ком» хочет научиться прогнозировать отток клиентов. Если вы
+   ptmff/Neuro_resume                                        0 2025-04-14 Vue          GPL-3.0 | Neuro Resume — инновационный проект, использующий нейросетевые алгоритмы для создания, анализа и оптимизации р
+## QUERY: privacy gateway LLM (total=196)
+   bricks-cloud/BricksLLM                                 1230 2025-01-05 Go           MIT | 🔒 Enterprise-grade API gateway that helps you monitor and impose cost or rate limits per API key. Get fine-gra
+   ASCIT31/Dark-Moon                                      1028 2026-10-01 Python       GPL-3.0 | Open-source autonomous AI penetration testing. 50 specialist agents across web, API, cloud, Active Directory, 
+   packyme/privacy-filter                                  338 2026-06-09 Go           MIT | LLM privacy gateway in Go — millisecond-latency PII and secret redaction. Used in production by PackyCode.
+   voidmind-io/voidllm                                     141 2026-09-30 Go           NOASSERTION | Privacy-first LLM proxy and AI gateway - load balancing, multi-provider routing, API key management, usage tra
+   CassiopeiaCode/CosyRedactGateway                        103 2026-10-10 JavaScript   Apache-2.0 | Lightweight, stateless privacy gateway for LLM APIs — redact secrets before OpenAI/Anthropic upstreams and res
+   createcandle/voco                                        30 2026-08-17 Python       MPL-2.0 | Privacy friendly voice control for the Candle Controller / WebThings Gateway, with fully local AI assistant
+   yashmahajan10/llm-differential-privacy-gateway           28 2026-08-02 Python       Apache-2.0 | Noisegate: a differential privacy gateway that lets an untrusted LLM agent query sensitive data over MCP (Mode
+   censgate/redact                                          22 2026-10-10 Rust         Apache-2.0 | Fast Rust engine for detecting and redacting PII and secrets — in prompts, code, and databases. OpenAI-compati
+   colliery-io/muninn                                       14 2026-10-06 Rust         Apache-2.0 |  Privacy-first recursive context gateway for AI coding agents
+   ninadphalak/LLM-Shield-Proxy                             12 2026-10-11 Python       Apache-2.0 | Streaming privacy for LLM apps: pii-leak-benchmark (does your gateway leak PII in streams?), chunk-invariance 
+   bahaeddinmselmi/sovereignguard                            9 2026-03-13 Python       NOASSERTION | Open source AI privacy gateway for GDPR-compliant LLM adoption in EMEA
+   Aegis-Logic-Systems/aegis-ai-gateway                      9 2026-01-26 Python       None | Privacy-first middleware that sits between your applications and LLM providers (OpenAI, Anthropic, Google). It
+   alphaparkinc/genpark-enterprise-llm-pii-masking-redline-gateway-skill      8 2026-09-02 Python       None | Enterprise LLM PII masking & reversible redaction privacy gateway (Kindo/Lakera)
+   vissnia/piast-gate                                        8 2026-09-20 Python       MIT | Open-source gateway for anonymizing sensitive data before sending to LLM APIs
+   NodeNestor/CodeGate                                       7 2026-06-23 TypeScript   MIT | Drop-in AI gateway. Route any coding agent through any LLM provider. Auto-failover, Anthropic<->OpenAI format 
+   jLAM-ERR/corp-llm-gateway                                 6 2026-10-14 Python       Apache-2.0 | Corporate LLM gateway. Sanitizes traffic between developer Claude Code instances and Anthropic/OpenAI before i
+   csnyder256/privacy-gateway                                6 2026-10-15 Python       MIT | Local-first, source-agnostic privacy gateway for reversible PII masking, policy-controlled redaction, and synt
+   somegg90-blip/quiguard-gateway                            6 2026-04-05 Python       None | The self-hosted security firewall for AI Agents. Scrubs PII from prompts and tool calls.
+   adongwanai/hybrid-router-oss                              6 2026-05-20 Python       Apache-2.0 | A privacy-first, OpenAI-compatible Device-Edge-Cloud hybrid inference routing gateway. 端边云混合推理调度系统。
+   sphragis-oss/sphragis                                     6 2026-10-11 Go           Apache-2.0 | EU AI Act compliance gateway for Claude Code and OpenAI/Anthropic-compatible LLMs: redacts PII locally and kee
+## QUERY: anonymize prompts LLM (total=42)
+   amanvirparhar/elara                                      69 2025-01-26 Svelte       MIT | A simple tool to anonymize LLM prompts.
+   akazah/prompt-anonymizer                                 30 2026-07-22 TypeScript   MIT | A buddy check for your prompts — before they reach an LLM. On-device, reversible anonymization that catches th
+   takashiishida/cleanprompt                                26 2024-03-24 Python       MIT | Anonymize sensitive information in text prompts before sending them to LLM applications
+   ChatWall-io/chatwall                                      5 2026-03-03 JavaScript   NOASSERTION | Chat with AI. Keep Data Private. The AI Privacy Firewall. Anonymize ChatGPT, Claude, Gemini & Grok prompts — l
+   chuxin-wenxiang/virtual_user_skill                        4 2026-06-16 Python       MIT | AI virtual users powered by 54k+ real, anonymized user-research scenarios. Stop interviewing prompt-engineered
+   promptshieldhq/promptshield-engine                        3 2026-05-07 Python       MIT | Detection and anonymization microservice for the PromptShield stack.
+   apolopena/neuralizer                                      2 2026-02-09 Python       MIT | Prompt sanitizer that anonymizes logs and commands for safe LLM ingestion.
+   TFD-42/Wild_Root_Prompt                                   2 2026-08-11 Python       MIT | 173 prompt engineering techniques, local LLMs via Ollama — dual-model generation, PII anonymization, no cloud,
+   hedibenabdallah/SecureFinAI-Platform                      1 2026-06-14 Python       MIT | Enterprise LLM security proxy with PII anonymization,  prompt injection detection and multi-agent financial  r
+   MStefa003/ai-privacy-proxy                                1 2026-08-12 TypeScript   None | An open-source, low-latency AI Privacy Proxy that automatically redacts PII and sensitive data before sending 
+   ahzamafaq/LLM-entity-bias-mitigation                      1 2026-06-08 Jupyter Notebook None | Benchmarking political entity bias in Mistral-7B & Llama-3-8B using a synthetic "Weak-Signal" dataset of 3,000
+   zafrem/bastion-rag                                        1 2026-10-15 Go           Apache-2.0 | Security & governance framework for RAG/LLM pipelines — five composable modules covering prompt-injection defe
+   Nour-eddineAE/anonymo                                     1 2026-05-10 Python       None | Anonymize before you prompt. Reconstruct after. A modular Python engine that masks personal data with reversib
+   CalvinTTooS/prompt-optimizer                              1 2026-08-30 TypeScript   MIT | Optimize prompts for Claude & Gemini with local, privacy-first PII anonymization: a Windows/Tauri desktop app 
