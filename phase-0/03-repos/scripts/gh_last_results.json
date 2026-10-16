@@ -1,0 +1,86 @@
+[
+ {
+  "repo": "dialogue-evaluation/factRuEval-2016",
+  "status": 200,
+  "stars": 59,
+  "license": "MIT",
+  "archived": false,
+  "last_commit": "2016-12-08T20:41:53Z",
+  "lang": "python 100.0%",
+  "desc": "http://www.dialog-21.ru/evaluation/2016/letter/",
+  "canonical": "dialogue-evaluation/factRuEval-2016",
+  "error": null
+ },
+ {
+  "repo": "bsnlp-2019/bsnlp-2019",
+  "status": 404,
+  "stars": null,
+  "license": null,
+  "archived": null,
+  "last_commit": null,
+  "lang": null,
+  "desc": null,
+  "canonical": null,
+  "error": "HTTP 404"
+ },
+ {
+  "repo": "davidsbatista/NER-Evaluation",
+  "status": 200,
+  "stars": 224,
+  "license": "MIT",
+  "archived": false,
+  "last_commit": "2024-07-02T08:58:41Z",
+  "lang": "python 58.0%",
+  "desc": "An implementation of a full named-entity evaluation metrics based on SemEval'13 Task 9 - not at tag/token level but considering all the tokens that are part of the named-entity",
+  "canonical": "davidsbatista/NER-Evaluation",
+  "error": null
+ },
+ {
+  "repo": "sebastianruder/NLP-progress",
+  "status": 200,
+  "stars": 22952,
+  "license": "MIT",
+  "archived": false,
+  "last_commit": "2024-06-23T15:44:02Z",
+  "lang": "python 90.9%",
+  "desc": "Repository to track the progress in Natural Language Processing (NLP), including the datasets and the current state-of-the-art for the most common NLP tasks.",
+  "canonical": "sebastianruder/NLP-progress",
+  "error": null
+ },
+ {
+  "repo": "stefan-it/hmbench",
+  "status": 200,
+  "stars": 6,
+  "license": null,
+  "archived": false,
+  "last_commit": "2023-11-14T21:49:15Z",
+  "lang": "python 100.0%",
+  "desc": "hmBench: Fine-Tuning, Evaluating & Benchmarking of Historic Language Models on NER Datasets",
+  "canonical": "stefan-it/hmbench",
+  "error": null
+ },
+ {
+  "repo": "gitleaks/gitleaks",
+  "status": 200,
+  "stars": 29985,
+  "license": "MIT",
+  "archived": false,
+  "last_commit": "2026-07-22T16:50:33Z",
+  "lang": "go 83.0%",
+  "desc": "Find secrets with Gitleaks ð",
+  "canonical": "gitleaks/gitleaks",
+  "error": null
+ },
+ {
+  "repo": "zetavg/LLM-PII",
+  "status": 404,
+  "stars": null,
+  "license": null,
+  "archived": null,
+  "last_commit": null,
+  "lang": null,
+  "desc": null,
+  "canonical": null,
+  "error": "HTTP 404"
+ }
+]
