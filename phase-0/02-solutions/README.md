@@ -6,7 +6,7 @@
 **Метод:** каждая проверяемая страница открывалась напрямую (GitHub API, raw-файлы, PyPI JSON,
 официальная документация). Метки: `[ПРОВЕРЕНО]` — открыл источник, `[ДОК]` — только по
 документации/аннотации, `[НЕ ПРОВЕРЕНО]` — заявлено, но не подтверждено, `[НЕ НАЙДЕНО]` — искал, нет.
-**Сводные таблицы в машинночитаемом виде:** см. `01-summary.md` и `02-presidio-tables.md`.
+**Приложения** (полные таблицы, библиография, чек-листы) — отдельными файлами, индекс в конце документа.
 
 ---
 
@@ -694,21 +694,21 @@ payload size» и `/analyze` body капается в 1 MB на дефолтны
 [`06-russian-tools-table.md`](06-russian-tools-table.md). Здесь — только то, чего нет в §1.1:
 типы сущностей и наличие суррогатов.
 
-| Инструмент | Лицензия | Типы сущностей | Суррогаты | Вердикт |
-|---|---|---|---|---|
-| **pii-guard** | **Apache-2.0** | **20 типов:** модель — PERSON, LOCATION, PHONE_NUMBER, URL; правила — EMAIL_ADDRESS, INN, SNILS, OMS, PASSPORT, DRIVER_LICENSE, MILITARY_ID, BIRTH_CERTIFICATE, CREDIT_CARD, BANK_ACCOUNT, BIK, POSTAL_CODE, TELEGRAM, IP_ADDRESS, IP_PORT, DATE_TIME | **Нет** (mask/tag/pseudonymize) | **Главный русский конкурент** |
-| **rubert-base-pii-ner** | **Apache-2.0** | 21 тип / 43 BIO-метки | Нет | **Берём как baseline** |
-| **pii_benchmark / pii_train** | **MIT** / — | 14+ категорий (2 841 предл.) / 17 137 предл., 39 687 спанов | — | **Берём как внешние замеры** |
-| **Natasha / Slovnet** | **MIT** | PER, LOC, ORG (+ морфология, синтаксис, факты; Yargy — даты/деньги/адреса) | Нет | **Берём NER-провайдером** |
-| **spaCy `ru_core_news_*`** | **MIT** | PER, LOC, ORG | Нет | Baseline для сравнения |
-| **exemtik/pii-bench-ru-en** | **MIT** | 13 типов (RU): NAME, PHONE_NUMBER, EMAIL, ADDRESS, BANK_CARD_NUMBER, CVC, INN, KPP, OGRN, OGRNIP, SNILS, PASSPORT_NUMBER, TOKEN | Нет, токены `[ИМЯ_1]` | **Берём метод (pymorphy3) и цифры** |
-| **llm-pii-proxy-showcase** | **MIT** | KZ_BIN/IIN/IIK + PERSON/ORG/LOC (Presidio ru) | Нет (солёные плейсхолдеры) | **Берём инженерию** |
-| **DeepPavlov** | **Apache-2.0** | PER/LOC/ORG (ru-модели) | Нет | Отвергаем (вес) |
-| **SergeyK88i/pii-obfuscator** | **нет лицензии** | `[НЕ ПРОВЕРЕНО]` | Псевдонимы | Наблюдать (нет лицензии!) |
-| **ru-pii-detection-system / yashirgich / kazpii-bench** | **MIT** / нет / нет | `[НЕ ПРОВЕРЕНО]` / `[НЕ ПРОВЕРЕНО]` / KazNERD | — | Наблюдать (у двух нет лицензии) |
-| **rubert/спaCy-модели ru-PII** (`alrosait`, `dzanozin`, `HikmaAI`, `Wismut`, `tabularisai`, `LiquidAI`, `Gherman`, `yqelz`) | MIT / Apache-2.0 / other | `[НЕ ПРОВЕРЕНО]`; у `dzanozin` — **1,4 млрд параметров**, у `tabularisai` — 559M и 4 151 загрузка, у `LiquidAI` — лицензия «other» | — | **Стоит проверить `tabularisai/eu-pii-safeguard` в фазе 4**; остальные — наблюдать |
-| **SLIM / NEREL / Sber / Studio Ousia** | — | — | — | См. §6.6 |
-
+Ключевое, чего нет в §1.1: **pii-guard** — **20 типов** (модель: PERSON, LOCATION,
+PHONE_NUMBER, URL; правила: EMAIL_ADDRESS, INN, SNILS, OMS, PASSPORT, DRIVER_LICENSE, MILITARY_ID,
+BIRTH_CERTIFICATE, CREDIT_CARD, BANK_ACCOUNT, BIK, POSTAL_CODE, TELEGRAM, IP_ADDRESS, IP_PORT,
+DATE_TIME), суррогатов **нет** (mask/tag/pseudonymize). **rubert-base-pii-ner** — 21 тип / 43 BIO-метки.
+**pii_benchmark / pii_train** — 14+ категорий (2 841 предл.) / 17 137 предл. и 39 687 спанов.
+**Natasha / Slovnet** — PER, LOC, ORG (+ морфология, синтаксис, факты; Yargy — даты/деньги/адреса).
+**spaCy `ru_core_news_*`** — PER, LOC, ORG. **exemtik/pii-bench-ru-en** — 13 типов (NAME,
+PHONE_NUMBER, EMAIL, ADDRESS, BANK_CARD_NUMBER, CVC, INN, KPP, OGRN, OGRNIP, SNILS, PASSPORT_NUMBER,
+TOKEN), суррогатов нет (токены `[ИМЯ_1]`). **llm-pii-proxy-showcase** — KZ_BIN/IIN/IIK + PERSON/ORG/LOC.
+**DeepPavlov** — PER/LOC/ORG. Мелкие проекты (`SergeyK88i/pii-obfuscator`,
+`ru-pii-detection-system`, `yashirgich`, `kazpii-bench`) и модели HF (`alrosait`, `dzanozin` — **1,4 млрд
+параметров**, `HikmaAI`, `Wismut`, `tabularisai` — 559M и 4 151 загрузка, `LiquidAI` — лицензия
+«other», `Gherman`, `yqelz`) — статусы и лицензии в
+[`06-russian-tools-table.md`](06-russian-tools-table.md); **`tabularisai/eu-pii-safeguard` стоит
+проверить в фазе 4**, остальные — наблюдать.
 
 ### 6.2 pii-guard — детальный разбор (главный русский конкурент)
 
