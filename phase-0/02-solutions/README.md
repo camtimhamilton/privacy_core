@@ -352,192 +352,122 @@ Presidio **не публикует** замеров задержки `[НЕ НА
 
 ### 3.1 Главное: проект архивирован
 
-`[ПРОВЕРЕНО]` GitHub API, запрос 2026-10-16:
+`[ПРОВЕРЕНО]` GitHub API, 2026-10-16: `archived = True`, 3 216 ★, 466 форков, 38 open issues,
+`license = MIT`, `pushed_at = 2026-07-08`. Релизов в API **нет вообще** (пустой список);
+последний на PyPI — **0.3.16 от 2025-05-19**; ~41 контрибьютор (21 страница пагинации).
 
-```
-full_name = protectai/llm-guard
-archived  = True
-stargazers_count = 3216
-forks_count = 466
-open_issues_count = 38
-license = MIT
-pushed_at = 2026-07-08T23:58:40Z
-```
-
-И в самом начале `README.md`:
+И в начале `README.md`:
 
 > **THIS PROJECT HAS BEEN ARCHIVED.**
 > This project and its associated models on [Hugging Face](https://huggingface.co/protectai)
 > are no longer under active development or maintained.
 
-**Не только код, но и модели** на HuggingFace больше не поддерживаются. Это критично: LLM Guard
-построен на HF-моделях для большинства сканеров.
+**Не только код, но и модели на HF** больше не поддерживаются — а LLM Guard построен на
+HF-моделях для большинства сканеров. Protect AI куплен Palo Alto Networks; архивация — следствие.
+Для нас это первый и главный факт: **брать как зависимость нельзя.**
 
-Релизов в GitHub API нет вообще `[ПРОВЕРЕНО]` (пустой список). Последний релиз на PyPI —
-**0.3.16 от 2025-05-19** `[ПРОВЕРЕНО]`. 21 страница контрибьюторов ≈ 41 человек `[ПРОВЕРЕНО]`.
+### 3.2 Что это такое, архитектура, связь с Presidio
 
-Контекст: Protect AI был куплен Palo Alto Networks; архивация — следствие. Для нас это
-**первый и главный факт про LLM Guard**: брать его в 2026 году как зависимость нельзя.
+`[ПРОВЕРЕНО]` README: «The Security Toolkit for LLM Interactions». Конвейер **сканеров** на входе
+(`Prompt scanners`) и на выходе (`Output scanners`); каждый возвращает
+`(sanitized_text, is_valid, risk_score)`. Разворачивается как библиотека, sidecar-API (FastAPI),
+Docker.
 
-### 3.2 Что это такое
+**Полный список сканеров** `[ПРОВЕРЕНО]` README:
 
-`[ПРОВЕРЕНО]` README: «The Security Toolkit for LLM Interactions». Архитектура — конвейер
-**сканеров** на входе (`Prompt scanners`) и на выходе (`Output scanners`). Каждый сканер
-возвращает `(sanitized_text, is_valid, risk_score)`. Разворачивается как библиотека, как
-sidecar-API (FastAPI) или в Docker.
+- **Prompt scanners (15):** Anonymize, BanCode, BanCompetitors, BanSubstrings, BanTopics, Code,
+  Gibberish, InvisibleText, Language, PromptInjection, Regex, Secrets, Sentiment, TokenLimit, Toxicity.
+- **Output scanners (21):** BanCode, BanCompetitors, BanSubstrings, BanTopics, Bias, Code,
+  **Deanonymize**, JSON, Language, LanguageSame, MaliciousURLs, NoRefusal, ReadingTime,
+  FactualConsistency, Gibberish, Regex, Relevance, Sensitive, Sentiment, Toxicity, URLReachability.
 
-### 3.3 Полный список сканеров
+**Итого 36 сканеров**, из которых к нашей задаче относятся ровно два (`Anonymize`, `Deanonymize`).
+**LLM Guard — не библиотека обезличивания:** обезличивание — один сканер из 36, остальные 34 про
+prompt injection, токсичность, секреты, конкурентов и языки.
 
-`[ПРОВЕРЕНО]` README, раздел «Supported scanners».
+**Связь с Presidio — точная** `[ПРОВЕРЕНО]` документация Anonymize:
 
-**Prompt scanners (15):** Anonymize, BanCode, BanCompetitors, BanSubstrings, BanTopics, Code,
-Gibberish, InvisibleText, Language, PromptInjection, Regex, Secrets, Sentiment, TokenLimit, Toxicity.
+> «**Integration with Presidio Analyzer**: Leverages the Presidio Analyzer library, crafted with
+> spaCy, flair and transformers libraries, for precise detection of private data.»
 
-**Output scanners (21):** BanCode, BanCompetitors, BanSubstrings, BanTopics, Bias, Code,
-**Deanonymize**, JSON, Language, LanguageSame, MaliciousURLs, NoRefusal, ReadingTime,
-FactualConsistency, Gibberish, Regex, Relevance, Sensitive, Sentiment, Toxicity, URLReachability.
+То есть `Anonymize` — **обёртка над Presidio Analyzer** плюс: свой список сущностей по умолчанию
+(`anonymize.py#L26-L40`), свои regex-паттерны в `llm_guard/resources/sensisitive_patterns.json`
+(опечатка `sensisitive` — в самом репозитории), класс `Vault`, выбор NER через `recognizer_conf`.
+**Следствие: все русские дефициты Presidio наследуются, и к ним добавляются свои.**
 
-**Итого 36 сканеров**; для нашей задачи релевантны ровно два: `Anonymize` (вход) и
-`Deanonymize` (выход).
+### 3.3 Суррогаты: `use_faker` и `Vault`
 
-Важно разделить: **LLM Guard — не библиотека обезличивания.** Обезличивание — один сканер
-из 36. Остальные 34 — про prompt injection, токсичность, утечки секретов, конкурентов в
-промпте, языки. Мы аудируем только анонимизационную часть.
+`[ПРОВЕРЕНО]` параметры сканера: `vault` (архив вырезанного для восстановления), `preamble`,
+`allowed_names` (белый список), `hidden_names` («Transforms specified names to formats like
+`[REDACTED_CUSTOM_1]`»), `entity_types`, `regex_pattern_groups_path`, `recognizer_conf`,
+`threshold` (default `0`), `language` («Default is `en`») и **`use_faker`** —
+«Substitutes **eligible** entities with fabricated data».
 
-### 3.4 Связь с Presidio — точная
+**Ответ про суррогаты.** Флаг есть, но: (1) он **не по умолчанию** — дефолтный путь даёт
+плейсхолдеры `<PERSON>`/`[REDACTED_CUSTOM_1]`; (2) «for **eligible** entities» — критерий
+eligibility в документации не раскрыт `[ДОК]`; (3) Faker не умеет **форматно-валидные** российские
+ID — он не знает про mod-11 ИНН или mod-13 ОГРНИП. Восстановление — `Deanonymize` через `Vault`.
 
-`[ПРОВЕРЕНО]` <https://protectai.github.io/llm-guard/input_scanners/anonymize/>:
+### 3.4 Модели, вес, задержка
 
-> «**Integration with [Presidio Analyzer](https://github.com/microsoft/presidio/)**: Leverages the
-> Presidio Analyzer library, crafted with spaCy, flair and transformers libraries, for precise
-> detection of private data.»
+Рекомендованные модели NER `[ПРОВЕРЕНО]` («Tailored recognizers»): **`dslim/bert-base-NER`**
+(«Top Pick»), `dslim/bert-large-NER`, `gyr66/bert-base-chinese-finetuned-ner`,
+`Isotonic/distilbert_finetuned_ai4privacy_v2`, `Isotonic/deberta-v3-base_finetuned_ai4privacy_v2`.
+**Ни одной русской модели.**
 
-То есть `Anonymize` — **обёртка над Presidio Analyzer** плюс:
+PyPI `llm-guard 0.3.16`: **28 зависимостей** `[ПРОВЕРЕНО]`. Точный список для Anonymize не
+декларируется: README говорит, что «Base functionality requires a limited number of libraries. As
+you explore more advanced features, necessary libraries will be automatically installed». То есть
+**вес зависит от включённых сканеров** — само по себе проблема для контракта по памяти. Нижняя
+оценка для одного Anonymize: Presidio + spaCy + `en_core_web_lg` (382 MB) + transformers + torch +
+BERT-NER `[НЕ ПРОВЕРЕНО]`. Пик памяти по чужому замеру — **1 565 MB** `[ПРОВЕРЕНО, self-reported]`.
 
-- собственный список сущностей по умолчанию (ссылка на `anonymize.py#L26-L40`);
-- собственные regex-паттерны в `llm_guard/resources/sensisitive_patterns.json`
-  (опечатка `sensisitive` — в самом репозитории);
-- класс `Vault` для хранения вырезанного;
-- выбор NER-модели через `recognizer_conf`.
+**Задержка опубликована** `[ПРОВЕРЕНО]` документация Anonymize, Benchmarks. Условия: Amazon
+Linux 2, Python 3.11.6, **вход 317 символов**, 5 прогонов:
 
-**Следствие:** все ограничения Presidio по русскому наследуются, и добавляется своё.
-
-### 3.5 Суррогаты: `use_faker` и `Vault`
-
-`[ПРОВЕРЕНО]` параметры сканера:
-
-| Параметр | Что делает |
-|---|---|
-| `vault: Vault` | Архивирует вырезанные данные для обратного восстановления |
-| `preamble` | Текст, вставляемый перед промптом |
-| `allowed_names` | Белый список имён |
-| `hidden_names` | «Transforms specified names to formats like `[REDACTED_CUSTOM_1]`» |
-| `entity_types` | Какие типы вырезать |
-| `regex_pattern_groups_path` | Свой файл паттернов |
-| **`use_faker`** | **«Substitutes eligible entities with fabricated data»** |
-| `recognizer_conf` | Конфиг NER |
-| `threshold` | Порог (default `0`) |
-| `language` | «Language of the anonymize detect. Default is `en`» |
-
-**Ответ на вопрос о суррогатах.** Есть флаг `use_faker`, но:
-1. он **не по умолчанию** — default-путь даёт плейсхолдеры вида `<PERSON>`/`[REDACTED_CUSTOM_1]`;
-2. он «for **eligible** entities» — то есть применимость ограничена, критерий eligibility в
-   документации не раскрыт `[ДОК]`;
-3. Faker — не генератор **форматно-валидных** суррогатов для российских ID: он не знает про
-   контрольную сумму ИНН или ОГРН в принципе. Он умеет `ru_RU` имена/адреса/телефоны
-   (см. §5.6), но не «ИНН, проходящий mod-11».
-
-Восстановление — `Deanonymize` (output scanner), работает через `Vault`.
-
-### 3.6 Модели и вес
-
-`[ПРОВЕРЕНО]` документация Anonymize, раздел «Tailored recognizers» — рекомендованные модели:
-
-| Модель | Назначение |
-|---|---|
-| **`dslim/bert-base-NER`** | «Top Pick» |
-| `dslim/bert-large-NER` | «Alternative with more parameters» |
-| `gyr66/bert-base-chinese-finetuned-ner` | китайский |
-| `Isotonic/distilbert_finetuned_ai4privacy_v2` | AI4Privacy |
-| `Isotonic/deberta-v3-base_finetuned_ai4privacy_v2` | AI4Privacy |
-
-**Ни одной русской модели в списке.** Русских рекомендаций нет.
-
-PyPI `llm-guard 0.3.16`: **28 зависимостей в `requires_dist`** `[ПРОВЕРЕНО]`. Точный список
-пакетов для Anonymize не публикуется в одном месте, потому что «Base functionality requires a
-limited number of libraries. As you explore more advanced features, necessary libraries will be
-automatically installed» `[ПРОВЕРЕНО]` README. То есть вес **зависит от того, какие сканеры
-включены**, и не декларируется. Это само по себе проблема для нашего контракта по памяти.
-
-Нижняя оценка веса, если включить только Anonymize: Presidio Analyzer + spaCy + `en_core_web_lg`
-(382 MB) + transformers + torch + выбранная BERT-NER модель (~440 MB для bert-base, ~1.3 GB для
-bert-large) `[НЕ ПРОВЕРЕНО — размеры HF-моделей не открывал в этом проходе]`.
-
-Пик памяти по замеру SurrogateShield: **LLM Guard 1 565 MB** `[ПРОВЕРЕНО, self-reported]`.
-
-### 3.7 Задержка — опубликована
-
-`[ПРОВЕРЕНО]` документация Anonymize, раздел Benchmarks. Условия: Amazon Linux 2, Python 3.11.6,
-**вход 317 символов**, 5 прогонов:
-
-| Инстанс | p90, ms | **p95, ms** | p99, ms | Средняя, ms | QPS |
+| Инстанс | p90 | **p95** | p99 | средняя | QPS |
 |---|---|---|---|---|---|
 | AWS m5.xlarge | 255.64 | **294.57** | 325.71 | 177.13 | 1789.64 |
 | AWS m5.xlarge with ONNX | 155.64 | **169.13** | 179.93 | 128.64 | 2464.29 |
 | AWS g5.xlarge GPU | 321.59 | **419.60** | 498.01 | 125.18 | 2532.35 |
-| AWS g5.xlarge GPU with ONNX | 70.49 | **86.47** | 99.26 | 38.11 | 8317.53 |
+| AWS g5.xlarge GPU + ONNX | 70.49 | **86.47** | 99.26 | 38.11 | 8317.53 |
 | AWS r6a.xlarge (AMD) | 266.44 | **276.45** | 284.47 | 244.17 | 1298.29 |
-| AWS r6a.xlarge (AMD) with ONNX | 238.15 | **247.22** | 254.47 | 218.91 | 1448.06 |
+| AWS r6a.xlarge (AMD) + ONNX | 238.15 | **247.22** | 254.47 | 218.91 | 1448.06 |
 
-**Это лучший подарок аудита.** Это единственные опубликованные производителем p95-цифры для
-Presidio-подобного обезличивания, и они на **317 символах**. Наш контракт — 25–50 ms p95 на
-**2 000 токенов** (≈ 14 000 символов, в 44 раза больше). Даже лучший CPU-вариант (ONNX на
-m5.xlarge) даёт **169.13 ms p95** на 317 символах. Разрыв — **минимум 3.4×** по p95 при
-**44×** меньшем объёме. Мы можем цитировать это как объективное доказательство, что
-Python+spaCy+Presidio не влезает в наш бюджет, — и это цифра конкурента, а не наша.
+**Это лучший подарок аудита.** Единственные опубликованные производителем p95 для
+Presidio-подобного обезличивания — и они на **317 символах**. Наш контракт — 25–50 ms p95 на
+**2 000 токенов** (≈14 000 символов, в 44× больше). Даже лучший CPU-вариант (ONNX, m5.xlarge) —
+**169.13 ms p95** на 317 символах, то есть минимум **3.4×** выше потолка при **44×** меньшем
+объёме. Это цифра конкурента, а не наша, и её можно цитировать.
 
-### 3.8 Лицензия
+### 3.5 Лицензия и русский язык
 
-`[ПРОВЕРЕНО]` дважды:
-- GitHub API: `license = MIT`;
-- PyPI `info.license`: полный текст «The MIT License (MIT) Copyright (c) Protect AI».
+Лицензия `[ПРОВЕРЕНО]` дважды: GitHub API `license = MIT`; PyPI `info.license` — «The MIT License
+(MIT) Copyright (c) Protect AI». Модели под `protectai` — лицензии у каждой свои `[НЕ ПРОВЕРЕНО]`;
+они «no longer maintained», но **не отозваны** — использовать юридически можно, поддерживать некому.
 
-Модели на HuggingFace под `protectai` — лицензии у каждой свои `[НЕ ПРОВЕРЕНО]`. Важно: они
-«no longer under active development or maintained», но **не отозваны** — юридически
-использовать можно, только поддерживать некому.
-
-### 3.9 Русский язык
-
-`[ПРОВЕРЕНО]` документация Anonymize, дословно:
+`[ПРОВЕРЕНО]` документация Anonymize, дословно, два взаимоисключающих утверждения на одной странице:
 
 > «**Support of multiple languages**: The scanner can detect PII in English and Chinese.»
-
-и сразу под списком:
-
+>
 > «Info: **Current entity detection functionality is English-specific.**»
 
-Два взаимоисключающих утверждения на одной странице — признак того, что «мультиязычность»
-означает «одна китайская модель NER в списке рекомендаций», а не поддержку языков.
+Список PII-сущностей сканера: Credit Cards, Person, PHONE_NUMBER, URL, E-mail (включая
+обфусцированные `john.doe[AT]protectai[DOT]com`), IPs, UUID, US SSN, Crypto (Bitcoin), IBAN —
+**11 групп, ни одной русской**. Плюс custom regex из `sensisitive_patterns.json` `[НЕ ПРОВЕРЕНО]`.
 
-Список PII-сущностей сканера `[ПРОВЕРЕНО]`: Credit Cards, Person, PHONE_NUMBER, URL,
-E-mail Addresses (включая обфусцированные `john.doe[AT]protectai[DOT]com`), IPs, UUID, US SSN,
-Crypto (Bitcoin), IBAN. **11 групп, ни одной русской.**
+### 3.6 Где слабое место LLM Guard для русского
 
-Плюс «custom regex patterns» из `sensisitive_patterns.json` — там могут быть и не-US паттерны,
-но `[НЕ ПРОВЕРЕНО]` (файл не открывал).
-
-### 3.10 Где слабое место LLM Guard для русского
-
-1. **Проект архивирован** — модели на HF тоже. Нельзя строить на нём.
-2. **Наследует все русские дефициты Presidio** (нет рекогнайзеров, нет русских контекстных
-   слов) и **усиливает** их: список сущностей сканера из 11 групп заточен под en-US.
-3. **«English and Chinese»** официально. Russian не упомянут.
-4. `language="en"` по умолчанию; при `language="ru"` неясно, какая модель загрузится и что
-   вернёт `[НЕ ПРОВЕРЕНО]` — но документированной русской модели нет.
-5. `use_faker` не даёт валидных по контрольной сумме русских ID и не является дефолтом.
+1. **Проект архивирован**, модели на HF тоже. Нельзя строить на нём.
+2. **Наследует все русские дефициты Presidio** (нет рекогнайзеров, нет русских контекстных слов)
+   и **усиливает** их: список из 11 групп заточен под en-US.
+3. **«English and Chinese»** официально; Russian не упомянут.
+4. `language="en"` по умолчанию; что произойдёт при `language="ru"` — `[НЕ ПРОВЕРЕНО]`, но
+   документированной русской модели нет.
+5. `use_faker` не дефолт и не даёт валидных по контрольной сумме русских ID.
 6. **p95 169–294 ms на 317 символах** — несовместимо с 25–50 ms.
-7. Вес не декларируется и зависит от включённых сканеров; пик памяти 1 565 MB по чужому замеру.
-8. 34 из 36 сканеров не относятся к задаче — это лишняя поверхность атаки и зависимостей.
+7. Вес не декларируется; пик памяти 1 565 MB по чужому замеру.
+8. 34 из 36 сканеров не относятся к задаче — лишняя поверхность атаки и зависимостей.
 
 ---
 
@@ -554,30 +484,20 @@ Crypto (Bitcoin), IBAN. **11 групп, ни одной русской.**
 - DOI: **10.1609/aaai.v39i1.32088**
 - PDF: <https://ojs.aaai.org/index.php/AAAI/article/view/32088/34243>
 
-**Важное уточнение к нашей формулировке.** Мы в документе 00-charter пишем «Portcullis (ByteDance)».
-Точнее: **первый автор из Tsinghua**, остальные пять — ByteDance. Формулировка «Portcullis,
-ByteDance + Tsinghua, AAAI-25» корректнее.
+**Важное уточнение.** Мы в 00-charter пишем «Portcullis (ByteDance)». Точнее: **первый автор из
+Tsinghua**, остальные пять — ByteDance. Формулировка «Portcullis, ByteDance + Tsinghua, AAAI-25»
+корректнее.
 
-**Есть ли код** `[НЕ НАЙДЕНО]`. Что я проверил:
-- GitHub Search API: `portcullis LLM privacy` → `total_count = 0`;
-- GitHub Search API: `portcullis bytedance` → `total_count = 0`;
-- страница статьи на OJS: ссылки на код/артефакт **нет** (есть только PDF и Video/Poster);
-- arXiv API по `all:Portcullis AND all:LLM` → **пустой результат** (то есть arXiv-версии нет).
+**Есть ли код: `[НЕ НАЙДЕНО]`.** Что проверено: GitHub Search `portcullis LLM privacy` → 0,
+`portcullis bytedance` → 0; на странице статьи OJS ссылки на артефакт **нет** (только PDF и
+Video/Poster); arXiv API `all:Portcullis AND all:LLM` → **пусто** (arXiv-версии нет). Воспроизведение
+требует собственной реализации.
 
-Вывод: **публичного кода нет.** Есть PDF и постер. Воспроизведение требует собственной
-реализации.
-
-**Архитектура по абстракту** `[ДОК]` (абстракт, полный текст PDF не открывал):
-
-| Элемент | Как описано |
-|---|---|
-| Роль | «mediator» — шлюз между пользователем и сторонним LLM |
-| Подстановка | «anonymizing sensitive data in prompts through **parallel substitution**» |
-| Среда | «ensures all data processing occurs within **secure encrypted memory**» |
-| Доверие | «The gateway is **attested** to ensure trustworthiness» |
-| Реконструкция | «accurately reconstructing responses» |
-| Позиционирование | «the first of its kind, offering a verifiable and scalable privacy gateway for third-party LLM inferences» |
-| Масштабирование | «its startup time scales linearly» (замер как confidential container platform) |
+**Архитектура по абстракту** `[ДОК]` (PDF не открывал): роль — «mediator» между пользователем и
+сторонним LLM; подстановка — «anonymizing sensitive data in prompts through **parallel
+substitution**»; среда — «all data processing occurs within **secure encrypted memory**»; доверие —
+«The gateway is **attested**»; реконструкция — «accurately reconstructing responses»;
+масштабирование — «startup time scales linearly» (замер как confidential container platform).
 
 **Про «96x» — точная формулировка, которую мы обязаны использовать.** Абстракт дословно:
 
@@ -585,37 +505,28 @@ ByteDance + Tsinghua, AAAI-25» корректнее.
 > while maintaining equal or better false positive and false negative rates compared to existing solutions.
 > On the **Enron dataset**, Portcullis achieves notably higher accuracy, surpassing Hide-and-Seek by over **0.1** for **GPT-4o mini**.»
 
-То есть:
-- 96× — это **ускорение операций маскирования/снятия маски** относительно Hide-and-Seek;
-- это **не** «96× быстрее предшественников» вообще и **не** про качество детекции;
-- на качестве на Enron преимущество измеряется в **+0.1 accuracy** для GPT-4o mini — это
-  независимая, куда более скромная цифра;
-- заявлено «equal or better FP/FN rates **compared to existing solutions**» — без конкретных чисел
-  в абстракте.
+То есть: 96× — **ускорение операций маскирования/снятия маски** против Hide-and-Seek; это **не**
+«96× быстрее предшественников» вообще и **не** про качество детекции; на качестве преимущество —
+**+0.1 accuracy** для GPT-4o mini, независимая и куда более скромная цифра. Наша правка в
+00-charter («96x на маскировании против Hide-and-Seek, плюс аттестация среды») **верна** `[ПРОВЕРЕНО]`.
 
-Наша правка в 00-charter («96x на маскировании против Hide-and-Seek, плюс аттестация среды»)
-**верна** `[ПРОВЕРЕНО]`. Подтверждаю.
-
-**Что Portcullis реально решает:** доверие к среде исполнения и пропускную способность
-маскирования/снятия маски. Это **не** задача качества детекции и **не** задача связности текста.
-
-**Что не решает** `[ДОК, из абстракта — прямо не заявлено, вывожу из отсутствия]`:
+**Что Portcullis решает:** доверие к среде исполнения и пропускную способность
+маскирования/снятия маски. **Чего не решает** `[ДОК — прямо не заявлено в абстракте]`:
 
 | Вопрос | Ответ |
 |---|---|
-| Многоходовый контекст, анафора, кореференция | Не адресуется. Ни слова в абстракте. |
-| Реалистичность подмен (формат, контрольная сумма) | Не заявлено, что подмены формат-сохраняющие. «parallel substitution» может быть и плейсхолдером. |
-| Русский язык | Не упомянут. Датасеты: **PII** (вероятно, английский корпус) и **Enron Email Dataset** (английский). |
-| Типы сущностей | Не перечислены в абстракте. |
-| Требования к железу | Secure enclave (Intel SGX/TDX) — это серверный CPU с поддержкой TEE; на обычных потребительских CPU и в WASM неприменимо. |
-| Кроссплатформенность | Нет: confidential container platform. |
+| Многоходовый контекст, анафора, кореференция | Не адресуется, ни слова в абстракте |
+| Реалистичность подмен (формат, checksum) | Не заявлено, что подмены формат-сохраняющие; «parallel substitution» может быть плейсхолдером |
+| Русский язык | Не упомянут; датасеты — **PII** (вероятно английский) и **Enron** (английский) |
+| Типы сущностей | Не перечислены в абстракте |
+| Требования к железу | Secure enclave (SGX/TDX) — серверный CPU с TEE; на потребительских CPU и в WASM неприменимо |
+| Кроссплатформенность | Нет: confidential container platform |
 
-**Вердикт по Portcullis.** Мы **берём** интеллектуальную рамку: «шлюз должен быть проверяемым»,
-и то, что независимая академическая работа назвала именно эту нишу. Мы **отвергаем** TEE и
-аттестацию как основу: это (а) не решает нашу задачу (русский, суррогаты, контекст),
-(б) требует серверного железа, (в) код недоступен, (г) 96× относится к другой метрике.
-Также отвергаем соблазн цитировать 96× без оговорки — это единственная цифра, которую
-проверяющий откроет и найдёт.
+**Вердикт.** Берём интеллектуальную рамку («шлюз должен быть проверяемым») и сам факт, что
+независимая академическая работа назвала именно эту нишу. Отвергаем TEE и аттестацию как основу:
+это (а) не решает нашу задачу (русский, суррогаты, контекст), (б) требует серверного железа,
+(в) код недоступен, (г) 96× относится к другой метрике. Также отвергаем соблазн цитировать 96×
+без оговорки — это единственная цифра, которую проверяющий откроет и найдёт.
 
 ### 4.2 SurrogateShield
 
@@ -634,27 +545,22 @@ ByteDance + Tsinghua, AAAI-25» корректнее.
 **Что заявлено** `[ПРОВЕРЕНО]` (абстракт arXiv):
 
 > «a client-side proxy that substitutes detected PII with locally generated, **type-consistent
-> surrogate values** prior to transmission and restores originals in the response. No real PII
-> crosses the network boundary. Detection runs through a **three-stage cascade (PatternScan,
-> EntityTrace, and ContextGuard)** covering **22 PII types** and quasi-identifier combinations
-> grounded in **Sweeney's k-anonymity** framework. Surrogate-to-original mappings are sealed in an
-> **AES-256-GCM** encrypted per-conversation **ShadowMap** that never leaves the device.
-> Evaluations on a 1,124-query corpus … **F1 score of 98.87%**. Surrogate substitution substantially
-> outperforms placeholder redaction in semantic utility, yielding a **13.26 pp improvement in
-> BERTScore (roberta-large), from 81.59% to 94.85%**. … in a 100-query adversarial trial, a prompted
-> LLM adversary recovered **no original values** from surrogate-substituted messages.»
+> surrogate values** … Detection runs through a **three-stage cascade (PatternScan, EntityTrace, and
+> ContextGuard)** covering **22 PII types** and quasi-identifier combinations grounded in **Sweeney's
+> k-anonymity** … sealed in an **AES-256-GCM** encrypted per-conversation **ShadowMap** that never
+> leaves the device. … **F1 score of 98.87%** … **13.26 pp improvement in BERTScore (roberta-large),
+> from 81.59% to 94.85%** … in a 100-query adversarial trial, a prompted LLM adversary recovered
+> **no original values**.»
 
-**Что проверяемо.** Статья и код **существуют и открыты** — это отличает SurrogateShield от
-Portcullis и от «SurrogateShield» как маркетингового термина. Проверяемо:
-✓ код на GitHub под Apache-2.0, ✓ статья на arXiv с CC BY 4.0, ✓ PyPI-пакет, ✓ бенчмарк-харнес
-в репозитории (`bench/results/README.md`), ✓ 141 pytest-модуль.
+**Что проверяемо.** Статья и код **существуют и открыты** — этим SurrogateShield отличается от
+Portcullis: ✓ код на GitHub под Apache-2.0, ✓ статья на arXiv с CC BY 4.0, ✓ PyPI-пакет,
+✓ бенчмарк-харнес (`bench/results/README.md`), ✓ 141 pytest-модуль.
 
-**Что не проверено нами:** сами цифры. Все бенчмарки — **self-reported одним автором**,
-репозиторий имеет 2 звезды, независимых репликаций `[НЕ НАЙДЕНО]`. Ни одна цифра из README
-не подтверждена третьей стороной.
+**Что не проверено нами: сами цифры.** Все бенчмарки **self-reported одним автором**, репозиторий — 2
+звезды, независимых репликаций `[НЕ НАЙДЕНО]`.
 
-**Цифры, которые стоят внимания** `[ПРОВЕРЕНО, но self-reported]`. Замеры на sealed test-3
-(ShareGPT, WildChat, oasst1, не использованные для настройки):
+**Цифры, которые стоят внимания** `[ПРОВЕРЕНО, self-reported]`. Sealed test-3 (ShareGPT, WildChat,
+oasst1, не использованные для настройки):
 
 | arm | утекло значений (из 3 677) | чистых промптов | странных форматов утекло | безобидный текст правлен |
 |---|---|---|---|---|
@@ -689,50 +595,40 @@ F1 0.886; GLiNER-PII 22.5–25.8% (F1 0.751–0.758); Presidio 40.1% (F1 0.716);
 > on some single types (3 of 13 on test-3, 8 of 13 on Nemotron-PII, **URL most of all**) and on
 > **speed and memory** (plain Presidio is about **5× faster and lighter**).»
 
-Это честно и это ровно та зона, где мы должны быть сильнее: **естественный текст**, а не
-списки значений.
+Это честно и это ровно та зона, где мы должны быть сильнее: **естественный текст**, а не списки значений.
 
-**Архитектура** `[ПРОВЕРЕНО]` (README, детально):
+**Архитектура** `[ПРОВЕРЕНО]`: `SentinelLayer` (PatternScan → canonicaliser → EntityTrace →
+PII tagger → [ContextGuard] → структурные проходы → relation gate → resolver); `MimicGen`
+(Faker-суррогаты, тип-консистентные, без коллизий в сессии); `ShadowMap` (AES-256-GCM,
+HKDF-SHA256(device_secret, conv_id, kind), `~/.surrogateshield/`); `ResolvePass` (4 прохода:
+exact → component → fuzzy с rapidfuzz, порог 85 → given name/surname).
 
-```
-SentinelLayer: PatternScan → canonicaliser → EntityTrace → PII tagger
-               [→ ContextGuard] → структурные проходы → relation gate → resolver
-MimicGen:      Faker-суррогаты, тип-консистентные, без коллизий в сессии
-ShadowMap:     AES-256-GCM, HKDF-SHA256(device_secret, conv_id, kind), файл ~/.surrogateshield/
-ResolvePass:   4 прохода — exact → component → fuzzy (rapidfuzz, порог 85) → given name/surname
-```
-
-Ключевые инженерные решения, которые стоит забрать:
+Ключевые решения, которые стоит забрать:
 
 | Решение | Деталь |
 |---|---|
 | Presets | `balanced` (default), `strict`, `fast`, `classic` |
-| Суррогаты с валидной контрольной суммой | «fake SSNs pass format checks, fake Bitcoin addresses match Base58 format», credit_card «Valid Luhn-format number», `us_bank_number` «Valid 9-digit ABA routing number (passes checksum)» |
+| Суррогаты с валидной checksum | «fake SSNs pass format checks, fake Bitcoin addresses match Base58 format»; credit_card «Valid Luhn-format number»; `us_bank_number` «Valid 9-digit ABA routing number» |
 | Коллизии | `used_surrogates` set, суррогат уникален в сессии |
-| Ключ | device secret 32 байта, `~/.surrogateshield/device.key`, `0o600`, каталог `0o700` |
-| Шифрование | AES-256-GCM, свежий 12-байтовый nonce, kind+ID как associated data |
-| Битый файл карты | **«Moved aside to `<name>.corrupt-<ts>` and an error is raised: never silently replaced by an empty map»** |
-| Fail-closed | «If detection fails, nothing is indexed»; «a missing detection model stops the request (fail closed)»; «If they cannot be fetched, detection raises `DetectorUnavailable` instead of sending unmasked text» |
+| Ключ / шифрование | device secret 32 байта, `device.key` `0o600`, каталог `0o700`; AES-256-GCM, свежий 12-байтовый nonce, kind+ID как AAD |
+| Битый файл карты | **«Moved aside to `<name>.corrupt-<ts>` … never silently replaced by an empty map»** |
+| Fail-closed | «a missing detection model stops the request»; «detection raises `DetectorUnavailable` instead of sending unmasked text» |
 | Проверка весов | SHA-256 pin на фиксированный коммит HF |
 | Квази-идентификаторы | 10 комбинаций по Sweeney (ZIP+DOB+Gender = «87% of US population uniquely identifiable») |
-| Восстановление | «Every pass matches **whole values only** ("Lee" never matches inside "Leeds")» — это ровно наш инвариант I3 |
+| Восстановление | «matches **whole values only** ("Lee" never matches inside "Leeds")» — ровно наш I3 |
 | Категоризация ошибок | `exact_miss`, `fuzzy_hit`, `fuzzy_miss` |
 
-**Это почти дословно наш проектный документ, но на английском и на US-сущностях.** Отличие
-принципиальное: у них `en_core_web_lg`, `ssn`, `zip_us`, `phone_us`, `us_bank_number`, `ABA`,
-`postal_code_uk` — и **ни одной русской сущности**. Их `ADDRESS_MODE=shift` (сдвиг номера дома
-на ±1) — интересная идея, применимая и у нас, но их address parser — американский
-(штаты, ZIP+4, directionals).
+**Это почти дословно наш проектный документ, но на английском и на US-сущностях:** `en_core_web_lg`,
+`ssn`, `zip_us`, `phone_us`, `us_bank_number`, `ABA`, `postal_code_uk` — **ни одной русской
+сущности**. Их `ADDRESS_MODE=shift` (сдвиг номера дома на ±1) применим и у нас, но их address
+parser — американский (штаты, ZIP+4, directionals).
 
-**Вердикт по SurrogateShield.** Это **главный ориентир по идее и главный конкурент по духу**.
-Мы берём: ShadowMap-модель (шифрование + associated data + отказ от тихого пересоздания
-пустой карты), fail-closed на всех путях, форматную валидность суррогатов, пресеты, whole-value
-matching при восстановлении, категоризацию ошибок, квази-идентификаторный скоринг.
-Мы отвергаем: как код (Python, US-only, 2 звезды, автобусный фактор = 1 человек), как источник
-цифр (self-reported), как архитектуру задержки (43.5 ms медиана, 1 348 MB — не влезает).
-
-Мы **не можем** утверждать, что «мы первые делаем суррогаты». Мы можем утверждать, что
-«мы первые делаем их для русского, на CPU, в одном бинаре».
+**Вердикт.** Главный ориентир по идее и главный конкурент по духу. Берём ShadowMap-модель,
+fail-closed, форматную валидность суррогатов, пресеты, whole-value matching, категоризацию
+ошибок, квази-идентификаторный скоринг. Отвергаем как код (Python, US-only, 2 звезды, bus factor = 1),
+как источник цифр (self-reported), как архитектуру задержки (43.5 ms медиана, 1 348 MB).
+Мы **не можем** утверждать «мы первые делаем суррогаты» — только «мы первые делаем их для
+русского, на CPU, в одном бинаре».
 
 ---
 

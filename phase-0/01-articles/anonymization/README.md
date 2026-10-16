@@ -1321,4 +1321,377 @@ PII за один forward pass. Три варианта: компактные un
 | **Домены** | TAB — суд; RAT-Bench — медицина/чат/встреча | нужен свой набор доменов: деловая переписка, договоры, резюме, логи поддержки, чаты |
 | **Нет русского в мейнстрим-бенчмарках** | — | публикация нашего набора — самостоятельная ценность, но требует лицензионной чистоты (PII-Bench обошёл это синтетикой) |
 
-<!--APPEND-->
+---
+
+## 6. Пробелы: что не решено никем
+
+Каждый пункт — с указанием, на основании чего я утверждаю, что это пробел (то есть что я искал и не нашёл),
+и почему он важен именно нам.
+
+### 6.1 Пробел №1 (главный): нет ни одной работы с CPU-задержкой PII-детектора в бюджете десятков миллисекунд
+
+**Что искал:** замеры latency/throughput для детекторов PII на CPU; сравнения «качество против задержки»
+в одной таблице; p95 в миллисекундах на документ.
+
+**Что нашёл:**
+
+* OPF: заявка «web browser or laptop» ([model card](https://cdn.openai.com/pdf/c66281ed-b638-456a-8ce1-97e9f5264a90/OpenAI-Privacy-Filter-Model-Card.pdf)),
+  сторонний CPU-замер GGML — **3 490 ток/с** (2 048 токенов за **0.59 с**) на Ryzen 9 7900, 12 потоков;
+  Raspberry Pi 5 — **360 ток/с** ([privacy-filter.cpp](https://github.com/localai-org/privacy-filter.cpp),
+  самоотчёт, не рецензировано).
+* GLiGuard: **193 запроса/с, P99 < 1 с на A100** ([arXiv:2605.05277](https://arxiv.org/abs/2605.05277)) — GPU.
+* PRvL: заявляет измерение задержки и стоимости, но числа не в аннотации.
+* Portcullis: «96× быстрее HaS» — но база сравнения это локальные LLM 560M/1.7B, а не CPU-каскад.
+
+**Чего нет:** ни одной публикации, где для PII-детектора на CPU приведены p50/p95 в миллисекундах
+на фиксированном объёме токенов, вместе с F1 и потреблением памяти.
+
+**Почему это критично для нас.** Наш целевой бюджет — 25–50 мс на 2 000 токенов, то есть
+**40 000–80 000 ток/с сквозного конвейера**. Лучший найденный CPU-результат — 3 490 ток/с, разрыв
+**11–23 раза**. Это не «мы медленнее», это **другой класс решения**: трансформерный детектор
+масштаба 1.5B физически не укладывается в бюджет на CPU ни при какой оптимизации, потому что
+разрыв — в порядок величины. **Следствие: наша ставка на регулярки+словари для 11 из 13 форматных
+типов и крошечную модель только для ФИО/адресов/организаций — не оптимизация, а условие
+существования продукта.** И проверить это не на чем, кроме собственного замера.
+
+### 6.2 Пробел №2: никто не измеряет корректность **восстановленного** ответа
+
+**Что искал:** работы, где метрика — качество ответа внешней LLM **после обратной подстановки**;
+работы, где проверяется, не сломалось ли рассуждение из-за подмены значения.
+
+**Что нашёл:** HaS измеряет качество **восстановленного** перевода и классификации (METEOR, F1) —
+это единственный найденный случай. Pasch & Cha измеряют качество ответа, но на **обезличенном**
+тексте, без шага восстановления. Все остальные (FgAA, INTACT, IncogniText, RLAA, SPIA, RAT-Bench)
+меряют текст или задачу на тексте.
+
+**Чего нет:** метрики вида «ответ на восстановленный текст совпадает/эквивалентен ответу на оригинал».
+Не найдено **ни одной** работы, где считались бы:
+* доля случаев, где восстановление **неоднозначно** (один суррогат соответствует нескольким оригиналам);
+* доля случаев, где внешняя LLM построила вывод на подменённом значении и восстановление не может
+  это исправить (например, ответ про «город X», которого в реальности не было);
+* расхождение `y` против `y_orig` по существу, а не по строкам.
+
+**Почему это критично для нас.** Это прямое следствие нашей архитектуры и **наш главный измеримый
+дифференциатор**. Если мы не измерим это первыми, мы не сможем ни доказать пользу суррогатов, ни
+обнаружить класс ошибок «LLM поверила фейку».
+
+### 6.3 Пробел №3: обратимость суррогатного отображения не исследуется как атака
+
+**Что искал:** работы, где атакующий **инвертирует** отображение «суррогат → оригинал», используя
+открытые реестры и знание алгоритма; работы про энтропию пространства суррогатов.
+
+**Что нашёл:** parrot attack ([PMC6857511](https://pmc.ncbi.nlm.nih.gov/articles/PMC6857511/)) —
+это атака **различимости** (суррогат против утечки), а не инверсии. INTACT упоминает риск
+«names or codes matching actual entities», но не измеряет его. SurrogateShield шифрует карту
+соответствий (AES-256-GCM), но это защита **карты**, не защита от инверсии **по значению**.
+
+**Чего нет:** ни одной работы, которая считает: сколько кандидатов остаётся у атакующего, знающего,
+что суррогат валиден по контрольной сумме и принадлежит тому же региону/типу, при наличии ЕГРЮЛ/ФИАС.
+Для РФ это особенно остро: **ИНН и ОГРН — публичные реестровые номера**, поэтому «валидный суррогат»
+почти наверняка существует в реальности.
+
+**Следствие для нас:** соль/ключ на устройство обязательны (иначе при открытом коде Apache-2.0
+отображение воспроизводимо), и это надо явно зафиксировать как требование безопасности, а не как
+деталь реализации. Никакой внешний источник такое требование не навязывает — мы выводим его сами.
+
+### 6.4 Пробел №4: нет метрики «суррогат не является реальной сущностью»
+
+**Что искал:** метрики качества суррогатов, кроме «похоже по формату».
+
+**Что нашёл:**
+
+* Surrogate Substitution (2026): метрика «recall retention» + типология дефектов генератора
+  (обрезка, потеря значимости, OOD) — но **не** проверка «существует ли такая сущность в реальности».
+* INTACT: критерий «truthfulness» (замена обязана включать смысл оригинала) — но **не** критерий
+  «не совпадает с реальным человеком/организацией».
+* SurrogateShield: заявлено «no real PII crosses the network boundary», но метод проверки
+  «суррогат не реален» в аннотации не описан.
+
+**Чего нет:** формальной метрики `collision rate` — доли сгенерированных суррогатов, которые
+совпадают с реально существующей сущностью. Для ФИО это «частота, с которой сгенерированное
+ФИО принадлежит живому человеку» (нижняя оценка — по частотным фамилиям и именам), для
+ИНН/ОГРН — «доля сгенерированных номеров, присутствующих в ЕГРЮЛ».
+
+**Следствие для нас:** придётся определить и замерить эту метрику самим. Она нужна для v0.1,
+потому что иначе мы не сможем ответить на вопрос «мы подставили чужой ИНН?».
+
+### 6.5 Пробел №5: морфология и согласованность суррогатов для флективных языков
+
+**Что искал:** работы, проверяющие склоняемость суррогатов, согласование рода/числа/падежа,
+согласованность адреса (регион+город+индекс+улица) и согласованность квазиидентификаторов между собой.
+
+**Что нашёл:** PII-Bench (ru) размечает `NAME` «во всех падежах» — то есть проблема **распознавания**
+признана. Surrogate Substitution упоминает «salience loss» как дефект. Но **ни одной** работы, которая
+проверяет **порождение** суррогатов с правильной морфологией, найти не удалось.
+
+**Чего нет:** метрики «суррогат грамматически согласован в контексте» и «суррогат сохраняет
+согласованность квазиидентификаторов». Примеры, которые сломают любой англоцентричный генератор:
+* «позвоните **Петрову Ивану**» — суррогат должен быть в дательном;
+* «**в городе Казани**» → «в городе <суррогат>» требует предложного падежа;
+* индекс должен соответствовать региону, город — субъекту РФ, а не быть случайным.
+
+**Следствие для нас:** нужен морфологический слой (генерация форм по падежам) и справочник
+согласованности адресов. Это существенная инженерная часть, не покрытая наукой.
+
+### 6.6 Пробел №6: нет работ, связывающих риск с задержкой и памятью одновременно
+
+PRvL ([arXiv:2508.05545](https://arxiv.org/abs/2508.05545)) заявляет измерение «redaction performance,
+semantic preservation, PII leakage» против «latency and computational cost» — это ближайший
+найденный случай. Но RAT-Bench, SPIA, TAB, Surrogate Shield, HaS, IncogniText **не публикуют задержку
+вообще**. Обратно: GLiGuard публикует throughput, но не приватность в риск-терминах.
+
+**Следствие:** таблицу «приватность / утилити / задержка / память» для нашего класса решений
+придётся строить с нуля. PRvL стоит использовать как образец формата таблицы.
+
+### 6.7 Пробел №7: нет протокола проверки суррогатов на устойчивость к parrot attack
+
+Parrot attack (2019) показывает, что атака возможна, но **не даёт протокола проверки генератора**.
+Он описывает атаку на конкретный корпус. Ни Surrogate Substitution (2026), ни SurrogateShield
+не включают различимость суррогатов в свои метрики утилити.
+
+**Следствие:** в наш протокол бенчмарка нужно добавить проверку: обучить классификатор
+«наш суррогат / наш пропуск» на релизе и измерить его точность. Если существенно выше случайной —
+генератор различим. Это наш собственный вклад в методику, и он дешёвый.
+
+### 6.8 Пробел №8: отсутствие русской базы сравнения
+
+**Что искал:** русские аналоги TAB / RAT-Bench / SPIA с числами.
+
+**Что нашёл:** PII-Bench (ru) — 1 810 примеров, синтетика, спаны, 13 типов (2026).
+Jay Guard — 850 примеров, 3 типа, лицензия под вопросом (2025). Шесть академических работ по русскому
+обезличиванию, до чисел которых не удалось добраться.
+
+**Чего нет:** русского бенчмарка с (а) разметкой direct/quasi, (б) разметкой субъектов,
+(в) уровнями сложности, (г) реальным доменом, (д) опубликованными базовыми числами нескольких систем.
+
+**Следствие:** у нас нет внешней точки отсчёта. Любое наше число можно будет сравнить только
+с PII-Bench (ru) и с нашими же baseline'ами. Это надо честно писать в отчётах и не заявлять
+«мы лучше X», если X не измерен на русском.
+
+### 6.9 Пробел №9: нет оценки влияния суррогатов на **внешние** модели разных провайдеров
+
+Pasch & Cha находят, что Llama 3.3:70b и GPT-4o по-разному реагируют на контекст внутри замены.
+Больше никто межмодельное сравнение не делает. При этом вся состязательная линия (FgAA, IncogniText,
+RLAA) подбирает метод под конкретную модель.
+
+**Следствие:** наш бенчмарк обязан прогоняться минимум на двух-трёх внешних моделях, иначе результат
+не переносим. Никакого «правильного» выбора модели из литературы не следует.
+
+### 6.10 Пробел №10: метрика приватности зависит от модели-судьи, и это не контролируется
+
+FgAA: 26 против 43.2 (приватность) и 86 против 98.8 (утилити) в зависимости от судьи.
+SPIA проверяет устойчивость CPR/IPR к смене **атакующего** (ρ > 0.98) — это единственный найденный
+случай контроля. Устойчивость к смене **LLM-судьи по утилити** никем не проверена.
+
+**Следствие:** SPIA-подобный контроль (смена атакующего + корреляция) надо распространить и на
+судью утилити, и публиковать корреляцию. Иначе наши числа будут зависеть от выбранной модели.
+
+### 6.11 Что в пробелах **не** является пробелом (опровергнуто)
+
+* **«Замена на суррогаты вместо заглушек не сделана в продуктах»** — опровергнуто: SurrogateShield
+  ([arXiv:2606.29567](https://arxiv.org/abs/2606.29567)) реализует именно это, с замером BERTScore.
+* **«Никто не измерял, влияет ли подмена на качество ответа»** — опровергнуто: Pasch & Cha
+  ([PrivateNLP 2025](https://aclanthology.org/2025.privatenlp-main.3/)) измеряют именно это.
+* **«Recall/F1 достаточно для оценки»** — опровергнуто дважды: RAT-Bench (recall игнорирует вес
+  атрибутов) и SPIA (>90% маскирования → 33% защиты).
+* **«CRAB — работа по PII»** — в задании ошибка: CRAB это бенчмарк агентов
+  ([OpenReview](https://openreview.net/pdf?id=kyExS4V0H7)).
+* **«Существует направление "Tabular PII"»** — не подтверждено; единственное совпадение —
+  классификация сетевого трафика.
+
+---
+
+## 7. Библиография
+
+### 7.1 Бенчмарки и корпуса (анонимизация, PII, риск)
+
+1. **RAT-Bench: A Comprehensive Benchmark for Text Anonymization** — Imperial College London, 2026 (вне окна 2020–2025). arXiv:2602.12806. <https://arxiv.org/abs/2602.12806> · HTML: <https://arxiv.org/html/2602.12806v1> · данные: <https://huggingface.co/datasets/imperial-cpg/rat-bench> · код: <https://github.com/imperial-aisp/rat-bench> · лидерборд: <https://huggingface.co/spaces/imperial-cpg/rat-bench>
+2. **The Text Anonymization Benchmark (TAB): A Dedicated Corpus and Evaluation Framework for Text Anonymization** — Pilán, Lison, Øvrelid, Papadopoulou, Sánchez, Batet. Computational Linguistics 48(4):1053–1101, 2022. arXiv:2202.00443 · <https://arxiv.org/abs/2202.00443> · ACL: <https://aclanthology.org/2022.cl-4.19/> · DOI: <https://doi.org/10.1162/coli_a_00458> · код и корпус: <https://github.com/NorskRegnesentral/text-anonymization-benchmark>
+3. **SPIA: Subject-level Inference for Realistic Text Anonymization Evaluation** — Oh, Kim, Oh, Kang, Kang, Wang, Park, Jung, Kim. ACL 2026 (вне окна). arXiv:2604.21211 · <https://arxiv.org/abs/2604.21211> · ACL: <https://aclanthology.org/2026.acl-long.778/> · код: <https://github.com/maisonOP/spia.git>
+4. **PII-Bench (ru)** — HiveTrace, 2026 (вне окна). <https://huggingface.co/datasets/hivetrace/pii-bench>
+5. **Jay Guard NER Benchmark** — Just AI, 2025. <https://huggingface.co/datasets/just-ai/jayguard-ner-benchmark>
+6. **PII-Bench (EN, другой датасет — не путать с п. 4)** — упомянут в RAT-Bench как ссылка [33]: 2 842 примера, multi-subject, query-aware. Отдельного URL в проверенном фрагменте RAT-Bench не получено.
+7. **PANORAMA** — крупномасштабная синтетика (384 789 документов), использована в SPIA как второй домен. URL первоисточника не проверен.
+8. **PersonalReddit** — 525 (или 520) человеко-верифицированных синтетических Reddit-диалогов с 8 атрибутами; источник атакующей разметки Staab et al. Используется в IncogniText, RLAA, SPIA. URL не проверен.
+9. **SynthPAI — A Synthetic Dataset for Personal Attribute Inference** — Yukhymenko et al., NeurIPS 2024. Постер: <https://neurips.cc/virtual/2024/poster/97872> · ACM DL: <https://dl.acm.org/doi/10.5555/3737916.3741753>
+10. **i2b2/UTHealth 2014 shared task** — Stubbs & Uzuner. 1 304 записи, 296 пациентов; IAA entity F1 0.89 / token 0.93; SOTA >0.98 F1 (Johnson et al. 2020). Описан в TAB: <https://arxiv.org/abs/2202.00443>
+11. **CEGS N-GRID 2016 shared task** — Stubbs, Filannino, Uzuner. 1 000 записей; IAA entity F1 0.85 / token 0.91. Описан в TAB: там же.
+12. **SPY** — синтетический набор медицинских консультаций и юридических вопросов; используется в оценке OPF (arXiv:2608.02616 и model card). URL не проверен.
+13. **PII-Masking-300k / AI4Privacy** — многоязычный синтетический PII-бенчмарк; используется в Model Card OPF, Surrogate Substitution (2026). URL не проверен.
+14. **Enron Email Dataset** — <https://www.cs.cmu.edu/~enron/> · используется Portcullis и TAB как источник писем.
+
+### 7.2 Работы по обезличиванию и суррогатной подмене
+
+15. **Hide and Seek (HaS): A Lightweight Framework for Prompt Privacy Protection** — Chen, Li, Liu, Yu (Xuanwu Lab, Tencent), 2023. arXiv:2309.03057 · <https://arxiv.org/abs/2309.03057> · HTML: <https://arxiv.org/html/2309.03057v1> · код и датасеты: <https://github.com/alohachen/Hide-and-Seek>
+16. **Portcullis: A Scalable and Verifiable Privacy Gateway for Third-Party LLM Inference** — Zhan, Zhang, Zhang, Xue, Zhang, Wu (Tsinghua / ByteDance), AAAI-25, 39(1):1022–1030. <https://ojs.aaai.org/index.php/AAAI/article/view/32088> · DOI: <https://doi.org/10.1609/aaai.v39i1.32088> · PDF: <https://ojs.aaai.org/index.php/AAAI/article/download/32088/34243>
+17. **SurrogateShield: Beyond Redaction for High-Utility, Privacy-Preserving LLM Interactions** — Jathanna, 2026 (вне окна). arXiv:2606.29567 · <https://arxiv.org/abs/2606.29567> · код: <https://github.com/sherwinvishesh/SurrogateShield>
+18. **Surrogate Substitution Preserves PHI Detectability: A Multi-Detector Equivalence Study** — Bao, Feng, Eugenio, Fon (Custodian Labs), 2026 (вне окна). arXiv:2608.03172 · <https://arxiv.org/abs/2608.03172> · код и данные: <https://github.com/Custodian-Labs/guardian-layer-phi-benchmark> · дашборд: <https://custodianai.pages.dev>
+19. **Truthful Text Sanitization Guided by Inference Attacks (INTACT)** — Pilán, Manzanares-Salor, Sánchez, Lison. Applied Soft Computing, 2024/2025 (v2: 31.08.2025). arXiv:2412.12928 · <https://arxiv.org/abs/2412.12928> · HTML: <https://arxiv.org/html/2412.12928v2>
+20. **Large Language Models are Advanced Anonymizers (FgAA)** — Staab, Vero, Balunović, Vechev. ICLR 2024. arXiv:2402.13846 · <https://arxiv.org/abs/2402.13846>
+21. **IncogniText: Privacy-enhancing Conditional Text Anonymization via LLM-based Private Attribute Randomization** — Frikha, Walha, Nakka, Mendes, Jiang, Zhou (Huawei Munich Research Center), 2024. arXiv:2407.02956 · <https://arxiv.org/abs/2407.02956> · HTML: <https://ar5iv.labs.arxiv.org/html/2407.02956>
+22. **Balancing Privacy and Utility in Personal LLM Writing Tasks: An Automated Pipeline for Evaluating Anonymizations** — Pasch, Cha. PrivateNLP 2025, pp. 32–41. <https://aclanthology.org/2025.privatenlp-main.3/> · DOI: <https://doi.org/10.18653/v1/2025.privatenlp-main.3> · PDF: <https://aclanthology.org/2025.privatenlp-main.3.pdf>
+23. **Resource-Efficient Anonymization of Textual Data via Knowledge Distillation from Large Language Models** — Deußer, Hahnbück, Uelwer, Zhao, Bauckhage, Sifa. COLING 2025 Industry Track, pp. 243–250. <https://aclanthology.org/2025.coling-industry.20/> · PDF: <https://aclanthology.org/2025.coling-industry.20.pdf>
+24. **Anonymise: A Tool for Multilingual Document Pseudonymisation** — Vīksna, Skadiņa. RANLP 2025, pp. 1327–1332. <https://aclanthology.org/2025.ranlp-1.154/> · PDF: <https://aclanthology.org/2025.ranlp-1.154.pdf>
+25. **GuardianAgent: Policy-Conditioned Risk-Adaptive Anonymization with Verified Adversarial Escalation** — Yang, Lihinikaduarachchi, Masood, Salim, Kanhere, 2026 (вне окна). arXiv:2608.29251 · <https://arxiv.org/abs/2608.29251>
+26. **Look Twice before You Leap: A Rational Agent Framework for Localized Adversarial Anonymization (RLAA)** — Duan, Zheng, He, Mu, Cai, Zhang, 2026 (вне окна). arXiv:2512.06713 · <https://arxiv.org/abs/2512.06713> · код: <https://github.com/SowingG2333/RLAA>
+27. **PrivacyMind: Large Language Models Can Be Contextual Privacy Protection Learners** — arXiv:2310.02469 · <https://arxiv.org/abs/2310.02469> · код: <https://github.com/Yijia-Xiao/PrivacyMind> — **не читался**, но релевантен как «контекстный» подход.
+28. **Reducing Privacy Risks in Online Self-Disclosures with Language Models** — Dou et al., ACL 2024 (long). <https://aclanthology.org/2024.acl-long.741/> — базовая работа, на которую опирается INTACT как единственный «truthful» LLM-подход.
+29. **PRvL: Quantifying the Capabilities and Risks of Large Language Models for PII Redaction** — Garza, Kotal, Piplai, Elluri, Das, Chadha. IEEE TPS-ISA 2025. arXiv:2508.05545 · <https://arxiv.org/abs/2508.05545> · IEEE: <https://ieeexplore.ieee.org/abstract/document/11410189>
+30. **MAPA anonymization toolkit** — BERT-based mask-and-sample для европейских языков; критикуется в INTACT за ограничение длины замены. URL первоисточника в проверенном фрагменте INTACT не приведён.
+31. **Microsoft Presidio** — <https://microsoft.github.io/presidio/> · пример synthetic replacement через GPT-3.5: <https://github.com/microsoft/presidio/blob/main/docs/samples/python/synth_data_with_openai.ipynb> (ссылка из INTACT).
+32. **«A comparative analysis, enhancement and evaluation of text anonymization with pre-trained Large Language Models»** — Expert Systems with Applications, 2025. DOI: <https://doi.org/10.1016/j.eswa.2025.129474> — **не читался**, зафиксирован как найденный.
+33. **«Anonymization for LLM inference» — Privacy Preserving Prompt Engineering: A Survey** — Edemacu, Wu, 2024. arXiv:2404.06001 · <https://arxiv.org/abs/2404.06001> · ACM: <https://dl.acm.org/doi/pdf/10.1145/3729219>
+
+### 7.3 Детекторы и их внешние оценки
+
+34. **OpenAI Privacy Filter — Model Card** — OpenAI, 2026 (вне окна). PDF (проверен): <https://cdn.openai.com/pdf/c66281ed-b638-456a-8ce1-97e9f5264a90/OpenAI-Privacy-Filter-Model-Card.pdf> · arXiv-версия: <https://arxiv.org/abs/2608.18274>
+35. **OpenAI Privacy Filter: A Cross-Lingual, Cross-Domain PII Evaluation Across 32 Benchmarks** — Uppala, 2026 (вне окна). arXiv:2608.02616 · <https://arxiv.org/abs/2608.02616>
+36. **GLiNER Guard: Unified Encoder Family for Production LLM Safety and Privacy** — Minko, Sadiekh, Kokuyukin, 2026 (вне окна). arXiv:2605.05277 · <https://arxiv.org/abs/2605.05277> · модели: <https://huggingface.co/collections/hivetrace/gliner-guard-v1>
+37. **privacy-filter.cpp** — GGML-раннер для `openai-privacy-filter`, сторонний, не рецензирован. <https://github.com/localai-org/privacy-filter.cpp> · GGUF-веса: <https://huggingface.co/LocalAI-io/privacy-filter-GGUF>
+38. **«When Redaction Goes Blind: A Recall Benchmark of Default Microsoft Presidio on Türkiye-Specific PII»** — Zenodo, 2026. <https://zenodo.org/records/21908426> — **не проверено** (fetch не удался).
+39. **Вторичное упоминание F1 = 0.884 для Presidio** на задаче 18 240 документов по шести категориям PII — источник: PDF на Zenodo <https://zenodo.org/records/19614862> (журнал BioQI, Vol 2024 Issue 4, pp. 44–51). **Первоисточник не открыт.**
+
+### 7.4 Атаки
+
+40. **The machine giveth and the machine taketh away: a parrot attack on clinical text deidentified with hiding in plain sight** — Carrell, Cronkite, Li, Nyemba, Malin, Aberdeen, Hirschman. JAMIA 26(12):1536–1544, 2019 (вне окна, фундамент). DOI: <https://doi.org/10.1093/jamia/ocz114> · полный текст: <https://pmc.ncbi.nlm.nih.gov/articles/PMC6857511/> · PubMed: <https://pubmed.ncbi.nlm.nih.gov/31390016/>
+41. **PII-Scope: A Comprehensive Study on Training Data PII Extraction Attacks in LLMs** — Nakka, Frikha, Mendes, Jiang, Zhou. arXiv:2410.06704 (v2: 25.05.2025); IJCNLP 2025: <https://aclanthology.org/2025.ijcnlp-long.195/> · <https://arxiv.org/abs/2410.06704>
+42. **Did the Neurons Read your Book? Document-level Membership Inference for Large Language Models** — Meeus, Jain, Rei, de Montjoye. USENIX Security 2024. arXiv:2310.15007 · <https://arxiv.org/abs/2310.15007> · USENIX: <https://dlnext.acm.org/doi/10.5555/3698900.3699033>
+43. **Beyond Memorization: Violating Privacy via Inference with Large Language Models** — Staab, Vero, Balunović, Vechev. ICLR 2024. <https://proceedings.iclr.cc/paper_files/paper/2024/hash/9028b8a3ca98f58e373f0c1497a17448-Abstract-Conference.html> — **числа не проверены**.
+44. **«The Janus Interface: How Fine-Tuning in Large Language Models Amplifies the Privacy Risks»** — arXiv:2310.15469 · <https://arxiv.org/abs/2310.15469> — найден, **не читался**; релевантен как префиксные атаки.
+45. **Sweeney 2000 / Golle 2006** — «zip code + date of birth + gender uniquely identifies 87% of Americans» — приведено по TAB (<https://arxiv.org/abs/2202.00443>) как вторичное цитирование. Первоисточник не проверен.
+
+### 7.5 Русскоязычные работы и ресурсы
+
+46. **PII-Bench (ru)** + **GLiNER Guard** — см. пп. 4 и 36.
+47. **«Developing a named entity recognition model for text documents in Russian to detect personal data using machine learning methods»** — Procedia Computer Science, 2022. DOI: <https://doi.org/10.1016/j.procs.2022.11.047> · ACM DL: <https://dl.acm.org/doi/10.1016/j.procs.2022.11.047>
+48. **«Поиск персональных данных в неструктурированных текстах с использованием нейронных сетей»** — ИВДОН, 2023, №7. <http://ivdon.ru/en/magazine/archive/n7y2023/8571> · англ. версия: <http://ivdon.ru/en/magazine/specialization/305>
+49. **«Natural Text Anonymization Using Universal Transformer with a Self-attention»** — CEUR-WS Vol-2552, Paper 3. <https://ceur-ws.org/Vol-2552/Paper3.pdf>
+50. **Диссертация ТУСУР** по обезличиванию естественного текста (автор Романов) — <https://postgraduate.tusur.ru/system/file_copies/files/000/004/533/original/1_%D0%94%D0%B8%D1%81%D1%81%D0%B5%D1%80%D1%82%D0%B0%D1%86%D0%B8%D1%8F%D0%A0%D0%BE%D0%BC%D0%B0%D0%BD%D0%BE%D0%B2.pdf>
+51. **GRID'2023** (JINR), доклад по обезличиванию персональных данных в текстах — <https://indico.jinr.ru/event/3505/contributions/21748/>
+52. **HSE ВКР 2025: «Autonomous Service for Automatic Anonymization of Personal Data in Text Documents»** — М. Калабай, науч. рук. В. Шилов. <https://www.hse.ru/en/edu/vkr/1046847446>
+53. **`bbeglerov/opf-russian-pii-66k`** — страница недоступна (404/401): <https://huggingface.co/bbeglerov/opf-russian-pii-66k> · вариант датасета: <https://huggingface.co/datasets/bbeglerov/opf-russian-pii-66k>
+54. **DeepPavlov** — <https://github.com/deeppavlov/DeepPavlov>
+
+### 7.6 Прочее, найденное и не использованное (для полноты)
+
+55. **CRAB: Cross-environment Agent Benchmark for Multimodal Language Model Agents** — <https://openreview.net/pdf?id=kyExS4V0H7> — **не про PII**; включено, чтобы зафиксировать ошибочность постановки в задании.
+56. **Learning to detect PII: Tabular vs. Document classification models for network traffic analysis** — <https://www.sciencedirect.com/science/article/abs/pii/S2214212625002339> — сетевой трафик, **не текст**.
+57. **Privacy Risks in Text Masking Models for Anonymization** — магистерская диссертация, Chalmers. <https://odr.chalmers.se/items/86d2d070-4480-483b-a328-1bca2cd380f6/full> — найдена, **не читалась**.
+58. **Anonymous-by-Construction: An LLM-Driven Framework for Privacy-Preserving Text** — RAIE 2026. <https://dl.acm.org/doi/10.1145/3786156.3788578> — найдена, **не читалась**.
+59. **Generating Synthetic Text Approximating the Private Distribution with Differential Privacy** — IJCAI 2024. <https://www.ijcai.org/proceedings/2024/0735.pdf> — найдена, **не читалась**.
+60. **Controlled Generation for Private Synthetic Text** — arXiv:2509.25729. <https://arxiv.org/abs/2509.25729> — найдена, **не читалась**.
+
+---
+
+## 8. Что проверено, что только по аннотации, что не проверено
+
+### 8.1 ПРОВЕРЕНО (источник открыт и прочитан)
+
+| Источник | Что именно проверено | До какого места прочитано |
+|---|---|---|
+| **HaS**, arXiv:2309.03057 | Оба режима сокрытия, модель угроз (black/white-box), **все три таблицы чисел** (приватность 0.3121–0.4070; классификация F1 91.36/90.98/90.14 против 91.20; перевод METEOR 58.45/58.94/60.52/61.43 против 61.95), датасеты, гиперпараметры (QLoRA, lr 2e-4, beam 3, repetition penalty 3), ограничения, ссылка на код | полный текст до раздела 5 |
+| **TAB**, arXiv:2202.00443 | 1 268 дел, 12 аннотаторов, ~800 ч, 22 мин/дело, 24% правок предразметки, 8 типов сущностей, слой конфиденциальных атрибутов, ограничение связывания местоимениями, сплиты 80/10/10, вторичные данные i2b2 (1 304/0.89/0.93/>0.98) и N-GRID (1 000/0.85/0.91) | до раздела 4.3 (разделы 6–7 с формулами **не прочитаны**) |
+| **RAT-Bench**, arXiv:2602.12806 | Методология (PUMS, 9 признаков, Nq=5, Ni=1, θ₀=0.9, k=5, 3 сценария, 3 уровня сложности, 12 инструментов, атакующий Staab et al.), **числа 44% и 69%**, критика recall, доступность данных/кода/лидерборда | до начала таблицы результатов (постатейные числа **не прочитаны**) |
+| **FgAA**, arXiv:2402.13846 | Только аннотация: 13 LLM, human study n=50, заявление о превосходстве по утилити и приватности | аннотация |
+| **INTACT**, arXiv:2412.12928 | Двухстадийный метод, роль inference-атаки, **правила дизайна** (плейсхолдеры для прямых ID, даты эвристикой, консистентность замены), критика MAPA (длина как канал утечки), критика Presidio (нет правдивости, нужна полная уверенность детекции), заявления «<1 p.p. риска» и «лучше Presidio по правдивости» | до раздела 4 (метрики TPS названы, формула **не прочитана**; числовые таблицы **не прочитаны**) |
+| **IncogniText**, arXiv:2407.02956 | Полная таблица 1 (все методы и числа), среднее число итераций 1.3 против 1.9, определение LLM-утилити (mean of meaning/readability/hallucination), признание конфликта судьи с намеренным искажением, различие `M_adv` и `M_attacker`, датасеты (525 / 196 примеров) | полный текст до раздела 3 |
+| **SPIA**, arXiv:2604.21211 | Формулы CPR и IPR, 3-шаговый протокол, шкала 1/0.5/0, данные (675/1 712/7 040/15 типов), IAA, **вся таблица 5** (числа по TAB и PANORAMA для 19 конфигураций), определение Mean Utility, контроль устойчивости к атакующему ρ>0.98 | до конца таблицы 5 |
+| **Surrogate Substitution**, arXiv:2608.03172 | Полный протокол (парный мультидетекторный, три режима сопоставления, recall retention, TOST Δ=2), **числа** 76.1%→74.9%, CI, p, ΔF1 по документам, состав панели (11 детекторов), типология отказов (Chicago→Illino, Cedars-Sinai→Vidant), контрольные условия C1/C2, ссылки на Vakili et al. | до таблицы 1 |
+| **Parrot attack**, PMC6857511 | Полная постановка, **все числа** (800 заметок, 92%/8%, 4 005 инстансов, 211/310 = 68%, 211/402 = 52%, 8% случайно, 99 пропущено, разбивка по типам PII), формулировка «surrogates has textual features similar to PII», вывод «cannot automatically generate a list of leaked PII» | до раздела Results |
+| **RLAA**, arXiv:2512.06713 | Определение PRIV (11), UTIL, MEAN/READ/HALL, MRS = MUC/MPG, «utility collapse» на Llama3-8B, 4 ГБ VRAM для 7–8B в 4 битах, датасеты (PersonalReddit 525, reddit-self-disclosure 885), первая строка таблицы (исходный текст PRIV 0.4442, DP-BART+ 0.2650/0.3470), ссылки на FgAA/SEAL/IncogniText/RUPTA/DP-BART-PR+ | до середины таблицы |
+| **OpenAI Privacy Filter — Model Card (PDF)** | 1.5B/50M активных, 128k контекст, Apache-2.0, «web browser or laptop», 8 классов таксономии (полный список), 33 токен-класса, banded attention band=128, Viterbi, «not an anonymization guarantee», **таблица 7** (Russian: 957, R 0.890, P 0.900, F1 **0.895**) и **таблица 8** (Russian: 1 193, P 0.914, R 0.793), таблица 9 примеров, признанные ограничения | весь PDF извлечён и прочитан |
+| **privacy-filter.cpp README** | CPU-бенчмарк (512/2048/8192 токенов), Raspberry Pi 5 (1 360 токенов за 3.8 с, 360 ток/с), GPU-таблицы, oговорка про 2.8 GiB VRAM | README целиком (числа — самоотчёт, не рецензированы) |
+| **PII-Bench (ru) README** | Полностью: 1 810 примеров, оба сплита и все счётчики, 13 типов, 9 доменов с процентами, IAA 0.87, Apache-2.0, генерация Claude Sonnet 4.5, два предупреждения (гранулярность ADDRESS, 11/13 regex-resolvable), оговорка про контрольные суммы и ЕГРЮЛ, правило гигиены | README целиком |
+| **Jay Guard NER Benchmark README** | 850 примеров, состав типов, источник данных, расхождение лицензий MIT/Apache-2.0, отсутствие телефон/e-mail/финансовых типов | README целиком |
+| **Portcullis** (AAAI abstract + mlanthology) | Аннотация в двух независимых отображениях совпадает дословно: 96×, equal-or-better FP/FN, +0.1 accuracy на Enron для GPT-4o mini, линейный старт | аннотация (PDF недоступен инструментам) |
+| **«Balancing Privacy and Utility»** | Аннотация: 3 задачи, 3 стратегии, ~1 балл из 10, 97–99% маскирования, Llama 3.3:70b vs GPT-4o | аннотация |
+| **HSE ВКР** | Реферат: гибрид правил и `Vikhr-Gemma-2B-instruct`, конфигурируемые правила без переобучения, форматы, web+API | реферат |
+| **GLiGuard** | Аннотация: 145–147M и 209M, 193 req/s, P99 <1 с на A100, 1.6× к GLiNER2 | аннотация |
+
+### 8.2 ТОЛЬКО ПО АННОТАЦИИ (полный текст не открывался)
+
+* **FgAA** (arXiv:2402.13846) — все числа, кроме воспроизведённых в IncogniText.
+* **INTACT** (arXiv:2412.12928) — метрика TPS, Information content, Semantic similarity: **формулы
+  и все числа раздела 5 не прочитаны**. Утверждения «<1 p.p.» и «лучше Presidio» — это заявления
+  авторов, не проверенные мной значения.
+* **TAB** (arXiv:2202.00443) — формула метрики утилити и таблицы результатов разделов 6–7.
+* **RAT-Bench** (arXiv:2602.12806) — постатейные `R_succ` по 12 инструментам.
+* **Portcullis** — все числа (PDF недоступен инструментам: `web_fetch` не поддерживает
+  `application/pdf`, `curl` дал файл, но текст извлечь без PDF-читалки в моём окружении не удалось
+  в рамках этого прохода — **рекомендую доснять в фазе 1**).
+* **SurrogateShield** (arXiv:2606.29567) — F1 = 98.87%, BERTScore 81.59→94.85, состязательный прогон
+  на 100 запросах.
+* **Pasch & Cha** — состав корпуса, промпты, распределение по задачам.
+* **Deußer et al., COLING 2025** — нет ни одного числа.
+* **Anonymise, RANLP 2025** — нет ни одного числа.
+* **PRvL** — нет ни одного числа.
+* **PII-Scope** — «до 5 раз» без абсолютных значений.
+* **Meeus et al.** — AUC 0.856/0.678, детали протокола.
+* **OPF — независимая оценка** (arXiv:2608.02616) — все числа (SPY 0.464, AI4Privacy 0.855,
+  general NER 0.04–0.40, арабский 0.04, кириллица 0.03, имена 0.40, адреса 0.49, precision/recall
+  диапазоны, эксперименты дообучения).
+* **GLiGuard** — 193 req/s, P99, размеры моделей, 1.6×.
+* **GuardianAgent** — «>0.90 privacy во всех трёх доменах», AMRSF, 5 уровней.
+* **Vakili et al. и Vakili & Dalianis** — «суррогатная замена почти не влияет на downstream-качество»
+  и «инструмент измерения важен»: известны **только через цитирование в работе 2026 г.**
+* **CRAB, «Tabular PII»** — проверялись только по названиям и страницам-каталогам.
+
+### 8.3 НЕ ПРОВЕРЕНО (не удалось подтвердить ничем)
+
+| Утверждение / источник | Почему не проверено |
+|---|---|
+| **Formulas метрики утилити TAB** | раздел 6 не влез в доступную выдачу; PDF и MIT Press отдают 403/заглушку |
+| **`bbeglerov/opf-russian-pii-66k`** | страница отдаёт 404 (модель) и 401 (датасет); существование русского чекпоинта OPF не подтверждено |
+| **«When Redaction Goes Blind: Presidio on Türkiye-Specific PII»** | fetch завершился ошибкой |
+| **Presidio F1 = 0.884 на 18 240 документах** | только поисковый сниппет; первоисточник (PDF на Zenodo) не открыт |
+| **Числа Portcullis** | PDF не читается доступными инструментами |
+| **`SynthPAI` (детали)** | только страница постера NeurIPS |
+| **`Beyond Memorization` (числа)** | только страница proceedings ICLR |
+| **`PANORAMA` (первоисточник)** | цитируется через SPIA; собственный URL не проверен |
+| **`PersonalReddit` (первоисточник)** | цитируется через IncogniText, RLAA, SPIA |
+| **`SPY`, `PII-Masking-300k`, `Kiji` (первоисточники)** | цитируются через model card OPF и arXiv:2608.02616 |
+| **DeepPavlov / Natasha / spaCy-ru: замеры на PII** | публичных замеров F1 на PII-задачах найти не удалось — **числа отсутствуют, утверждать нечего** |
+| **Процедура проверки «суррогат не совпадает с реальной сущностью»** | не описана ни в одной найденной работе |
+| **Промпты LLM-судьи (meaning/readability/hallucination)** | упомянуты во всех работах, тексты не проверены |
+| **Русские академические работы (Procedia 2022, ИВДОН 2023, CEUR Vol-2552, диссертация ТУСУР, GRID'2023)** | все шесть источников недоступны инструментам (403 или нечитаемый формат) |
+
+### 8.4 Что я рекомендую перепроверить делегирующему агенту
+
+Список того, где моё утверждение опирается на **аннотацию**, а не на полный текст, и где проверка
+может изменить выводы:
+
+1. **Portcullis — числа.** Единственная работа AAAI-25 в списке, и у неё самый сильный заявленный
+   результат (96× ускорение, +0.1 accuracy на Enron). Если числа окажутся слабее, изменится оценка
+   зрелости всей архитектуры «подстановка → LLM → реконструкция».
+2. **INTACT — метрика TPS и таблицы.** От этого зависит, можно ли брать их протокол оценки или
+   придётся строить свой.
+3. **TAB — формула метрики утилити.** Если формула проста и воспроизводима, мы можем применить её
+   как дополнительную метрику к русскому набору.
+4. **Deußer et al., COLING 2025 — F1 и задержка.** Это прямой конкурент нашей архитектуры
+   («локально, CPU, без локальной LLM»), и у него нет ни одного публичного числа в аннотации.
+5. **`bbeglerov/opf-russian-pii-66k` — существует ли русский дообученный OPF.** Если да, это
+   меняет план: вместо обучения своей модели можно взять готовую и добавить регулярки для реквизитов.
+6. **SurrogateShield — полный текст.** Числа F1 = 98.87% и BERTScore +13.26 п.п. — центральные
+   для нашего позиционирования (см. [`../../01-audit.md`](../../01-audit.md)); нужна проверка состава
+   корпуса и разбивки по типам.
+7. **Pasch & Cha — полный текст.** Их вывод «простая маска почти не портит ответ» противоречит
+   SurrogateShield. Это единственное найденное прямое противоречие по существу нашей гипотезы,
+   и его надо разрешить до того, как мы вложимся в генератор суррогатов.
+8. **«When Redaction Goes Blind» (Presidio на национальных реквизитах).** Может оказаться готовым
+   шаблоном протокола «Presidio против неродных форматов», то есть ровно нашего кейса.
+9. **Русские работы (Procedia 2022, ИВДОН 2023, диссертация ТУСУР).** Если там есть замеры F1
+   по ИНН/СНИЛС/ФИО, у нас появится внешняя точка отсчёта, которой сейчас нет.
+
+### 8.5 Сводка по достоверности числа «русский F1 у OPF»
+
+Отдельно, потому что это единственная правка, внесённая в отчёт после замечания:
+
+| Утверждение | Значение | Данные | Статус |
+|---|---|---|---|
+| Русский PII, синтетика OpenAI | **F1 0.895** (recall 0.890, precision 0.900; 957 примеров) | model card, табл. 7 | **ПРОВЕРЕНО** (PDF извлечён и прочитан) |
+| Русский, category-clue-before-PII | precision 0.914, recall 0.793 (1 193 примера) | model card, табл. 8 | **ПРОВЕРЕНО** |
+| Кириллица на **general NER** вне распределения | F1 **0.03** | независимая оценка, аннотация | **ПРОВЕРЕНО как цитата**; относится к general NER, **не** к русскому PII |
+| Наличие российских реквизитов в таксономии | **отсутствуют** (8 классов, российских нет) | model card, раздел 6.1 | **ПРОВЕРЕНО** |
+| Производительность на реальном русском деловом тексте | **неизвестна** | — | **НЕ ПРОВЕРЕНО никем** |
+| `Transformers.js` как способ запуска | — | — | **НЕ ПОДТВЕРЖДЕНО** в PDF и arXiv-HTML |
+
