@@ -246,3 +246,32 @@ pub fn identity_from_pairs(pairs: &[(IdentityKind, &str)]) -> IdentitySet {
     }
     set
 }
+
+/// Реализация моста ядра: позволяет использовать детектор как каскад.
+///
+/// Тип `Cascade::Format` выбран потому, что источник не использует ни
+/// статистику, ни диалог: это точное сравнение строк, и его результат
+/// не должен зависеть от загрузки модели.
+impl privacy_core::SpanSource for OsTruthDetector {
+    fn source_name(&self) -> &'static str {
+        "os-truth"
+    }
+
+    fn find_spans(&self, text: &str) -> Vec<privacy_core::ExternalSpan> {
+        self.detect(text)
+            .into_iter()
+            .map(|d| privacy_core::ExternalSpan {
+                entity_type: d.kind.as_str().to_string(),
+                rule_id: format!("os-truth.{}", d.kind.as_str()),
+                start: d.start,
+                end: d.end,
+                context_confirmed: d.context_confirmed,
+                fingerprint: d.fingerprint,
+            })
+            .collect()
+    }
+
+    fn fingerprint_of(&self, detection: &privacy_core::ExternalSpan) -> String {
+        detection.fingerprint.clone()
+    }
+}

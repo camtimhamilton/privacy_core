@@ -12,6 +12,9 @@ repository.workspace = true
 # Сетевых вызовов крейт не выполняет.
 [dependencies]
 sha2 = "0.10"
+# Ядро нужно, чтобы реализовать трейт SpanSource. Зависимость односторонняя:
+# ядро не знает об этом крейте.
+privacy-core = { path = "../core" }
 
 [[bin]]
 name = "os-truth"

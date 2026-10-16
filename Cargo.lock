@@ -81,6 +81,7 @@ dependencies = [
 name = "privacy-os-truth"
 version = "0.0.1"
 dependencies = [
+ "privacy-core",
  "sha2",
 ]
 

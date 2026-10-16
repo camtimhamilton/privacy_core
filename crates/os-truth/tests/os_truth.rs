@@ -222,3 +222,29 @@ fn custom_policy_changes_threshold() {
     );
     assert!(lax.detect("тут abcdefg встретилось").is_empty());
 }
+
+#[test]
+fn works_as_core_cascade() {
+    // Проверка, что детектор подключается к ядру как каскад и что уровень
+    // уверенности выставляется по подтверждённости контекста.
+    use privacy_core::{Detector, SpanSource};
+
+    let adapter = privacy_core::ExternalDetector::new(detector());
+    assert_eq!(adapter.name(), "os-truth");
+
+    let text = "почта someone@example.invalid и /home/testuser/x";
+    let found = adapter.detect(text).expect("детекция через мост");
+    assert!(!found.is_empty(), "мост должен вернуть находки");
+
+    // Почте контекст не нужен, значит уверенность выше.
+    assert!(
+        found
+            .iter()
+            .any(|d| d.confidence == privacy_core::Confidence::ChecksumPlusContext),
+        "подтверждённые находки должны иметь повышенную уверенность"
+    );
+
+    // Прямой вызов find_spans тоже работает.
+    let raw = detector().find_spans(text);
+    assert_eq!(raw.len(), found.len());
+}

@@ -33,6 +33,8 @@
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
 
+pub mod bridge;
+pub mod cascade;
 pub mod confidence;
 pub mod detect;
 pub mod entity;
@@ -45,6 +47,9 @@ pub mod span;
 pub mod substitute;
 pub mod text;
 
+pub use bridge::{ExternalDetector, ExternalSpan, SpanSource};
+pub use cascade::{FormatCascade, FormatRule};
+pub use detect::{Detected, Detector};
 pub use confidence::Confidence;
 pub use entity::{Cascade, EntityType, EntityTypeId};
 pub use error::{CoreError, FailureBehavior, Result};
