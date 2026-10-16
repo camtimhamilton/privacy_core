@@ -1306,245 +1306,145 @@ used to slip through range checks»** `[ПРОВЕРЕНО]`. Это ровно 
 
 ## 7. Проприетарные ориентиры
 
-Цель раздела — не «что купить», а **какие архитектурные уроки извлечь**. Каждый урок должен
-превратиться в требование к нам.
+Цель — не «что купить», а **какие архитектурные уроки извлечь**. Каждый урок должен стать
+требованием к нам.
 
 ### 7.1 Microsoft Purview — единственный, у кого есть русские SIT
 
-`[ПРОВЕРЕНО]` <https://learn.microsoft.com/en-us/purview/sit-sensitive-information-type-entity-definitions>,
-обновлено **2026-06-15**. Это список **всех** SIT-определений; в нём есть раздел по России:
+`[ПРОВЕРЕНО]` [SIT entity definitions](https://learn.microsoft.com/en-us/purview/sit-sensitive-information-type-entity-definitions),
+обновлено **2026-06-15**. В полном списке SIT есть раздел по России:
 
 | Русская SIT | Что описано |
 |---|---|
-| **Russian Passport Number (Domestic)** | 10 цифр: 2 + опц. пробел/дефис + 2 + опц. пробел + 6 |
+| **Russian Passport Number (Domestic)** | 10 цифр: 2 + опц. пробел/дефис + 2 + опц. пробел + 6; **`Checksum: No`** |
 | **Russian Passport Number (International)** | — |
 | **Russia physical addresses** | — |
-| **Russia taxpayer identification number** | 10 или 12 цифр с контрольной суммой |
+| **Russia taxpayer identification number** | 10 или 12 цифр, **с контрольной суммой** |
 
-Это **важно**: единственная крупная проприетарная платформа, которая вообще имеет русский слой.
-Аргумент «русский никому не нужен» опровергается наличием этих SIT — русский слой востребован
-и в enterprise.
+Аргумент «русский никому не нужен» опровергается наличием этих SIT: русский слой востребован и в
+enterprise.
 
-**Механика «primary + secondary + confidence»** `[ПРОВЕРЕНО]` — главный урок. На примере ИНН РФ
+**Механика «primary + secondary + confidence» — главный урок** `[ПРОВЕРЕНО]`. На примере ИНН РФ
 дословно:
 
-> «A DLP policy has **high confidence** that it detects this type of sensitive information if,
-> within a proximity of **300 characters**:
+> «A DLP policy has **high confidence** … if, within a proximity of **300 characters**:
 > - The function `Func_Russian_Taxpayer_Identification_Number` finds content that matches the pattern.
 > - A keyword from `Keyword_Russian_Taxpayer_Identification_Number` is found.
 >
-> A DLP policy has **medium confidence** … if, within a proximity of 300 characters:
-> - The function `Func_Russian_Taxpayer_Identification_Number` finds content that matches the pattern.»
+> A DLP policy has **medium confidence** … if … only the function finds a match.»
 
-XML-определение:
+XML-определение: `<Entity patternsProximity="300" recommendedConfidence="85">` с двумя `<Pattern>`:
+`confidenceLevel="85"` (функция + ключ) и `confidenceLevel="75"` (только функция). Публичная шкала
+`[ПРОВЕРЕНО]`: **Low ≤ 65, Medium = 75, High = 85.**
 
-```xml
-<Entity id="00aa00aa-..." patternsProximity="300" recommendedConfidence="85">
-  <Pattern confidenceLevel="85">
-    <IdMatch idRef="Func_Russian_Taxpayer_Identification_Number" />
-    <Match idRef="Keyword_Russian_Taxpayer_Identification_Number" />
-  </Pattern>
-  <Pattern confidenceLevel="75">
-    <IdMatch idRef="Func_Russian_Taxpayer_Identification_Number" />
-  </Pattern>
-</Entity>
-```
+**Русские ключевые слова, дословно** `[ПРОВЕРЕНО]`:
+`НДС, номер налогоплательщика, Налогоплательщика ИД, налог число, налогчисло#, ИНН, НДС#`. Ошибки
+бросаются в глаза: **`НДС` — это НДС (VAT), а не ИНН**; `Налогоплательщика ИД` — калька с
+английского. Для паспорта РФ список содержит «паспорт **нет**», «**p**оссийской паспорт» (латинская
+`p`), «паспортid#» — часть явные опечатки, часть OCR-артефакты. **Урок: даже Microsoft в русском
+списке ключевых слов ошиблась. Русские контекстные слова надо собирать и валидировать на корпусе,
+а не переводить.** Это подкрепляет наш пункт «определить список отрицательных меток эмпирически».
 
-Шкала `[ПРОВЕРЕНО]`: **Low ≤ 65, Medium = 75, High = 85.**
+**Для паспорта РФ** `[ПРОВЕРЕНО]`: «Checksum: **No**», максимум **medium confidence (75)**.
+Это **независимое подтверждение нашего `context_required` для `ru.passport`** — Microsoft пришла к
+тому же выводу.
 
-**Русские ключевые слова, дословно** `[ПРОВЕРЕНО]` — обратите внимание на качество списка:
+**Близость 300 символов — более слабая версия нашего L1:** Purview не различает, какой ключ ближе,
+а pii-guard решил это расстоянием (§6.2). **Здесь мы легко можем быть лучше Purview.**
 
-```
-НДС, номер налогоплательщика, Налогоплательщика ИД, налог число, налогчисло#, ИНН, НДС#
-```
-
-Ошибки в этом списке бросаются в глаза: **`НДС` — это НДС (VAT), а не ИНН**; `Налогоплательщика ИД`
-— калька с английского. То есть даже Microsoft в русском списке ключевых слов допустила
-семантическую ошибку. **Урок: русские контекстные слова надо собирать и валидировать на корпусе,
-а не переводить.** Это подкрепляет наш открытый пункт «определить список отрицательных меток
-эмпирически».
-
-**Для паспорта РФ** `[ПРОВЕРЕНО]`:
-
-> «Checksum: **No** …
-> A DLP policy has **medium confidence** that it's detected this type of sensitive information if,
-> within a proximity of 300 characters:
-> - The regex `Regex_Russian_Passport_Number_Domestic` finds content that matches the pattern.
-> - A keyword from `Keyword_Russian_Passport_Number` is found.»
-
-То есть **максимум, который даёт Purview для паспорта РФ — medium (75)**, потому что нет
-контрольной суммы. **Это независимое подтверждение нашего решения `context_required` для
-`ru.passport`.** Microsoft пришла к тому же выводу.
-
-Русские ключевые слова для паспорта содержат **тоже с ошибками**: «паспорт **нет**», «pоссийской
-паспорт» (латинская `p`!), «pусский номер паспорта», «паспортid#». Часть — явные опечатки, часть —
-OCR-артефакты. `[ПРОВЕРЕНО]`
-
-**Первый/вторичный признак и близость 300 символов** — это **более слабая** версия нашего L1:
-у нас расстояние до ближайшего ключа (§6.2, pii-guard), у них — «в пределах 300 символов».
-Purview не различает, какой ключ ближе, — ровно та проблема, которую pii-guard решил
-расстоянием. **Мы должны быть лучше Purview здесь, и это легко.**
-
-**Про суррогаты в Purview:** `[НЕ НАЙДЕНО]` — в проверенной документации SIT механики генерации
-фейковых значений нет. Термины «pseudonymization»/«mock data» в контексте SIT я не подтвердил.
-Документация говорит только о детекции и confidence.
-
-**Azure AI Language PII** — Presidio предлагает его как **remote recognizer**
-(`docs/samples/python/text_analytics/`), и в `supported_entities.md` есть отдельный раздел
-«Complementing Presidio with Azure AI Language PII». То есть Microsoft предлагает **своё облако**
-как способ закрыть пробелы Presidio `[ПРОВЕРЕНО]`. Русский в списке языков Azure AI Language PII
-`[НЕ ПРОВЕРЕНО]` — в этом проходе не проверял.
+**Про суррогаты в Purview:** `[НЕ НАЙДЕНО]` механики генерации фейковых значений в SIT-документации.
+Azure AI Language PII Presidio предлагает как **remote recognizer** (`docs/samples/python/text_analytics/`)
+— то есть Microsoft предлагает **своё облако** как способ закрыть пробелы Presidio `[ПРОВЕРЕНО]`.
+Русский там `[НЕ ПРОВЕРЕНО]`.
 
 ### 7.2 Google Cloud DLP / Sensitive Data Protection
 
-`[ПРОВЕРЕНО]` <https://docs.cloud.google.com/sensitive-data-protection/docs/…>, обновлено 2026-10-13.
+`[ПРОВЕРЕНО]`, документация обновлена 2026-10-13. **Единственный, у кого суррогаты — продуктовая
+функция** (из официального списка сэмплов):
 
-**Единственный, у кого есть суррогаты как продуктовая функция.** Из списка официальных сэмплов
-`[ПРОВЕРЕНО]` (страница samples):
-
-- **«De-identify free text with FPE by using a **surrogate**»** ← `dlp-deidentify-free-text-with-fpe-using-surrogate`
-- «Re-identify free text with FPE using a **surrogate**» ← `dlp-reidentify-free-text-with-fpe-using-surrogate`
-- «Format-preserving encryption (FPE)» ← `dlp-deidentify-fpe`
-- «De-identify table data with format-preserving encryption»
-- «De-identify content through **deterministic** encryption»
-- «De-identify data: Redacting with matched input values»
-- «De-identify sensitive data by replacing with infoType»
-- «Character masking»
-- «Date shifting», «table bucketing», «conditional logic»
+- **«De-identify free text with FPE by using a surrogate»** (`dlp-deidentify-free-text-with-fpe-using-surrogate`)
+- «Re-identify free text with FPE using a surrogate»
+- «Format-preserving encryption (FPE)», «De-identify table data with format-preserving encryption»
+- «De-identify content through **deterministic** encryption», «Character masking», «Date shifting»,
+  «table bucketing», «Redacting with matched input values», «replacing with infoType», «conditional logic»
 
 **Концептуальный вывод, который мы обязаны забрать.** Google решает задачу «реалистичный суррогат»
-**через Format-Preserving Encryption, а не через генератор фейков**. Свойства FPE:
-- результат **сохраняет формат** (16-значная карта → 16-значная карта);
-- **обратим** детерминированно (re-identify тем же ключом);
-- **не требует справочников** и не может «попасть в реальный реестр» (это не реальный ИНН);
-- детерминирован: одно значение → один суррогат (то, что нам нужно для I5).
+**через Format-Preserving Encryption, а не через генератор фейков**. Свойства FPE: результат
+**сохраняет формат** (16-значная карта → 16-значная); **обратим** детерминированно тем же ключом;
+**не требует справочников** и не может «попасть в реальный реестр»; детерминирован (одно значение →
+один суррогат), то есть закрывает наш I5.
 
-Наш `similar_fake` из 00-charter (§5.4) — это **гибрид**: FPE даёт формат и детерминизм, но не
-даёт правдоподобия (распределение по регионам, валидная контрольная сумма). Наш пункт 3
-«Правдоподобие: сохранение распределения по регионам, годам, префиксам операторов» FPE **не
-закрывает**. Значит, нам нужен либо FPE + пост-коррекция контрольной суммы, либо явный
-генератор с валидацией. **Это важный архитектурный выбор, который аудит вытаскивает наверх.**
+Наш `similar_fake` (00-charter §5.4) — это **гибрид**: FPE даёт формат и детерминизм, но не даёт
+правдоподобия (распределение по регионам, валидная контрольная сумма). Пункт 3 нашего §5.4
+(«правдоподобие») FPE **не закрывает**. Значит, нужен либо FPE + пост-коррекция контрольной суммы,
+либо явный генератор с валидацией. **Это архитектурный выбор, который аудит вытаскивает наверх.**
 
-**InfoTypes:** `[ПРОВЕРЕНО]` — есть страница «InfoType detector reference» и метод API
-`infoTypes.list`; точное **число** встроенных детекторов я в этом проходе не получил
-`[НЕ ПРОВЕРЕНО]`.
+**Кастомные детекторы** `[ПРОВЕРЕНО]`: три вида — regular dictionary, **stored dictionary (до десятков
+миллионов фраз, Bloom-фильтры в Cloud Storage)**, regex; уровень `minLikelihood` от `VERY_UNLIKELY`
+до `VERY_LIKELY`; hotword rules; exclusion lists.
 
-**Русские infoType и языковая поддержка:** `[НЕ ПРОВЕРЕНО]` — страница `language-support`
-вернула **404** (и на `cloud.google.com`, и на `docs.cloud.google.com`). Русские infoTypes я
-**не подтвердил**. Google исторически имеет `RUSSIA_*` детекторы (например, для паспорта РФ) —
-но утверждать это без источника не буду. **Ставлю в список «допроверить в фазе 4»**.
+**Русские infoType и языковая поддержка:** `[НЕ ПРОВЕРЕНО]` — страница `language-support` вернула
+**404**; число встроенных infoType-детекторов не получил. Русские типы **не подтвердил**. В список
+«допроверить в фазе 4».
 
-**Что берём:**
-1. **FPE-суррогат как механизм** — формат-сохраняющая обратимая подмена без справочников.
-2. **Список transformation-типов** как чек-лист полноты: redact, replace, mask, crypto-hash,
-   deterministic crypto, FPE, bucketing, date shifting, generalization, conditional logic.
-   Наша модель `Substitution.kind` (`similar_fake` / `placeholder` / `category_label`) — беднее.
-3. **Разделение «де-идентификация» и «ре-идентификация» как двух API**, а не одного.
-4. **Уровни likelihood** (у Google — от `VERY_UNLIKELY` до `VERY_LIKELY`), как у Purview
-   confidence 65/75/85.
+**Что берём:** FPE-суррогат как механизм; полный чек-лист типов трансформаций (redact, replace, mask,
+crypto-hash, deterministic crypto, FPE, bucketing, date shifting, generalization, conditional) как
+проверку полноты нашей `Substitution.kind`; разделение «де-идентификация» и «ре-идентификация» как
+двух API; stored dictionary до десятков миллионов фраз.
 
 ### 7.3 AWS Comprehend и Bedrock Guardrails
 
-**Comprehend PII — русского нет** `[ПРОВЕРЕНО]`
-<https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html>:
-
-| Feature | Supported languages |
-|---|---|
-| Entities | All supported languages |
-| Key phrases | All supported languages |
-| **Detecting PII entities** | **English and Spanish** |
-| **Labeling PII entities** | **English and Spanish** |
-| Sentiment | All supported languages |
-| Targeted sentiment | English |
-| Syntax analysis | de, en, es, fr, it, pt |
-| Custom entity recognition | de, en, es, fr, it, pt |
-
-Базовый список языков Comprehend: de, en, es, it, pt, fr, ja, ko, hi, ar, zh, zh-TW —
-**русского нет вообще**. То есть AWS Comprehend **не может** обрабатывать русский текст ни в
-одной функции. Это чистый минус в сравнительной таблице.
+**Comprehend — русского нет вообще** `[ПРОВЕРЕНО]`
+([supported-languages](https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html)):
+базовый список — de, en, es, it, pt, fr, ja, ko, hi, ar, zh, zh-TW; **русского нет**.
+«Detecting PII entities» и «Labeling PII entities» — **только English and Spanish**. То есть
+Comprehend не может обработать русский текст **ни в одной** функции.
 
 **Bedrock Guardrails — механика, которую надо забрать** `[ПРОВЕРЕНО]`
-<https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-sensitive-filters.html>:
+([sensitive information filters](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-sensitive-filters.html)):
+«a **probabilistic ML based solution** that is **context-dependent**»; режимы **Block** и **Mask**,
+где Mask «replaces it with the PII type (for example, `{NAME}` or `{EMAIL}`)» — **это плейсхолдер,
+не суррогат**. Типы — **32 PII** в 6 группах: General (ADDRESS, AGE, NAME, EMAIL, PHONE, USERNAME,
+PASSWORD, DRIVER_ID, LICENSE_PLATE, VIN), Finance (CVV, EXPIRY, CARD_NUMBER, PIN, IBAN, SWIFT),
+IT (IP, MAC, URL, AWS_ACCESS_KEY, AWS_SECRET_KEY), USA (5), Canada (2), UK (3) + Custom regex.
+**Русских типов нет ни одного.**
 
-- «a **probabilistic ML based solution** that is **context-dependent** and detects sensitive
-  information based on the context within input prompts or model responses»;
-- два режима: **Block** (блокирует всё содержимое) и **Mask** («replaces it with the PII type
-  (for example, `{NAME}` or `{EMAIL}`)») — то есть **маска = плейсхолдер, не суррогат**;
-- список PII **34 типа** по группам (я насчитал по документу):
+Четыре урока:
 
-| Группа | Типы | Кол-во |
-|---|---|---|
-| General | ADDRESS, AGE, NAME, EMAIL, PHONE, USERNAME, PASSWORD, DRIVER_ID, LICENSE_PLATE, VEHICLE_IDENTIFICATION_NUMBER | 10 |
-| Finance | CREDIT_DEBIT_CARD_CVV, CREDIT_DEBIT_CARD_EXPIRY, CREDIT_DEBIT_CARD_NUMBER, PIN, INTERNATIONAL_BANK_ACCOUNT_NUMBER, SWIFT_CODE | 6 |
-| IT | IP_ADDRESS, MAC_ADDRESS, URL, AWS_ACCESS_KEY, AWS_SECRET_KEY | 5 |
-| USA specific | US_BANK_ACCOUNT_NUMBER, US_BANK_ROUTING_NUMBER, US_INDIVIDUAL_TAX_IDENTIFICATION_NUMBER, US_PASSPORT_NUMBER, US_SOCIAL_SECURITY_NUMBER | 5 |
-| Canada specific | CA_HEALTH_NUMBER, CA_SOCIAL_INSURANCE_NUMBER | 2 |
-| UK specific | UK_NATIONAL_HEALTH_SERVICE_NUMBER, UK_NATIONAL_INSURANCE_NUMBER, UK_UNIQUE_TAXPAYER_REFERENCE_NUMBER | 3 |
-| Custom | Regex filter | 1 |
-| **Итого** | | **32 + regex** |
-
-**Русских типов нет ни одного.** Группы: General, Finance, IT, USA, Canada, UK. Ни Russia,
-ни EU, ни СНГ.
-
-**Четыре урока, которые надо забрать из документации Bedrock:**
-
-1. **Явное предупреждение про контекст:** «The PII model performs more effectively when it is
-   provided with **sufficient context**. To enhance its accuracy, include more contextual
-   information and **avoid submitting single words or short phrases**. Since PII can be
-   context-dependent (for example, a string of digits might represent an AWS KMS key or a user ID
-   depending on the surrounding information), providing comprehensive context is crucial.»
-   **Это ровно наш L1-каскад, сформулированный вендором.** Мы можем цитировать AWS как
-   подтверждение необходимости контекста.
-2. **Явно перечисленные слепые зоны** (то, чего мы тоже не должны обещать):
-   > «it does not evaluate the following, so PII in these fields is neither blocked nor masked:
-   > PII the model generates into **tool call arguments** … PII in **tool results** … PII in the
-   > **tool definitions**.»
-   Для нас это будущая проблема: если пользователь даёт LLM инструменты, PII утечёт через
-   аргументы вызова. В нашем v0.1 инструментов нет, но раздел «чего не умеем» должен это
-   предвидеть.
-3. **Утечка через трассировку** — признание, которое мы обязаны учесть в I10:
-   > «the `match` field in `GuardrailPiiEntityFilter` … contains the **original PII value**, not the
-   > masked output. This behavior is by design so that your application can use the detection result
-   > for its own logic.»
-   И: «**Model invocation logs** — the `input` field in Amazon CloudWatch Logs always contains the
-   **original, unmodified request** regardless of guardrail intervention.»
-   То есть **обезличивание в AWS не покрывает логи**. Наш I10 («логи, телеметрия, отладочный
-   вывод не содержат исходных значений») — прямое конкурентное преимущество, потому что у
-   крупнейшего вендора это сломано by design.
-4. **Ограничение кастомных regex:** «A custom regex filter of sensitive information filters does
-   **not support a regex lookaround match**.» — полезная деталь при проектировании нашего
-   regex-движка, если мы захотим совместимость.
+1. **Явное требование контекста:** «The PII model performs more effectively when it is provided with
+   **sufficient context**. … **avoid submitting single words or short phrases**. … a string of digits
+   might represent an AWS KMS key or a user ID depending on the surrounding information.» —
+   **это наш L1-каскад, сформулированный вендором.**
+2. **Явные слепые зоны:** «it does not evaluate … PII the model generates into **tool call arguments**
+   … PII in **tool results** … PII in the **tool definitions**.» — для нас это будущая проблема v0.2
+   (инструменты), и раздел «чего не умеем» должен её предвидеть.
+3. **Утечка через трассировку by design:** «the `match` field in `GuardrailPiiEntityFilter` … contains
+   the **original PII value**»; «the `input` field in Amazon CloudWatch Logs always contains the
+   **original, unmodified request** regardless of guardrail intervention». **Наш I10 — прямое
+   конкурентное преимущество.**
+4. **Ограничение кастомного regex:** «does **not support a regex lookaround match**.»
 
 ### 7.4 Сводная таблица проприетарных ориентиров
 
-Требование задания — «(a) детектит русский, (b) генерирует реалистичные суррогаты,
-(c) сохраняет формат/валидность контрольной суммы, (d) работает офлайн, (e) поддерживает
-кастомные типы/regex, (f) confidence со вторичными признаками». Источник на ячейку.
-
-| | **Purview** | **Google DLP / SDP** | **AWS Comprehend** | **AWS Bedrock Guardrails** | **Cloudflare AI Gateway** |
+| | **Purview** | **Google DLP / SDP** | **AWS Comprehend** | **Bedrock Guardrails** | **Cloudflare AI Gateway** |
 |---|---|---|---|---|---|
-| **(a) Русский** | **Да**, 4 SIT: паспорт РФ ×2, адреса РФ, ИНН РФ `[ПРОВЕРЕНО]` | `[НЕ ПРОВЕРЕНО]` — страница language support вернула 404 | **Нет** — PII только «English and Spanish»; русского нет в списке языков вообще `[ПРОВЕРЕНО]` | **Нет** — 0 ru-типов из 32 `[ПРОВЕРЕНО]` | `[НЕ НАЙДЕНО]` ru-профилей `[ПРОВЕРЕНО]` |
-| **(b) Суррогаты** | `[НЕ НАЙДЕНО]` механики в SIT-документации | **Да** — FPE-суррогат, отдельные сэмплы de/re-identify `[ПРОВЕРЕНО]` | Нет | **Нет** — маска = `{NAME}`, `{EMAIL}` `[ПРОВЕРЕНО]` | **Нет** — только FLAG/BLOCK `[ПРОВЕРЕНО]` |
-| **(c) Формат / checksum** | Формат да (паттерны); **валидность суррогата не заявлена** | FPE сохраняет формат by design; **валидность контрольной суммы не заявлена** | — | Плейсхолдер — формат не сохраняется | — |
-| **(d) Офлайн** | Только как облачный сервис (Purview/Azure) | Нет (облако) | Нет | Нет | Нет |
-| **(e) Кастомные типы** | Да — настраиваемые SIT + trainable classifiers `[ДОК]` | Да — 3 вида кастомных детекторов: regular dictionary, **stored dictionary до десятков миллионов**, regex `[ПРОВЕРЕНО]` | Да — Custom Entity Recognition, но не для ru | Да — **Regex filter** (без lookaround) `[ПРОВЕРЕНО]` | Да — Custom Profiles `[ПРОВЕРЕНО]` |
-| **(f) Confidence + вторичные признаки** | **Да, образцово:** `recommendedConfidence=85`, два Pattern'а (85 = primary+keyword, 75 = primary), `patternsProximity="300"`, шкала Low≤65/Medium=75/High=85 `[ПРОВЕРЕНО]` | Да — `minLikelihood` от VERY_UNLIKELY до VERY_LIKELY, hotword rules, exclusion lists `[ПРОВЕРЕНО]` | Да — confidence scores у Comprehend | — | Да — «Tune confidence levels», настройка чувствительности `[ПРОВЕРЕНО]` |
-| **Лицензия** | Проприетарная | Проприетарная | Проприетарная | Проприетарная | Проприетарная |
+| **(a) Русский** | **Да**, 4 SIT: паспорт РФ ×2, адреса РФ, ИНН РФ `[ПРОВЕРЕНО]` | `[НЕ ПРОВЕРЕНО]` — страница language support 404 | **Нет** — PII только «English and Spanish»; русского нет в списке языков `[ПРОВЕРЕНО]` | **Нет** — 0 ru-типов из 32 `[ПРОВЕРЕНО]` | `[НЕ НАЙДЕНО]` ru-профилей `[ПРОВЕРЕНО]` |
+| **(b) Суррогаты** | `[НЕ НАЙДЕНО]` в SIT-документации | **Да** — FPE-суррогат, отдельные сэмплы de/re-identify `[ПРОВЕРЕНО]` | Нет | **Нет** — маска = `{NAME}`, `{EMAIL}` `[ПРОВЕРЕНО]` | **Нет** — только FLAG/BLOCK `[ПРОВЕРЕНО]` |
+| **(c) Формат / checksum** | Формат да (паттерны); валидность суррогата не заявлена | FPE сохраняет формат by design; валидность checksum не заявлена | — | Плейсхолдер, формат не сохраняется | — |
+| **(d) Офлайн** | Нет (облако) | Нет | Нет | Нет | Нет |
+| **(e) Кастомные типы** | Да — настраиваемые SIT + trainable classifiers `[ДОК]` | Да — 3 вида: regular dictionary, **stored до десятков миллионов**, regex `[ПРОВЕРЕНО]` | Да — Custom Entity Recognition, но не для ru | Да — **Regex filter** (без lookaround) `[ПРОВЕРЕНО]` | Да — Custom Profiles `[ПРОВЕРЕНО]` |
+| **(f) Confidence + вторичные признаки** | **Образцово:** `recommendedConfidence=85`, два Pattern (85 = функция+ключ, 75 = только функция), `patternsProximity="300"`, шкала Low≤65/Medium=75/High=85 `[ПРОВЕРЕНО]` | Да — `minLikelihood` VERY_UNLIKELY…VERY_LIKELY, hotword rules, exclusion lists `[ПРОВЕРЕНО]` | Да — confidence scores | — | Да — «Tune confidence levels» `[ПРОВЕРЕНО]` |
 
 **Главный вывод раздела 7.** Из четырёх крупных облаков **только Purview имеет русский слой**
 (4 SIT), **только Google имеет суррогаты** (через FPE), и **ни одно не имеет русских суррогатов**.
-Пересечение «русский × суррогаты × офлайн» пусто **даже среди проприетарных**, не говоря об
-open-source. Это и есть наша ниша, и она подтверждена с двух сторон — и open-source обзором (§5),
-и вендорским (§7).
+Пересечение «русский × суррогаты × офлайн» пусто **даже среди проприетарных**.
 
-**И третий сильный аргумент: у vendoров сломаны базовые вещи**, которые мы объявили инвариантами:
-- AWS **by design** пишет исходный текст в CloudWatch и возвращает исходное значение в trace
-  → наш I10 выигрывает;
-- Purview **не может** дать ничего выше medium для паспорта РФ → наше `context_required` верно;
-- Purview **ошибается** в русских контекстных словах (`НДС` вместо `ИНН`) → наш пункт
-  «определить метки эмпирически» обоснован, а не перфекционизм;
-- Cloudflare **не умеет** обезличивать вообще (только блокировать) → вся ниша обезличивания
-  в шлюзах открыта.
+**И третий сильный аргумент: у вендоров сломаны базовые вещи**, которые мы объявили инвариантами:
+AWS **by design** пишет исходный текст в CloudWatch и возвращает исходное значение в trace → наш I10
+выигрывает; Purview **не может** дать выше medium для паспорта РФ → наше `context_required` верно;
+Purview **ошибается** в русских контекстных словах (`НДС` вместо `ИНН`) → наш пункт «определить метки
+эмпирически» обоснован, а не перфекционизм; Cloudflare **не умеет** обезличивать вообще (только
+блокировать) → ниша обезличивания в шлюзах открыта.
 
 ---
 
@@ -1554,119 +1454,118 @@ open-source. Это и есть наша ниша, и она подтвержд�
 
 | № | Откуда | Что берём | Почему (с источником) |
 |---|---|---|---|
-| 1 | **pii-guard** | **Разделение «правила + модель» с приоритетом правил** и признание побочного эффекта | `[ПРОВЕРЕНО]` docs/architecture.md: «правила побеждают модель: детерминированная контрольная сумма надёжнее вероятностной оценки»; и честно про «ошибочное правило гасит правильное предсказание модели» |
-| 2 | **pii-guard** | **Расстояние до ближайшего ключа вместо «есть ли ключ в окне»** | `[ПРОВЕРЕНО]`: контрпример «водительское удостоверение 77 АВ 123456, индекс 630009» + измеренные бюджеты (BIK 40, паспорт 80/160, p99=83) |
-| 3 | **pii-guard** | **Наружу отдаётся значение, а не фраза** | `[ПРОВЕРЕНО]`: `серия ****, номер ******`, а не `**** **** **** ****` — «плейсхолдер на всю фразу ломает предложение сильнее, чем требуется» |
-| 4 | **pii-guard** | **Восстановление с согласованием падежа** (pymorphy3 + spaCy) | `[ПРОВЕРЕНО]`: `Свяжитесь с Иваном Петровым`, а не `с Иван Петров`. Никто из западных решений этого не делает |
-| 5 | **pii-guard** | **Предобработка: транслит → кириллица, числа словами, исключение base64** | `[ПРОВЕРЕНО]`: наш I1 требует ровно этих нормализаций; у них реализовано |
-| 6 | **pii-guard** | **Явное предупреждение про лицензию optional extra** (gender-guesser = GPLv3) | `[ПРОВЕРЕНО]` README: «Копилефта в установке по умолчанию нет. Единственное исключение придётся подключить руками» |
-| 7 | **pii-guard / Exemtik** | **Пометка, что смещения относятся к `normalized_text`, а не к исходному тексту** | `[ПРОВЕРЕНО]` оба источника. У нас в модели данных это не оговорено — исправить |
-| 8 | **Presidio** | **Явные правила разрешения перекрытий**, включая случай «внутри другой → берём длинную» | `[ПРОВЕРЕНО]` docs/anonymizer. И честное признание, что при частичном пересечении получается `<PERSON><LOCATION>` |
-| 9 | **Presidio** | **Контекстное усиление как отдельный слой** (`LemmaContextAwareEnhancer`) + `context_matching_mode` | `[ПРОВЕРЕНО]`: word-boundary матчинг контекстных слов; баг `lic` внутри `duplicate` |
-| 10 | **Presidio** | **`low_confidence_score_multiplier: 0.4` и `labels_to_ignore`** для шумных NER-меток | `[ПРОВЕРЕНО]` conf/default.yaml: ORGANIZATION в игнор-листе «Has many false positives» |
-| 11 | **Presidio** | **Модель угроз «нет аутентификации by design»** задокументирована | `[ПРОВЕРЕНО]` CHANGELOG 2.2.362, #1903. Мы обязаны сделать то же — и у нас это уже есть («раздел чего не умеем обязателен») |
-| 12 | **Presidio** | **Немецкий набор как образец пакетного вклада юрисдикции** (13 рекогнайзеров, ISO 7064 Mod 11,10, DRV, GKV, legal basis в описании) | `[ПРОВЕРЕНО]` supported_entities.md. Шаблон для нашего `rules/ru/` |
-| 13 | **SurrogateShield** | **ShadowMap: AES-256-GCM + HKDF(device_secret, conv_id, kind) + associated data** | `[ПРОВЕРЕНО]` README «Security Design»: kind+ID как AAD → «a file only opens as what it was written for» |
-| 14 | **SurrogateShield** | **Битый файл карты НЕ заменяется пустым**: «Moved aside to `<name>.corrupt-<ts>` and an error is raised: never silently replaced by an empty map» | `[ПРОВЕРЕНО]` — прямое усиление нашей I4/I6 |
-| 15 | **SurrogateShield** | **Fail-closed с явным исключением**: `DetectorUnavailable` вместо отправки незамаскированного; `ALLOW_EPHEMERAL_KEY` как opt-in | `[ПРОВЕРЕНО]` — ровно наша I4 «значение по умолчанию — блокировать отправку» |
-| 16 | **SurrogateShield** | **Проверка весов модели по SHA-256 на фиксированный коммит HF** | `[ПРОВЕРЕНО]` — защита от подмены модели, у нас этого нет |
-| 17 | **SurrogateShield** | **Whole-value matching при восстановлении** («Lee» never matches inside «Leeds») + категоризация `exact_miss`/`fuzzy_hit`/`fuzzy_miss` | `[ПРОВЕРЕНО]` — наша I3 + метрика качества восстановления |
-| 18 | **SurrogateShield** | **Пресеты `balanced`/`strict`/`fast`/`classic`** | `[ПРОВЕРЕНО]` — совпадает с нашей идеей профилей |
-| 19 | **SurrogateShield** | **Квази-идентификаторный скоринг по k-anonymity** с явным списком комбинаций | `[ПРОВЕРЕНО]` 10 комбинаций, «ZIP+DOB+Gender = 87%» (Sweeney 2000) |
-| 20 | **SurrogateShield** | **Форматная валидность суррогатов как требование** (Luhn, ABA, Base58) | `[ПРОВЕРЕНО]` — подтверждает наш §5.4 п.1 |
-| 21 | **llm-pii-proxy-showcase** | **Солёный хэш фейка с перцем из окружения; отказ стартовать без перца**; обоснование: «An unsalted hash of a 12-digit BIN is brute-forceable in minutes» | `[ПРОВЕРЕНО]` — прямое требование к нашим подменам и к I9 |
-| 22 | **llm-pii-proxy-showcase** | **SSE-safe восстановление** с буфером до последней незакрытой `[` | `[ПРОВЕРЕНО]` — обязательное требование, если наш прокси поддерживает стриминг |
-| 23 | **llm-pii-proxy-showcase** | **Стоп-лист по последовательностям лемм**, а не по словам | `[ПРОВЕРЕНО]`: «Закону Республики Казахстан» остаётся читаемым в любом падеже |
-| 24 | **llm-pii-proxy-showcase** | **Маскирование даты только в личном контексте** (дни рождения/паспорта), сроки договоров — нет | `[ПРОВЕРЕНО]` — сохранение смысла, наш §6.3 «Сохранение смысла» |
-| 25 | **llm-pii-proxy-showcase** | **Второй признак должен быть семантически связан**: у KZ_IIN внутри номера проверяется реальная календарная дата («Feb 31» проходил range-check) | `[ПРОВЕРЕНО]` — усиливает наш §4.1 реестра (для паспорта РФ нужен второй признак, но не «любая проверка») |
-| 26 | **llm-pii-proxy-showcase** | **Пороги ORG/LOC подняты (≥0.85, длина ≥5) для юридического русского текста** | `[ПРОВЕРЕНО]`: «spaCy is noisy on them in legal text» |
-| 27 | **llm-pii-proxy-showcase** | **Усечение инструментального вывода ДО анонимизации** («one search result once returned 5.99 M characters») | `[ПРОВЕРЕНО]` — защита от исчерпания и от пропуска PII за лимитом |
-| 28 | **llm-pii-proxy-showcase** | **Деградация без утечки**: «If Redis is down, restoration degrades but anonymization keeps working» | `[ПРОВЕРЕНО]` — архитектурный принцип: хранилище не на критическом пути обезличивания |
-| 29 | **llm-pii-proxy-showcase** | **Аудит-лог хранит только виды и количества, никогда значения** | `[ПРОВЕРЕНО]` — наша I10 |
-| 30 | **Natasha / Slovnet** | Сам NER-провайдер: **2 MB модель, 27 MB диск, 205 MB RAM, CPU, Numpy, MIT** | `[ПРОВЕРЕНО]` — единственный инструмент, попадающий в профиль Balanced |
-| 31 | **Exemtik/pii-bench-ru-en** | **`pymorphy3` как дешёвый детектор ФИО**: F1 по NAME 0.794 без нейросетей, работает в любом падеже | `[ПРОВЕРЕНО]` — кандидат в L2 для профиля с малым весом |
-| 32 | **Exemtik/pii-bench-ru-en** | **`ru_core_news_sm` (14.6 MB) как дешёвый апгрейд**: +0.116 F1 по именам и ненулевой ADDRESS (0.507) | `[ПРОВЕРЕНО]` — 14.6 MB за адрес, которого regex не даёт вообще |
-| 33 | **Exemtik/pii-bench-ru-en** | **Отрицательная аддитивность**: `regex+morph+spacy_ru` (0.873) **хуже** `regex+spacy_ru` (0.897) | `[ПРОВЕРЕНО]` — не сваливать все детекторы в кучу; выбирать источник NER |
-| 34 | **Exemtik/pii-bench-ru-en** | Датасет **`hivetrace/pii-bench`** с 13 русскими типами (INN, KPP, OGRN, OGRNIP, SNILS, PASSPORT_NUMBER…) | `[ПРОВЕРЕНО]` — готовый внешний тест для нашего Extended-уровня |
-| 35 | **redmadrobot** | Датасет **`pii_benchmark`** (2 841 предложение, MIT), disjoint от train | `[ПРОВЕРЕНО]` — второй внешний тест; правило «не пересекается с нашим dev» соблюсти |
-| 36 | **Google DLP** | **FPE-суррогат как механизм**: формат-сохраняющая, детерминированная, обратимая подмена без справочников | `[ПРОВЕРЕНО]` официальные сэмплы de/re-identify free text with FPE using a surrogate |
-| 37 | **Google DLP** | **Полный чек-лист типов трансформаций** (redact, replace, mask, crypto-hash, deterministic crypto, FPE, bucketing, date shifting, generalization, conditional) | `[ПРОВЕРЕНО]` transformations-reference + список сэмплов |
-| 38 | **Google DLP** | **Stored custom dictionary до десятков миллионов фраз** (Bloom-фильтры в Cloud Storage) | `[ПРОВЕРЕНО]` concepts-de-identification: «up to tens of millions» |
-| 39 | **Purview** | **Primary/secondary признак с числовым confidence**: `recommendedConfidence=85`, два Pattern (85 = функция+ключ, 75 = функция), `patternsProximity="300"` | `[ПРОВЕРЕНО]` XML SIT-определения |
-| 40 | **Purview** | **Публичная шкала** Low ≤ 65 / Medium 75 / High 85 | `[ПРОВЕРЕНО]` |
-| 41 | **Purview** | **Независимое подтверждение `context_required` для паспорта РФ**: «Checksum: No», максимум «medium confidence» | `[ПРОВЕРЕНО]` sit-defn-russia-passport-number-domestic |
-| 42 | **Purview** | **Юридическое основание в описании типа** (`Legal basis: §§ 139a–139e AO` у немецких SIT) | `[ПРОВЕРЕНО]` supported_entities.md — у нас это часть «раздела чего не умеем» (юрисдикция) |
-| 43 | **AWS Bedrock** | **Явное требование контекста** и запрет на «single words or short phrases» как подтверждение нашего L1 | `[ПРОВЕРЕНО]` guardrails-sensitive-filters |
-| 44 | **AWS Bedrock** | **Явный список слепых зон** (tool call arguments, tool results, tool definitions) | `[ПРОВЕРЕНО]` — заготовка для нашего раздела «чего не умеем» |
-| 45 | **AWS Bedrock** | **Ошибка вендора как урок**: `match` в trace и CloudWatch `input` содержат **исходные** значения | `[ПРОВЕРЕНО]` — обоснование нашего I10 как конкурентного преимущества |
-| 46 | **Cloudflare** | **Профили как политики** + машиночитаемый отчёт о срабатывании (`cf-aig-dlp`, коды 2029/2030) | `[ПРОВЕРЕНО]` — образец для нашей структуры `Report` |
-| 47 | **LiteLLM** | **Наша роль как guardrail-провайдера** в чужих шлюзах; готовый набор режимов (`pre_call`/`post_call`/`logging_only`/`pre_mcp_call`) | `[ПРОВЕРЕНО]` — конкретный путь интеграции фазы 7 |
-| 48 | **LiteLLM** | **Авто-дробление длинных текстов** с перекрытием и слиянием детекций | `[ПРОВЕРЕНО]` `presidio_analyze_chunk_size_bytes` (default 500 000) — у нас нет стратегии для текстов > лимита |
-| 49 | **arx-deidentifier/arx** | Методология **k-anonymity** (Apache-2.0, 738 ★) как референс для квази-идентификаторов | `[ПРОВЕРЕНО]` GitHub API — соседний зрелый проект |
-| 50 | **Aajil-Labs/arabic-pii-py** | **Подтверждение, что «local-first, reversible PII для одной юрисдикции» — рабочая стратегия** (арабский/Залив, Apache-2.0) | `[ПРОВЕРЕНО]` — 12 ★, но паттерн ровно наш |
+| 1 | **pii-guard** | **Приоритет правил над моделью** + признание побочного эффекта | «детерминированная контрольная сумма надёжнее вероятностной оценки»; честно про «ошибочное правило гасит правильное предсказание модели» `[docs/architecture.md]` |
+| 2 | **pii-guard** | **Расстояние до ближайшего ключа вместо «есть ли ключ в окне»** | контрпример «водительское удостоверение 77 АВ 123456, индекс 630009»; измеренные бюджеты (BIK 40, паспорт 80/160, p99=83) |
+| 3 | **pii-guard** | **Наружу отдаётся значение, а не фраза** | `серия ****, номер ******`, а не вся фраза — «плейсхолдер на всю фразу ломает предложение сильнее, чем требуется» |
+| 4 | **pii-guard** | **Восстановление с согласованием падежа** (pymorphy3 + spaCy) | `Свяжитесь с Иваном Петровым`, а не `с Иван Петров`. Никто из западных решений этого не делает |
+| 5 | **pii-guard** | **Предобработка: транслит → кириллица, числа словами, исключение base64** | наш I1 требует ровно этих нормализаций |
+| 6 | **pii-guard** | **Пометка, что смещения относятся к `normalized_text`**, а не к исходному тексту | у нас в модели данных это не оговорено — исправить |
+| 7 | **pii-guard** | **Явное предупреждение про лицензию optional extra** (`gender-guesser` = GPLv3) | «Копилефта в установке по умолчанию нет. Единственное исключение придётся подключить руками» |
+| 8 | **Presidio** | **Явные правила разрешения перекрытий**, включая «внутри другой → берём длинную» | docs/anonymizer; там же честно про `<PERSON><LOCATION>` при частичном пересечении |
+| 9 | **Presidio** | **Контекстное усиление отдельным слоем** (`LemmaContextAwareEnhancer`) + `context_matching_mode` | word-boundary матчинг; баг `lic` внутри `duplicate` |
+| 10 | **Presidio** | **`low_confidence_score_multiplier: 0.4` и `labels_to_ignore`** для шумных NER-меток | `ORGANIZATION` в игнор-листе «Has many false positives» |
+| 11 | **Presidio** | Модель угроз «нет аутентификации by design» **задокументирована** | CHANGELOG 2.2.362 / #1903; у нас «раздел чего не умеем» уже обязателен |
+| 12 | **Presidio** | **Немецкий набор как образец пакетного вклада юрисдикции** (13 рекогнайзеров, ISO 7064 Mod 11,10, DRV, GKV, legal basis) | шаблон для нашего `rules/ru/` |
+| 13 | **SurrogateShield** | **ShadowMap: AES-256-GCM + HKDF(device_secret, conv_id, kind) + AAD** | «a file only opens as what it was written for» |
+| 14 | **SurrogateShield** | **Битый файл карты НЕ заменяется пустым**: «Moved aside to `<name>.corrupt-<ts>` … never silently replaced by an empty map» | усиление наших I4/I6 |
+| 15 | **SurrogateShield** | **Fail-closed с явным исключением**: `DetectorUnavailable` вместо отправки незамаскированного; `ALLOW_EPHEMERAL_KEY` как opt-in | ровно наша I4 |
+| 16 | **SurrogateShield** | **Проверка весов модели по SHA-256 на фиксированный коммит HF** | защита от подмены модели; у нас этого нет |
+| 17 | **SurrogateShield** | **Whole-value matching при восстановлении** + категоризация `exact_miss`/`fuzzy_hit`/`fuzzy_miss` | наша I3 + метрика качества восстановления |
+| 18 | **SurrogateShield** | **Пресеты `balanced`/`strict`/`fast`/`classic`** | совпадает с нашей идеей профилей |
+| 19 | **SurrogateShield** | **Квази-идентификаторный скоринг по k-anonymity** с явным списком комбинаций | 10 комбинаций; «ZIP+DOB+Gender = 87%» (Sweeney 2000) |
+| 20 | **SurrogateShield** | **Форматная валидность суррогатов как требование** (Luhn, ABA, Base58) | подтверждает наш §5.4 п.1 |
+| 21 | **llm-pii-proxy-showcase** | **Солёный хэш фейка с перцем из окружения; отказ стартовать без перца** | «An unsalted hash of a 12-digit BIN is brute-forceable in minutes» — требование к подменам и к I9 |
+| 22 | **llm-pii-proxy-showcase** | **SSE-safe восстановление** с буфером до последней незакрытой `[` | обязательно, если прокси поддерживает стриминг |
+| 23 | **llm-pii-proxy-showcase** | **Стоп-лист по последовательностям лемм**, а не по словам | «Закону Республики Казахстан» остаётся читаемым в любом падеже |
+| 24 | **llm-pii-proxy-showcase** | **Маскирование даты только в личном контексте** (дни рождения/паспорта) | сохранение смысла — наш §6.3 |
+| 25 | **llm-pii-proxy-showcase** | **Второй признак должен быть семантически связан**: у KZ_IIN проверяется реальная календарная дата («Feb 31» проходил range-check) | усиливает наш §4.1 реестра |
+| 26 | **llm-pii-proxy-showcase** | **Пороги ORG/LOC подняты (≥0.85, длина ≥5) для юридического русского текста** | «spaCy is noisy on them in legal text» |
+| 27 | **llm-pii-proxy-showcase** | **Усечение инструментального вывода ДО анонимизации** | «one search result once returned 5.99 M characters» |
+| 28 | **llm-pii-proxy-showcase** | **Деградация без утечки**: «If Redis is down, restoration degrades but anonymization keeps working» | хранилище не на критическом пути обезличивания |
+| 29 | **llm-pii-proxy-showcase** | **Аудит-лог хранит только виды и количества, никогда значения** | наша I10 |
+| 30 | **Natasha / Slovnet** | NER-провайдер: **2 MB модель, 27 MB диск, 205 MB RAM, CPU, Numpy, MIT** | единственный инструмент, попадающий в профиль Balanced |
+| 31 | **pii-bench-ru-en** | **`pymorphy3` как дешёвый детектор ФИО**: F1 по NAME 0.794 без нейросетей, любой падеж | кандидат в L2 для профиля с малым весом |
+| 32 | **pii-bench-ru-en** | **`ru_core_news_sm` (14.6 MB) как дешёвый апгрейд**: +0.116 F1 по именам и ненулевой ADDRESS (0.507) | 14.6 MB за адрес, которого regex не даёт вообще |
+| 33 | **pii-bench-ru-en** | **Отрицательная аддитивность**: `regex+morph+spacy_ru` (0.873) хуже `regex+spacy_ru` (0.897) | не сваливать все детекторы в кучу; выбирать источник NER |
+| 34 | **pii-bench-ru-en** | Датасет **`hivetrace/pii-bench`**, 13 русских типов | готовый внешний тест для Extended-уровня |
+| 35 | **redmadrobot** | Датасет **`pii_benchmark`** (2 841 предложение, MIT), disjoint от train | второй внешний тест |
+| 36 | **Google DLP** | **FPE-суррогат**: формат-сохраняющая, детерминированная, обратимая подмена без справочников | официальные сэмплы de/re-identify free text with FPE using a surrogate |
+| 37 | **Google DLP** | **Чек-лист типов трансформаций** (redact, replace, mask, crypto-hash, deterministic crypto, FPE, bucketing, date shifting, generalization, conditional) | transformations-reference |
+| 38 | **Google DLP** | **Stored custom dictionary до десятков миллионов фраз** | concepts-de-identification |
+| 39 | **Purview** | **Primary/secondary + числовой confidence**: `recommendedConfidence=85`, два Pattern, `patternsProximity="300"`, шкала 65/75/85 | XML SIT-определения |
+| 40 | **Purview** | **Независимое подтверждение `context_required` для паспорта РФ**: «Checksum: No», максимум medium | sit-defn-russia-passport-number-domestic |
+| 41 | **Purview** | **Юридическое основание в описании типа** (`Legal basis: §§ 139a–139e AO`) | у нас это часть «раздела чего не умеем» |
+| 42 | **AWS Bedrock** | **Явное требование контекста** и запрет на «single words or short phrases» | подтверждение необходимости нашего L1 |
+| 43 | **AWS Bedrock** | **Явный список слепых зон** (tool call arguments, tool results, tool definitions) | заготовка для «чего не умеем» (v0.2) |
+| 44 | **AWS Bedrock** | **Ошибка вендора как урок**: `match` в trace и CloudWatch `input` содержат **исходные** значения | обоснование I10 как конкурентного преимущества |
+| 45 | **Cloudflare** | **Профили как политики** + машиночитаемый отчёт (`cf-aig-dlp`, коды 2029/2030) | образец для нашей структуры `Report` |
+| 46 | **LiteLLM** | **Наша роль как guardrail-провайдера**; готовый набор режимов (`pre_call`/`post_call`/`logging_only`/`pre_mcp_call`) | конкретный путь интеграции фазы 7 |
+| 47 | **LiteLLM** | **Авто-дробление длинных текстов** с перекрытием и слиянием детекций (`presidio_analyze_chunk_size_bytes`, default 500 000) | у нас нет стратегии для текстов > лимита |
+| 48 | **arx-deidentifier/arx** | Методология **k-anonymity** (Apache-2.0, 738 ★) | зрелый соседний проект |
+| 49 | **arabic-pii-py** | Подтверждение, что **«local-first reversible PII для одной юрисдикции» — рабочая стратегия** | Apache-2.0, арабский/Залив |
 
 ### 8.2 Что отвергаем — по решениям, с причиной
 
 | № | Что отвергаем | Причина |
 |---|---|---|
-| 1 | **Presidio как зависимость** | Python; `spacy` — **обязательная** зависимость (противоречит «ядро без ML»); `en_core_web_lg` **382 MB**; **0 русских рекогнайзеров**; русских контекстных слов нет ни в одном рекогнайзере; нет состояния сессии; `presidio-cli` не публикуется |
-| 2 | Presidio `hash` как модель подмен | С 2.2.361 **случайная соль по умолчанию** → одно значение даёт разные хэши, что **нарушает наш I5** `[ПРОВЕРЕНО]` CHANGELOG |
-| 3 | Presidio `replace`/`mask`/`redact` как целевое поведение | Дают `<PHONE_NUMBER>`, `****1234`, удаление — это **не подмена на похожие фейки**, а потеря смысла |
-| 4 | Presidio `surrogate_ahds` как путь к суррогатам | Требует **облака Azure**; `input_locale`/`surrogate_locale` default **`en-US`**; русского locale не заявлено; противоречит «локально, без сети» |
-| 5 | Presidio-конвенция «одна сущность внутри другой → берём длинную» **без оговорок** | Приводит к подмене более широкого спана, чем нужно; у нас нужна проверка `checksum`/`context` перед расширением |
-| 6 | **LLM Guard как зависимость** | **Архивирован 2026-07-08**; **модели на HF тоже не поддерживаются**; последний релиз PyPI 2025-05-19; 41 контрибьютор, но развития нет |
-| 7 | LLM Guard как «решение для обезличивания» | Это 36 сканеров, из которых анонимизационный — **один**; остальные 34 не относятся к задаче и добавляют зависимостей и поверхности атаки |
-| 8 | LLM Guard `use_faker` | Не дефолт; «for **eligible** entities» — критерий не раскрыт; Faker не даёт валидных по контрольной сумме русских ID |
-| 9 | Ориентация на p95 LLM Guard | **169.13 ms (ONNX) / 294.57 ms** p95 на **317 символах** `[ПРОВЕРЕНО]` — в 3.4–5.9× выше нашего потолка 50 ms при в 44× меньшем объёме |
-| 10 | **Portcullis как реализацию** | **Кода нет** `[НЕ НАЙДЕНО]` (GitHub Search = 0, arXiv = 0, на странице статьи только PDF и постер) |
+| 1 | **Presidio как зависимость** | Python; `spacy` **обязательна** (противоречит «ядро без ML»); `en_core_web_lg` **382 MB**; **0 русских рекогнайзеров**; русских контекстных слов нет ни в одном рекогнайзере; нет состояния сессии; `presidio-cli` не публикуется |
+| 2 | Presidio `hash` как модель подмен | С 2.2.361 **случайная соль по умолчанию** → одно значение даёт разные хэши, что **нарушает наш I5** |
+| 3 | Presidio `replace`/`mask`/`redact` как целевое поведение | `<PHONE_NUMBER>`, `****1234`, удаление — не подмена на похожие фейки, а потеря смысла |
+| 4 | Presidio `surrogate_ahds` как путь к суррогатам | Требует **облака Azure**; `input_locale`/`surrogate_locale` default **`en-US`**; русского locale нет; противоречит «локально, без сети» |
+| 5 | Presidio-конвенцию «внутри другой → берём длинную» **без оговорок** | Подменяет более широкий спан, чем нужно; нужна проверка `checksum`/`context` перед расширением |
+| 6 | **LLM Guard как зависимость** | **Архивирован 2026-07-08**; **модели на HF тоже не поддерживаются**; последний релиз PyPI 2025-05-19 |
+| 7 | LLM Guard как «решение для обезличивания» | 36 сканеров, из которых анонимизационный — **один**; остальные 34 не относятся к задаче и добавляют зависимостей и поверхности атаки |
+| 8 | LLM Guard `use_faker` | Не дефолт; «for **eligible** entities» — критерий не раскрыт; Faker не даёт валидных по checksum русских ID |
+| 9 | Ориентацию на p95 LLM Guard | **169.13 ms (ONNX) / 294.57 ms** p95 на **317 символах** — в 3.4–5.9× выше нашего потолка 50 ms при 44× меньшем объёме |
+| 10 | **Portcullis как реализацию** | **Кода нет** (GitHub Search = 0 ×2, arXiv = 0, на странице статьи только PDF и постер) |
 | 11 | Portcullis TEE/аттестацию как основу | Требует серверного CPU с confidential computing; не работает на потребительском CPU и в WASM; не решает ни русский, ни суррогаты, ни контекст |
-| 12 | Цитату «96× быстрее предшественников» | Абстракт: 96× — это **«for masking and unmasking workloads»** против **Hide-and-Seek**; качество на Enron — **+0.1 accuracy**, а не 96× |
+| 12 | Цитату «96× быстрее предшественников» | Абстракт: 96× — **«for masking and unmasking workloads»** против **Hide-and-Seek**; качество на Enron — **+0.1 accuracy** |
 | 13 | **SurrogateShield как код** | Python; `en_core_web_lg`; `ssn`/`zip_us`/`us_bank_number`/ABA/`postal_code_uk` — **ни одной русской сущности**; **2 ★**, 0 форков, единственный автор (bus factor = 1) |
 | 14 | **Цифры SurrogateShield как эталон** | Все **self-reported** одним автором; независимых репликаций `[НЕ НАЙДЕНО]`; репозиторий создан 5 месяцев назад |
-| 15 | Модель задержки SurrogateShield | **43.5 ms медиана, 1 348 MB пик** `[ПРОВЕРЕНО, self-reported]` — не влезает в Balanced (25 ms, 250 MB) |
-| 16 | Surrogates SurrogateShield `ADDRESS_MODE=shift` как есть | Американский address parser (штаты, ZIP+4, directionals), `ZIP + DOB + Gender` — US-специфика Sweeney |
-| 17 | **scrubadub** | Последний релиз и push **2023-09-01**; `textblob==0.15.3` жёстким пином; `scikit-learn` без необходимости; **расхождение лицензий** Apache-2.0 (репо) vs MIT (PyPI); нет ru |
+| 15 | Модель задержки SurrogateShield | **43.5 ms медиана, 1 348 MB пик** — не влезает в Balanced (25 ms, 250 MB) |
+| 16 | SurrogateShield `ADDRESS_MODE=shift` как есть | Американский address parser (штаты, ZIP+4, directionals); `ZIP + DOB + Gender` — US-специфика Sweeney |
+| 17 | **scrubadub** | Релиз и push **2023-09-01**; `textblob==0.15.3` жёстким пином; `scikit-learn` без необходимости; **расхождение лицензий**; нет ru |
 | 18 | **OpenAnonymiser / anonymiq-light** | Только `nl_core_news_lg`; EUPL-1.2; **0 ★**; flavor `contextual` **не реализован**; суррогатов нет |
 | 19 | **pydeidentify** | **Нет лицензии**; 1 ★; 2023; spaCy-only; нет ru |
 | 20 | **anonymize-it** | **Не существует** (PyPI 404, GitHub Search — только посторонние проекты) |
-| 21 | **«Oban» как инструмент обезличивания** | `[НЕ НАЙДЕНО]`; в экосистеме `Oban` — очередь задач на Elixir, к PII отношения не имеет |
+| 21 | **«Oban» как инструмент обезличивания** | `[НЕ НАЙДЕНО]`; `Oban` — очередь задач на Elixir, к PII отношения не имеет |
 | 22 | **DeepPavlov как зависимость** | PyTorch; **1 024–2 048 MB диск**, **3 072–6 144 MB RAM**; «from 4 to 16 GB RAM»; **34.5 s инициализации**; замеры на GPU |
-| 23 | **Yandex Tomita как код** | **MPL-2.0**; последний push **2020-11-16** (мёртв); сборка через cmake 2.8 + lua 5.2 + gcc 4.8 + отдельный `libmystem-c-binding.so`; свой язык конфигов |
-| 24 | **spaCy `ru_core_news_lg`** | **489.6 MB** против **2 MB** Slovnet при сопоставимом качестве на новостях; только LOC/ORG/PER; обучена на новостях |
-| 25 | **Никакую русскую модель, не прошедшую наш замер** | Это правило, а не отказ: `Wismut/nym-pii-multilingual`, `tabularisai/eu-pii-safeguard`, `dzanozin/traciora-opf-ru-pii-v6` (1,4 млрд параметров!) — все `[НЕ ПРОВЕРЕНО]` и в фазе 4 должны измеряться нашим харнесом |
+| 23 | **Yandex Tomita как код** | **MPL-2.0**; push **2020-11-16** (мёртв); cmake 2.8 + lua 5.2 + gcc 4.8 + `libmystem-c-binding.so`; свой язык конфигов |
+| 24 | **spaCy `ru_core_news_lg`** | **489.6 MB** против **2 MB** Slovnet при сопоставимом качестве на новостях; только LOC/ORG/PER |
+| 25 | **Любую русскую модель, не прошедшую наш замер** | Правило, а не отказ: `Wismut/nym-pii-multilingual`, `tabularisai/eu-pii-safeguard`, `dzanozin/traciora-opf-ru-pii-v6` (1,4 млрд параметров) — все `[НЕ ПРОВЕРЕНО]`, измерять нашим харнесом в фазе 4 |
 | 26 | **Cloudflare AI Gateway как механизм обезличивания** | Только **FLAG/BLOCK**; обезличивания нет вообще; ru-профилей нет |
-| 27 | **AWS Comprehend для русского** | PII только «English and Spanish»; русского нет ни в одной функции Comprehend |
+| 27 | **AWS Comprehend для русского** | PII только «English and Spanish»; русского нет ни в одной функции |
 | 28 | **AWS Bedrock `Mask`** | Заменяет на `{NAME}`/`{EMAIL}` — плейсхолдер, не суррогат |
-| 29 | **LiteLLM Presidio-guardrail как движок** | Русский в списке языков — `en`/`es`/`de`; `MASK` = `<PERSON>`; требует развёрнутых контейнеров Presidio; рекурсивно наследует все минусы Presidio |
-| 30 | **Приватность = локальный инференс** (`private-gpt`) | `zylon-ai/private-gpt` (57 583 ★) решает **другую задачу**: данные не уходят, но и не обезличиваются. Это не наш конкурент и не наш ориентир |
-| 31 | **Presidio как «эталон, который мы догоняем»** | Он не эталон по нашей задаче: 8.2 ms медиана на коротком тексте + 31.6% утечки на реальных сообщениях (замер SurrogateShield) — то есть по **главной** метрике (доля запросов с утечкой) Presidio слаб |
-| 32 | **Идею «мы первые делаем суррогаты»** | SurrogateShield делает суррогаты с мая 2026, arXiv с июня 2026. Корректная формулировка: **«мы первые делаем суррогаты для русского, локально, на CPU»** |
+| 29 | **LiteLLM Presidio-guardrail как движок** | Языки — `en`/`es`/`de`; `MASK` = `<PERSON>`; требует развёрнутых контейнеров Presidio; рекурсивно наследует минусы Presidio |
+| 30 | **Приватность = локальный инференс** (`private-gpt`) | 57 583 ★ решают **другую задачу**: данные не уходят, но и не обезличиваются |
+| 31 | **Presidio как «эталон, который мы догоняем»** | По **главной** метрике (доля запросов с утечкой) Presidio слаб: 31.6% утечки на реальных сообщениях (замер SurrogateShield) |
+| 32 | **Идею «мы первые делаем суррогаты»** | SurrogateShield делает суррогаты с мая 2026. Корректно: **«мы первые делаем суррогаты для русского, локально, на CPU»** |
 
 ### 8.3 Что меняется в наших документах по итогам аудита
 
-| Наш документ | Что поправить | Основание (URL) |
+| Наш документ | Что поправить | Основание |
 |---|---|---|
-| 00-charter §2.7 | Формулировку про Portcullis уточнить: первый автор — Tsinghua, пятеро — ByteDance; 96× — **маскирование/снятие маски** против Hide-and-Seek | <https://ojs.aaai.org/index.php/AAAI/article/view/32088> |
-| 00-charter §2.6 | Тезис «ни у Presidio, ни у LLM Guard, ни у Portcullis этого нет» **подтверждён**, но добавить: **ни у кого** из проверенных (§4, §5, §6, §7) — включая SurrogateShield, pii-guard и все облака | §1.2 этого отчёта |
-| 00-charter §2.2 п.2 | «доступ из Presidio-подобных пайплайнов» уточнить: Presidio **архивировал** `presidio-cli` из релизов и **обязательно тянет spaCy** — значит, наша ценность в том, что мы **заменяем**, а не «дополняем» | CHANGELOG 2.2.356, `presidio-analyzer/pyproject.toml` |
-| 00-charter §5.4 `similar_fake` | Добавить требование **форматной валидности** и рассмотреть **FPE** как альтернативу генератору; разделить «формат+детерминизм» (FPE) и «правдоподобие распределения» (генератор с валидацией) | <https://docs.cloud.google.com/sensitive-data-protection/docs/samples/dlp-deidentify-free-text-with-fpe-using-surrogate> |
-| 00-charter §5.4 | Добавить: **фейк не должен быть валидным реальным идентификатором** — иначе adversarial-атака «инверсия фейка» (`§6.5` плана) даёт попадание в реестр. FPE это закрывает by design | та же ссылка |
-| 00-charter §5.2 | Добавить пункт: **смещения относятся к нормализованному тексту**; публичный контракт должен это фиксировать; для подсветки в оригинале — отдельный API переноса смещений | pii-guard README, llm-pii-proxy-showcase README |
-| 00-charter §5.4 | Добавить: **суррогат хэшируется с перцем из окружения**; без перца — отказ; несолёный хэш 12-значного ID брутфорсится за минуты | llm-pii-proxy-showcase README |
-| 00-charter §5.4 п.4 | «Детерминированность от seed» — оставить, но добавить: **детерминированность должна быть криптографической** (FPE/ключ), а не «от seed», иначе подмена обратима без карты (наша adversarial-атака «через формат») | Google FPE docs |
-| 20-entity-registry §5 | Наш контекстный каскад L1 описан как «окно ±N токенов». **Заменить на расстояние до ближайшего ключа** с измеренными бюджетами | pii-guard docs/architecture.md |
-| 20-entity-registry §5 п.3 | «Отрицательная метка важнее положительной» — **подтверждается**, добавить: у pii-guard есть готовый приём (сужение спана до данных внутри фразы: `серия ****, номер ******`) | pii-guard docs/architecture.md |
-| 20-entity-registry §4.1 | Для `ru.passport` **независимое подтверждение**: Purview ставит максимум **medium (75)**, `Checksum: No` | <https://learn.microsoft.com/en-us/purview/sit-defn-russia-passport-number-domestic> |
-| 20-entity-registry §4.1 | Добавить в `ru.inn_legal`/`ru.inn_person`: **реальный F1 для ИНН — 68.3 у чистой модели**, 88.9 у пайплайна. Публиковать recall по ИНН отдельно, а не средним | <https://huggingface.co/redmadrobot-rnd/rubert-base-pii-ner> |
-| 20-entity-registry §3 | Открытый пункт «сверить веса счёта ЦБ и идентификаторов СНГ»: **единственный найденный кандидат для сверки KZ** — `kz_recognizers.py` в showcase (MIT, 32 теста), но авторы сами убрали клиентский тест-набор. **Остаётся `unverified`** | llm-pii-proxy-showcase README |
-| 20-entity-registry §4.2 | `kz.iin` — добавить требование: **второй признак = реальная календарная дата внутри номера**, а не range-check | llm-pii-proxy-showcase README |
-| 00-charter §6.5 | Adversarial-атака «инверсия фейка»: добавить критерий **«фейк не попадает в реальные реестры»** → FPE предпочтительнее генератора; и добавить атаку **«брутфорс плейсхолдера»** (несолёный хэш) | Google FPE, llm-pii-proxy-showcase |
-| 00-charter §7.2 | Бюджет **L2 NER 12 ms** — сейчас не обоснован. Slovnet на 25.3 новостных статьи/с (~1 KB) даёт **~39.5 ms/KB**; линейная экстраполяция на 2 000 токенов (~12–16 KB) — **~0.5 с**. **Бюджет требует собственного замера, а не заимствования** | <https://github.com/natasha/slovnet> (таблица `ner2`) |
-| 00-charter §7.2 | Добавить, что `ru_core_news_sm` (**14.6 MB**) — компактная альтернатива для L2 с лучшим F1 по именам (0.910), чем pymorphy3 (0.794), и с ненулевым ADDRESS | Exemtik/pii-bench-ru-en README |
-| 00-charter §7.1 | Профиль Fast (L0+L1) **обязан** публиковать «ФИО и адрес не обнаруживаются» — теперь это подкреплено цифрой **F1 по NAME = 0.000** для regex-only | Exemtik/pii-bench-ru-en README |
-| 00-charter §5.1 / модель данных | Добавить в `Report` **машиночитаемую структуру о срабатывании** (виды, количества, политики) по образцу `cf-aig-dlp` | Cloudflare AI Gateway DLP docs |
-| 00-charter §10 | Добавить риск: **PII в аргументах/результатах инструментов (tool calling)** — у Bedrock это задокументированная слепая зона; для нас это будущий v0.2 | AWS Bedrock Guardrails docs |
-| Новый пункт анти-целей | **Не затаскивать копилефт через optional extra** (пример: `gender-guesser` GPLv3 у pii-guard) — добавить в CI проверку лицензий дерева зависимостей | pii-guard README |
+| 00-charter §2.7 | Portcullis: первый автор — Tsinghua, пятеро — ByteDance; 96× — **маскирование/снятие маски** против Hide-and-Seek | [AAAI-25](https://ojs.aaai.org/index.php/AAAI/article/view/32088) |
+| 00-charter §2.6 | Тезис «ни у Presidio, ни у LLM Guard, ни у Portcullis этого нет» **подтверждён**, но добавить: **ни у кого** из проверенных, включая SurrogateShield, pii-guard и все облака | §1.2 этого отчёта |
+| 00-charter §2.2 п.2 | «доступ из Presidio-подобных пайплайнов» уточнить: Presidio **архивировал** `presidio-cli` и **обязательно тянет spaCy** — наша ценность в **замене**, а не «дополнении» | CHANGELOG 2.2.356, pyproject |
+| 00-charter §5.4 `similar_fake` | Добавить требование **форматной валидности**; рассмотреть **FPE** как альтернативу генератору; разделить «формат+детерминизм» (FPE) и «правдоподобие распределения» (генератор + валидация) | [Google FPE-суррогат](https://docs.cloud.google.com/sensitive-data-protection/docs/samples/dlp-deidentify-free-text-with-fpe-using-surrogate) |
+| 00-charter §5.4 | Добавить: **фейк не должен быть валидным реальным идентификатором** — иначе adversarial-атака «инверсия фейка» (§6.5) даёт попадание в реестр. FPE закрывает это by design | та же ссылка |
+| 00-charter §5.2 | Добавить: **смещения относятся к нормализованному тексту**; публичный контракт должен это фиксировать; для подсветки в оригинале — отдельный API переноса смещений | pii-guard README, showcase README |
+| 00-charter §5.4 | Добавить: **суррогат хэшируется с перцем из окружения**; без перца — отказ; несолёный хэш 12-значного ID брутфорсится за минуты | showcase README |
+| 00-charter §5.4 п.4 | «Детерминированность от seed» оставить, но добавить: **детерминированность должна быть криптографической** (FPE/ключ), иначе подмена обратима без карты (атака «через формат») | Google FPE docs |
+| 20-entity-registry §5 | Каскад L1 описан как «окно ±N токенов». **Заменить на расстояние до ближайшего ключа** с измеренными бюджетами | pii-guard docs/architecture.md |
+| 20-entity-registry §5 п.3 | «Отрицательная метка важнее положительной» **подтверждается**; добавить приём pii-guard: сужение спана до данных внутри фразы (`серия ****, номер ******`) | pii-guard docs/architecture.md |
+| 20-entity-registry §4.1 | Для `ru.passport` **независимое подтверждение**: Purview ставит максимум **medium (75)**, `Checksum: No` | [Purview паспорт РФ](https://learn.microsoft.com/en-us/purview/sit-defn-russia-passport-number-domestic) |
+| 20-entity-registry §4.1 | Добавить для ИНН: **реальный F1 — 68.3 у чистой модели**, 88.9 у пайплайна. Публиковать recall по ИНН отдельно, не средним | [rubert-base-pii-ner](https://huggingface.co/redmadrobot-rnd/rubert-base-pii-ner) |
+| 20-entity-registry §3 | Открытый пункт про сверку весов СНГ: **единственный кандидат** — `kz_recognizers.py` в showcase (MIT, 32 теста), но клиентский тест-набор убран авторами. **Остаётся `unverified`** | showcase README |
+| 20-entity-registry §4.2 | `kz.iin`: второй признак = **реальная календарная дата внутри номера**, а не range-check | showcase README |
+| 00-charter §6.5 | Adversarial: добавить критерий **«фейк не попадает в реальные реестры»** → FPE предпочтительнее генератора; добавить атаку **«брутфорс плейсхолдера»** (несолёный хэш) | Google FPE, showcase README |
+| 00-charter §7.2 | Бюджет **L2 NER 12 ms** не обоснован: Slovnet даёт **~39.5 ms/KB**; экстраполяция на 2 000 токенов — **~0.5 с**. **Нужен собственный замер** | [Slovnet](https://github.com/natasha/slovnet) (таблица `ner2`) |
+| 00-charter §7.2 | Добавить, что `ru_core_news_sm` (**14.6 MB**) — компактная альтернатива L2 с лучшим F1 по именам (0.910 против 0.794) и ненулевым ADDRESS | pii-bench-ru-en README |
+| 00-charter §7.1 | Профиль Fast (L0+L1) **обязан** публиковать «ФИО и адрес не обнаруживаются» — подкреплено **F1 по NAME = 0.000** для regex-only | pii-bench-ru-en README |
+| 00-charter §5.1 | Добавить в `Report` **машиночитаемую структуру о срабатывании** (виды, количества, политики) по образцу `cf-aig-dlp` | Cloudflare DLP docs |
+| 00-charter §10 | Добавить риск: **PII в аргументах/результатах инструментов (tool calling)** — у Bedrock это задокументированная слепая зона; для нас v0.2 | AWS Bedrock docs |
+| Анти-цели (новый пункт) | **Не затаскивать копилефт через optional extra** (пример: `gender-guesser` GPLv3 у pii-guard) — проверка лицензий дерева зависимостей в CI | pii-guard README |
 
 ---
 
